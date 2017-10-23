@@ -9,7 +9,7 @@ setup(
     author_email="zacharymtaylor3@gmail.com & jensen.john.r@gmail.com",
     license='MIT',
     py_modules=[],
-    install_requires=[],
+    install_requires=['ipython'],
     extras_require={'test': ['pytest', 'pytest-cov', 'tox']},
     entry_points={
         'console_scripts': []

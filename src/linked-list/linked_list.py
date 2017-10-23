@@ -1,12 +1,28 @@
 """A linked list in python."""
 
 
+class Node(object):
+    """."""
+
+    def __init__(self):
+        """."""
+        self.data = None
+        self.next = None
+
+
 class LinkedList(object):
     """."""
 
-    def push(self):
+    def __init__(self):
         """."""
-        pass
+        self.head = None
+
+    def push(self, data):
+        """Push value to linked list."""
+        new_node = Node()
+        new_node.data = data
+        new_node.next = self.head
+        self.head = new_node
 
     def pop(self):
         """."""
@@ -26,11 +42,10 @@ class LinkedList(object):
 
     def display(self):
         """."""
-        pass
-
-    def __init__(self):
-        """."""
-        pass
+        node = self.head
+        while node:
+            print(node.data)
+            node = node.next
 
     def __len__(self):
         """Return size of linked list."""
@@ -39,3 +54,5 @@ class LinkedList(object):
     def __str__(self):
         """Return what the display method returns."""
         pass
+
+myList = LinkedList()
