@@ -45,14 +45,14 @@ class LinkedList(object):
         output_sting = "\"("
         node = self.head
         while node:
-            output_sting += (str(node.data) + ", ")
+            try:
+                float(node.data)
+                output_sting += (str(node.data) + ", ")
+            except ValueError:
+                output_sting += ("\'" + node.data + "\'") + ", "
             node = node.next
-        output_sting = output_sting[:-2]
-        output_sting += ')\"'
+        output_sting = output_sting[:-2] + ')\"'
         print(output_sting)
-
-# output should look like:
-#         “(12, ‘sam’, 37, ‘tango’)”
 
     def __len__(self):
         """Return size of linked list."""
