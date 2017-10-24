@@ -5,17 +5,21 @@ class Node(object):
     """."""
 
     def __init__(self):
-        """."""
+        """Build node attributes."""
         self.data = None
         self.next = None
 
 
 class LinkedList(object):
-    """."""
+    """Create linked list object."""
 
-    def __init__(self):
-        """."""
+    def __init__(self, iterable=None):
+        """Head node is none on init."""
         self.head = None
+        self._counter = 0
+        if isinstance(iterable, (str, tuple, list)):
+            for item in iterable:
+                self.push(item)
 
     def push(self, data):
         """Push value to linked list."""
@@ -23,18 +27,28 @@ class LinkedList(object):
         new_node.data = data
         new_node.next = self.head
         self.head = new_node
+        self._counter += 1
 
     def pop(self):
-        """."""
-        pass
+        """Remove first item from list and return it."""
+        if not self.head:
+            raise IndexError("List is empty.")
+        output = self.head.data
+        self.head = self.head.next
+        self._counter -= 1
+        return output
 
     def size(self):
         """."""
-        pass
+        return self._counter
 
     def search(self, val):
         """."""
-        pass
+        curr = self.head
+        while curr:
+            if curr.data == val:
+                return curr
+            curr = curr.next
 
     def remove(self, node):
         """."""
@@ -56,7 +70,7 @@ class LinkedList(object):
 
     def __len__(self):
         """Return size of linked list."""
-        pass
+        return self._counter
 
     def __str__(self):
         """Return what the display method returns."""
