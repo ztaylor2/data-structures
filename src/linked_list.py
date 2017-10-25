@@ -23,9 +23,15 @@ class LinkedList(object):
 
     def push(self, data):
         """Push value to linked list."""
-        new_node = Node(data, self.head)
-        self.head = new_node
-        self._counter += 1
+        if isinstance(data, (str, tuple, list)):
+            for item in data:
+                new_node = Node(data, self.head)
+                self.head = new_node
+                self._counter += 1
+        else:
+            new_node = Node(data, self.head)
+            self.head = new_node
+            self._counter += 1
 
     def pop(self):
         """Remove first item from list and return it."""
