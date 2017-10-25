@@ -25,7 +25,7 @@ class LinkedList(object):
         """Push value to linked list."""
         if isinstance(data, (str, tuple, list)):
             for item in data:
-                new_node = Node(data, self.head)
+                new_node = Node(item, self.head)
                 self.head = new_node
                 self._counter += 1
         else:
