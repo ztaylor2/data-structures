@@ -17,13 +17,13 @@ class LinkedList(object):
         """Head node is none on init."""
         self.head = None
         self._counter = 0
-        if isinstance(iterable, (str, tuple, list)):
+        if isinstance(iterable, (tuple, list)):
             for item in iterable:
                 self.push(item)
 
     def push(self, data):
         """Push value to linked list."""
-        if isinstance(data, (str, tuple, list)):
+        if isinstance(data, (tuple, list)):
             for item in data:
                 new_node = Node(item, self.head)
                 self.head = new_node
