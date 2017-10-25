@@ -4,10 +4,10 @@
 class Node(object):
     """."""
 
-    def __init__(self):
+    def __init__(self, data, next):
         """Build node attributes."""
-        self.data = None
-        self.next = None
+        self.data = data
+        self.next = next
 
 
 class LinkedList(object):
@@ -23,9 +23,7 @@ class LinkedList(object):
 
     def push(self, data):
         """Push value to linked list."""
-        new_node = Node()
-        new_node.data = data
-        new_node.next = self.head
+        new_node = Node(data, self.head)
         self.head = new_node
         self._counter += 1
 
@@ -50,30 +48,46 @@ class LinkedList(object):
                 return curr
             curr = curr.next
 
-    def remove(self, node):
-        """."""
-        pass
-
     def display(self):
         """."""
-        output_sting = "\"("
+        output_string = "("
         node = self.head
+        if node is None:
+            return '()'
         while node:
             try:
                 float(node.data)
-                output_sting += (str(node.data) + ", ")
+                output_string += (str(node.data) + ", ")
             except ValueError:
-                output_sting += ("\'" + node.data + "\'") + ", "
+                output_string += ("\'" + node.data + "\'") + ", "
             node = node.next
-        output_sting = output_sting[:-2] + ')\"'
-        print(output_sting)
+        output_string = output_string[:-2] + ')'
+        return(output_string)
 
     def __len__(self):
         """Return size of linked list."""
         return self._counter
 
+    def remove(self, node):
+        """."""
+        current_node = self.head
+        previous_node = None
+        while current_node:
+            if current_node.data == node:
+                if previous_node is None:
+                    self.head = current_node.next
+                    self._counter -= 1
+                    return
+                else:
+                    previous_node.next = current_node.next
+                    self._counter -= 1
+                    return
+            else:
+                previous_node = current_node
+                current_node = current_node.next
+        raise IndexError('Node not in linked list.')
+
     def __str__(self):
         """Return what the display method returns."""
-        pass
+        return self.display()
 
-myList = LinkedList()

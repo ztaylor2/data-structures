@@ -4,6 +4,13 @@ import pytest
 import random
 
 
+def test_node_has_attributes():
+    """."""
+    from linked_list import Node
+    n = Node(1, None)
+    assert hasattr(n, 'data')
+
+
 # def test_linked_list_pop_empty_raises_exception():
 #     """."""
 #     from linked_list import LinkedList
