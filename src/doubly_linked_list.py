@@ -1,38 +1,80 @@
-"""Doubly linked list in python."""
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Oct 25 16:19:54 2017
 
-from linked_list import LinkedList
-
+@author: john_jensen
+"""
 
 class Node(object):
-    """A node for a doubly linked list."""
+    """."""
 
-    def __init__(self, data, next, prev):
-        """Build node attributes."""
+    def __init__(self, data, next, previous):
+        """."""
         self.data = data
         self.next = next
-        self.prev = prev
+        self.previous = previous
 
 
-class DoublyLinkedList(object):
-    """A doubly linked list."""
+class DoubleLinkedList(object):
+    """."""
 
     def __init__(self):
-        """Initialize dbl linked list."""
-        self.list = LinkedList()
-        self.list.head
+        """."""
+        self.head = None
+        self.tail = None
+        self._count = 0
 
-    def push(self, val):
-        """Insert value at the beginning of the list."""
-        self.list.push(val)
+    def push(self, data):
+        """."""
+        if self._count == 0:
+            new_node = Node(data, None, None)
+            self.head = new_node
+            self.tail = new_node
+            self._count += 1
+        else:
+            new_node = Node(data, self.head, None)
+            self.head.previous = new_node
+            self.head = new_node
+            self._count += 1
 
-    def append(self, val):
-        """Append value to end of list."""
+    def append(self, data):
+        """."""
+        if self._count == 0:
+            new_node = Node(data, None, None)
+            self.head = new_node
+            self.tail = new_node
+            self._count += 1
+        else:
+            new_node = Node(data, None, self.tail)
+            self.tail.next = new_node
+            self.tail = new_node
+            self._count += 1
+
+    def __len__(self):
+        """."""
+        return self._count
 
     def pop(self):
-        """Pop a value of the beginning of the list."""
+        """."""
+        if not self.head:
+            raise IndexError('The list is empty.')
+        val_to_return = self.head.data
+        self.head = self.head.next
+        self.head.previous = None
+        self._count -= 1
+        return val_to_return
 
     def shift(self):
-        """Remove the value from the tail of the list."""
+        """."""
+        if not self.head:
+            raise IndexError('The list is empty.')
+        val_to_return = self.tail.data
+        self.tail = self.tail.previous
+        self.tail.next = None
+        self._count -= 1
+        return val_to_return
 
     def remove(self, val):
-        """Remove specified value from list."""
+        """."""
+        
+
