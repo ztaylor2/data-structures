@@ -7,7 +7,7 @@ def test_stack_object():
     """Test the stack object."""
     from stack import Stack
     s = Stack()
-    assert s.head is None
+    assert s.list.head is None
 
 
 def test_push():
@@ -15,7 +15,7 @@ def test_push():
     from stack import Stack
     s = Stack()
     s.push(5)
-    assert s.head is not None
+    assert s.list.head is not None
 
 
 def test_len():

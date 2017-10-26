@@ -11,7 +11,7 @@ class Stack(object):
         self.list = LinkedList()
         self.list.head = None
         self._counter = 0
-        if isinstance(iterable, (str, tuple, list)):
+        if isinstance(iterable, (tuple, list)):
             for item in iterable:
                 self.push(item)
 
@@ -21,7 +21,7 @@ class Stack(object):
 
     def push(self, value):
         """Add a value to the top of stack."""
-        if isinstance(value, (str, tuple, list)):
+        if isinstance(value, (tuple, list)):
             for value in value:
                 self.list.push(value)
                 self._counter += 1
@@ -33,4 +33,3 @@ class Stack(object):
         """Remove value from top of stack and return it."""
         self.list.pop()
         self._counter -= 1
-
