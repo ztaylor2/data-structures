@@ -81,4 +81,7 @@ class DoublyLinkedList(object):
             if curr_node.data == val:
                 curr_node.prev.next = curr_node.next
                 curr_node.next.prev = curr_node.prev
+                self._counter -= 1
+                return
             curr_node = curr_node.next
+        raise ValueError('Value not in list.')

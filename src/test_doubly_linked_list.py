@@ -111,3 +111,9 @@ def test_remove_method(doubly_list):
     assert doubly_list.pop() == 3
 
 
+def test_remove_when_val_not_in_list(doubly_list):
+    """Test error for pop of empty list."""
+    with pytest.raises(ValueError):
+        doubly_list.push(1)
+        doubly_list.push(1)
+        doubly_list.remove(2)
