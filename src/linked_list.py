@@ -96,4 +96,3 @@ class LinkedList(object):
     def __str__(self):
         """Return what the display method returns."""
         return self.display()
-

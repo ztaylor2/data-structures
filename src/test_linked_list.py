@@ -1,7 +1,6 @@
 """."""
 
 import pytest
-import random
 
 
 def test_node_has_attributes():
@@ -217,15 +216,3 @@ def test_len():
     l.push(9)
     l.push(10)
     assert l.__len__() == 3
-
-
-
-
-
-
-
-
-
-
-
-
