@@ -6,21 +6,24 @@ class Queue(object):
     """This is a queue."""
 
     def __init__(self, iterable=None):
-        """."""
+        """Initialize Queue object."""
         self.dll = DoublyLinkedList()
 
     def enqueue(self, val):
-        """."""
+        """Add val to head of queue."""
         self.dll.push(val)
 
     def dequeue(self):
-        """."""
-        return self.dll.shift()
+        """Remove val from tail of queue."""
+        try:
+            return self.dll.shift()
+        except IndexError:
+            raise IndexError('Cannot shift empty queue.')
 
-    def clear(self):
-        """."""
-        pass
+    def peek(self):
+        """Look at next val to be dequeued without mod queue."""
+        return self.dll.tail.data
 
     def __len__(self):
-        """."""
+        """Return length of queue."""
         return self.dll.__len__()
