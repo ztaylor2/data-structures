@@ -75,3 +75,15 @@ def test_queue_peek_does_not_mod_queue(queue_fixture):
     queue_fixture.enqueue(4)
     queue_fixture.peek()
     assert queue_fixture.dequeue() == 1
+
+
+def test_queue_initiates_with_iterables(queue_fixture):
+    """Test that queue can be initiated with iterables."""
+    queue_fixture.enqueue([1, 2, 3])
+    assert len(queue_fixture) == 3
+
+
+def test_queue_deques_correct_with_iterables(queue_fixture):
+    """Test that dequeu is correct after init with iterables."""
+    queue_fixture.enqueue([1, 2, 3])
+    assert queue_fixture.dequeue() == 1

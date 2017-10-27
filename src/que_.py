@@ -11,7 +11,11 @@ class Queue(object):
 
     def enqueue(self, val):
         """Add val to head of queue."""
-        self.dll.push(val)
+        if isinstance(val, (tuple, list)):
+            for val in val:
+                self.enqueue(val)
+        else:
+            self.dll.push(val)
 
     def dequeue(self):
         """Remove val from tail of queue."""
