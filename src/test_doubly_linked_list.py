@@ -117,3 +117,8 @@ def test_remove_when_val_not_in_list(doubly_list):
         doubly_list.push(1)
         doubly_list.push(1)
         doubly_list.remove(2)
+
+def test_pop(doubly_list):
+    """Test error for pop of empty list."""
+    doubly_list.push(1)
+    assert doubly_list.pop() == 1
