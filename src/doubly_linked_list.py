@@ -6,10 +6,10 @@ from linked_list import LinkedList
 class Node(object):
     """A node for a doubly linked list."""
 
-    def __init__(self, data, next, prev):
+    def __init__(self, data=None, next_node=None, prev=None):
         """Build node attributes."""
         self.data = data
-        self.next = next
+        self.next_node = next_node
         self.prev = prev
 
 
@@ -32,33 +32,29 @@ class DoublyLinkedList(object):
 
     def push(self, val):
         """Insert value at the beginning of the list."""
+        new_node = Node(val, self.head)
         if len(self) == 0:
-            new_node = Node(val, None, None)
-            self.head = new_node
             self.tail = new_node
-        if len(self) > 0:
-            new_node = Node(val, self.head, None)
+        elif len(self) > 0:
             self.head.prev = new_node
-            self.head = new_node
+        self.head = new_node
         self._counter += 1
 
     def append(self, val):
         """Append value to end of list."""
+        new_node = Node(val, None, self.tail)
         if len(self) == 0:
-            new_node = Node(val, None, None)
-            self.tail = new_node
             self.head = new_node
-        if len(self) > 0:
-            new_node = Node(val, None, self.tail)
-            self.tail.next = new_node
-            self.tail = new_node
+        elif len(self) > 0:
+            self.tail.next_node = new_node
+        self.tail = new_node
         self._counter += 1
 
     def pop(self):
         """Pop a value off the beginning of the list."""
         try:
             output = self.head.data
-            self.head = self.head.next
+            self.head = self.head.next_node
             self._counter -= 1
             return output
         except AttributeError:
@@ -76,12 +72,15 @@ class DoublyLinkedList(object):
 
     def remove(self, val):
         """Remove specified value from list."""
+        if self.head is self.tail and val == self.head.data:
+            self.head = self.tail = None
+            return
         curr_node = self.head
         while curr_node:
             if curr_node.data == val:
-                curr_node.prev.next = curr_node.next
-                curr_node.next.prev = curr_node.prev
+                curr_node.prev.next_node = curr_node.next_node
+                curr_node.next_node.prev = curr_node.prev
                 self._counter -= 1
                 return
-            curr_node = curr_node.next
+            curr_node = curr_node.next_node
         raise ValueError('Value not in list.')

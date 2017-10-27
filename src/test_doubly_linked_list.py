@@ -16,8 +16,6 @@ def test_node_has_attributes():
     from doubly_linked_list import Node
     n = Node(1, None, None)
     assert hasattr(n, 'data')
-    assert hasattr(n, 'next')
-    assert hasattr(n, 'prev')
 
 
 def test_doubly_linked_list_has_head(doubly_list):
@@ -117,6 +115,13 @@ def test_remove_when_val_not_in_list(doubly_list):
         doubly_list.push(1)
         doubly_list.push(1)
         doubly_list.remove(2)
+
+def test_remove_when_one_val_in_list(doubly_list):
+    """Test error for pop of empty list."""
+    doubly_list.push(1)
+    doubly_list.remove(1)
+    assert doubly_list.head == None
+    assert doubly_list.tail == None
 
 def test_pop(doubly_list):
     """Test error for pop of empty list."""
