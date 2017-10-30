@@ -5,19 +5,19 @@ import pytest
 
 
 @pytest.fixture
-def deque():
+def deque_fixture():
     """A fixture for the queue."""
     from deque import Deque
-    return Queue()
+    return Deque()
 
 
-def test_append_method(deque):
+def test_append_method(deque_fixture):
     """Test the append method."""
-    deque.append(5)
-    assert deque.tail.data == 5
+    deque_fixture.append(5)
+    assert deque_fixture.deque.tail.data == 5
 
 
-def test_append_left(deque):
+def test_append_left(deque_fixture):
     """Test the append left method."""
-    deque.appendleft(5)
-    assert deque.head.data == 5
+    deque_fixture.appendleft(5)
+    assert deque_fixture.deque.head.data == 5
