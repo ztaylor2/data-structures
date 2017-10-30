@@ -28,13 +28,18 @@ class Deque(object):
 
     def peek(self):
         """Return the next value that would be poped at the end of deque."""
-        return self.deque.tail.data
+        try:
+            return self.deque.tail.data
+        except AttributeError:
+            return None
 
     def peekleft(self):
         """Return the next value in the deque. This is the value that popleft would remove."""
-        return self.deque.head.data
+        try:
+            return self.deque.head.data
+        except AttributeError:
+            return None
 
     def size(self):
         """Return the number of nodes in the deque."""
         return self.deque.__len__()
-        

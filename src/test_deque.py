@@ -3,7 +3,6 @@
 import pytest
 
 
-
 @pytest.fixture
 def deque_fixture():
     """A fixture for the queue."""
@@ -81,9 +80,23 @@ def test_peek_after_append(deque_fixture):
     assert deque_fixture.peek() == 1
 
 
+def test_peek_after_two_append(deque_fixture):
+    """Test peek after appending one value."""
+    deque_fixture.append(2)
+    deque_fixture.append(1)
+    assert deque_fixture.peek() == 1
+
+
 def test_peek_after_append_left(deque_fixture):
     """Test peek after appending one value to the left."""
     deque_fixture.appendleft(5)
+    assert deque_fixture.peek() == 5
+
+
+def test_peek_after_two_append_left(deque_fixture):
+    """Test peek after appending one value to the left."""
+    deque_fixture.appendleft(5)
+    deque_fixture.appendleft(6)
     assert deque_fixture.peek() == 5
 
 
@@ -93,7 +106,55 @@ def test_peekleft_after_append(deque_fixture):
     assert deque_fixture.peekleft() == 5
 
 
+def test_peekleft_after_two_append(deque_fixture):
+    """Test peekleft after appending value."""
+    deque_fixture.append(5)
+    deque_fixture.append(9)
+    assert deque_fixture.peekleft() == 5
+
+
 def test_peekleft_after_appendleft(deque_fixture):
     """Test peekleft after appending to the left of deque."""
     deque_fixture.appendleft(7)
     assert deque_fixture.peekleft() == 7
+
+
+def test_peekleft_after_two_appendleft(deque_fixture):
+    """Test peekleft after appending to the left of deque."""
+    deque_fixture.appendleft(7)
+    deque_fixture.appendleft(8)
+    assert deque_fixture.peekleft() == 8
+
+
+def test_size_method(deque_fixture):
+    """Test size method of deque."""
+    deque_fixture.append(5)
+    deque_fixture.appendleft(5)
+    assert deque_fixture.size() == 2
+
+
+def test_size_method_when_empty(deque_fixture):
+    """Test size method of empty deque."""
+    assert deque_fixture.size() == 0
+
+
+def test_pop_empty_throws_error(deque_fixture):
+    """Test pop empty throws error."""
+    with pytest.raises(IndexError):
+        deque_fixture.pop()
+
+
+def test_popleft_empty_throws_error(deque_fixture):
+    """Test popleft empty throws error."""
+    with pytest.raises(IndexError):
+        deque_fixture.popleft()
+
+
+def test_peek_returns_none_if_empty(deque_fixture):
+    """Test peek returns none if deque is empty."""
+    assert deque_fixture.peek() is None
+
+
+def test_peekleft_returns_none_if_empty(deque_fixture):
+    """Test peekleft returns none if deque is empty."""
+    assert deque_fixture.peekleft() is None
