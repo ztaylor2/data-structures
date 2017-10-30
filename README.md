@@ -54,10 +54,30 @@ We used composition from our doubly linked list to build our queue. The queue ad
 
 Time Complexity:
 
-* `def enqueue(self):` O(1); unless initiated with iterable, then O(n)
+`def enqueue(self):` O(1); unless initiated with iterable, then O(n)
 
-* `def dequeue(self):` O(1)
+`def dequeue(self):` O(1)
 
-* `def peek(self):` O(1)
+`def peek(self):` O(1)
 
-* `def __len__(self):` O(1); count changes as enqueued and dequeued
+`def __len__(self):` O(1); count changes as enqueued and dequeued
+
+
+**Deque**
+The deque is a data structure that allows data to be inserted and removed from each end.
+
+Time Complexity:
+
+`def append(val):`  0(1)
+
+`def appedleft(val):`  O(1)
+
+`def pop()`:  O(1)
+
+`def popleft()`:  O(1)
+
+`def peek()`:  O(1)
+
+`def peekleft()`:  O(1)
+
+`def size()`:  O(1)

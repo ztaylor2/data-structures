@@ -158,3 +158,21 @@ def test_peek_returns_none_if_empty(deque_fixture):
 def test_peekleft_returns_none_if_empty(deque_fixture):
     """Test peekleft returns none if deque is empty."""
     assert deque_fixture.peekleft() is None
+
+
+def test_peek_does_not_remove_node(deque_fixture):
+    """Test that peek does not mutate the deque."""
+    deque_fixture.append(1)
+    deque_fixture.append(2)
+    deque_fixture.append(3)
+    deque_fixture.peek()
+    assert deque_fixture.pop() == 3
+
+
+def test_peekleft_does_not_remove_node(deque_fixture):
+    """Test that peekleft does not mutate the deque."""
+    deque_fixture.append(1)
+    deque_fixture.append(2)
+    deque_fixture.append(3)
+    deque_fixture.peekleft()
+    assert deque_fixture.popleft() == 1
