@@ -26,13 +26,13 @@ def test_append_left(deque_fixture):
 def test_pop_with_append(deque_fixture):
     """Test the functionality of pop with append."""
     deque_fixture.append(1)
-    assert deque_fixture.deque.pop() == 1
+    assert deque_fixture.pop() == 1
 
 
 def test_pop_with_appendleft(deque_fixture):
     """Test the functionality of pop with append left method."""
     deque_fixture.appendleft(1)
-    assert deque_fixture.deque.pop() == 1
+    assert deque_fixture.pop() == 1
 
 
 def test_pop_with_two_appends(deque_fixture):
@@ -73,3 +73,27 @@ def test_popleft_with_two_appendleft(deque_fixture):
     deque_fixture.appendleft(1)
     deque_fixture.appendleft(2)
     assert deque_fixture.pop() == 1
+
+
+def test_peek_after_append(deque_fixture):
+    """Test peek after appending one value."""
+    deque_fixture.append(1)
+    assert deque_fixture.peek() == 1
+
+
+def test_peek_after_append_left(deque_fixture):
+    """Test peek after appending one value to the left."""
+    deque_fixture.appendleft(5)
+    assert deque_fixture.peek() == 5
+
+
+def test_peekleft_after_append(deque_fixture):
+    """Test peekleft after appending value."""
+    deque_fixture.append(5)
+    assert deque_fixture.peekleft() == 5
+
+
+def test_peekleft_after_appendleft(deque_fixture):
+    """Test peekleft after appending to the left of deque."""
+    deque_fixture.appendleft(7)
+    assert deque_fixture.peekleft() == 7
