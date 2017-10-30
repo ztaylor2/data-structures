@@ -49,13 +49,13 @@ def test_pop_with_two_appendleft(deque_fixture):
 def test_popleft_with_append(deque_fixture):
     """Testing pop left with append."""
     deque_fixture.append(1)
-    assert deque_fixture.deque.popleft() == 1
+    assert deque_fixture.popleft() == 1
 
 
 def test_popleft_with_appendleft(deque_fixture):
     """Test the functionality of popleft with append left method."""
     deque_fixture.appendleft(1)
-    assert deque_fixture.deque.popleft() == 1
+    assert deque_fixture.popleft() == 1
 
 
 def test_popleft_with_two_appends(deque_fixture):
