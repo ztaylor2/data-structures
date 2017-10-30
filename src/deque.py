@@ -25,3 +25,16 @@ class Deque(object):
     def popleft(self):
         """Pop a value off of the front of the deque and return it."""
         return self.deque.pop()
+
+    def peek(self):
+        """Return the next value that would be poped at the end of deque."""
+        return self.deque.tail.data
+
+    def peekleft(self):
+        """Return the next value in the deque. This is the value that popleft would remove."""
+        return self.deque.head.data
+
+    def size(self):
+        """Return the number of nodes in the deque."""
+        return self.deque.__len__()
+        
