@@ -3,7 +3,7 @@
 from doubly_linked_list import DoublyLinkedList
 
 
-class deque(object):
+class Deque(object):
     """Deque data structure, can add and remove from both ends."""
 
     def __init__(self):
