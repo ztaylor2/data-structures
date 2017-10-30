@@ -26,12 +26,12 @@ def test_append_left(deque_fixture):
 def test_pop_with_append(deque_fixture):
     """Test the functionality of pop with append."""
     deque_fixture.append(1)
-    assert deque_fixture.deque.pop() == 1
+    assert deque_fixture.pop() == 1
 
 def test_pop_with_appendleft(deque_fixture):
     """Test the functionality of pop with append left method."""
     deque_fixture.appendleft(1)
-    assert deque_fixture.deque.pop() == 1
+    assert deque_fixture.pop() == 1
 
 def test_pop_with_two_appends(deque_fixture):
     """Test pop after two appends."""
