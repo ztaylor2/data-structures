@@ -11,8 +11,8 @@ class Heap(object):
     def _parent_index_from_child_index(self, child_index):
         """Find the index of the parent from a child index."""
         if child_index % 2 == 0:
-            return ((child_index - 1) / 2)
-        return ((child_index - 2) / 2)
+            return ((child_index - 2) // 2)
+        return ((child_index - 1) // 2)
 
     # def _parent_index_of_left_child(self, left_child_index):
     #     """Find the index of the parent node from the index of the left child node."""
@@ -30,10 +30,8 @@ class Heap(object):
 
     def _parent_value_from_child_index(self, child_index):
         """Return the value of the parent from the child indexd."""
-        if child_index % 2 == 0:
-            parent_index = self._parent_index_of_right_child(self, child_index)
-        else:
-            parent_index = self._parent_index_of_left_child(self, child_index)
+        parent_index = self._parent_index_from_child_index(child_index)
+        # import pdb; pdb.set_trace()
         return self.heap_list[parent_index]
 
     def push(self, val):
@@ -43,7 +41,7 @@ class Heap(object):
 
     def _bubble_up(self):
         """Bubble up newly inserted element into place."""
-        child_index = self.heap_list[-1]
+        child_index = len(self.heap_list) - 1
         while True:
             parent_index = self._parent_index_from_child_index(child_index)
             parent_value = self._parent_value_from_child_index(child_index)
