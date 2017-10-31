@@ -47,7 +47,7 @@ class Heap(object):
             parent_value = self._parent_value_from_child_index(child_index)
 
             if self.heap_list[child_index] > parent_value:
-                self._swap(child_index, parent_index)
+                self._swap_parent_and_child(child_index, parent_index)
                 child_index = parent_index
             else:
                 return
@@ -60,9 +60,11 @@ class Heap(object):
 
     def pop(self):
         """Pop the value off of the top of the heap."""
-        self._swap(0, (len(self.heap_list) - 1))
-        self.heap_list.pop()
-        self._bubble_down
+        pop_value = self.heap_list[0]
+        self._swap_parent_and_child(0, (len(self.heap_list) - 1))
+        self.heap_list = self.heap_list[:-1]
+        self._bubble_down()
+        return pop_value
 
     def _bubble_down(self):
         """Sort the heap from the top down."""
@@ -76,8 +78,8 @@ class Heap(object):
             if parent_value > left_child_value and parent_value > right_child_value:
                 return
             elif left_child_value > right_child_value:
-                self._swap(left_child_index, parent_index)
+                self._swap_parent_and_child(left_child_index, parent_index)
                 parent_index = left_child_index
             else:
-                self._swap(right_child_index, parent_index)
+                self._swap_parent_and_child(right_child_index, parent_index)
                 parent_index = right_child_index
