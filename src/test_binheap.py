@@ -54,3 +54,23 @@ def test_left_child_index_from_parent_six(binheap_full_sorted):
 def test_right_child_index_from_parent_zero(binheap_full_sorted):
     """."""
     assert binheap_full_sorted._right_child_index_from_parent(4) == 10
+
+
+def test_parent_value_from_child_index_nine(binheap_full_sorted):
+    """."""
+    assert binheap_full_sorted._parent_value_from_child_index(9) == 8
+
+
+def test_parent_value_from_child_index_14(binheap_full_sorted):
+    """."""
+    assert binheap_full_sorted._parent_value_from_child_index(14) == 6
+
+
+def test_parent_value_from_child_index_three(binheap_full_sorted):
+    """."""
+    assert binheap_full_sorted._parent_value_from_child_index(3) == 11
+
+
+def test_parent_value_from_child_index_two(binheap_full_sorted):
+    """."""
+    assert binheap_full_sorted._parent_value_from_child_index(2) == 12
