@@ -39,7 +39,7 @@ class Heap(object):
     def push(self, val):
         """Push a value to the heap and bubble it into place."""
         self.heap_list.append(val)
-        _bubble_up()
+        self._bubble_up()
 
     def _bubble_up(self):
         """Bubble up newly inserted element into place."""
@@ -48,8 +48,8 @@ class Heap(object):
             parent_index = self._parent_index_from_child_index(child_index)
             parent_value = self._parent_value_from_child_index(child_index)
 
-            if heap_list[child_index] > parent_value:
-                _swap(child_index, parent_index)
+            if self.heap_list[child_index] > parent_value:
+                self._swap(child_index, parent_index)
                 child_index = parent_index
             else:
                 return
@@ -59,3 +59,27 @@ class Heap(object):
         temp = self.heap_list[parent_index]
         self.heap_list[parent_index] = self.heap_list[child_index]
         self.heap_list[child_index] = temp
+
+    def pop(self):
+        """Pop the value off of the top of the heap."""
+        self._swap(0, (len(self.heap_list) - 1))
+        self.heap_list.pop()
+        self._bubble_down
+
+    def _bubble_down(self):
+        """Sort the heap from the top down."""
+        parent_index = 0
+        while True:
+            parent_value = self.heap_list[parent_index]
+            left_child_index = self._left_child_index_from_parent(parent_index)
+            right_child_index = self._right_child_index_from_parent(parent_index)
+            left_child_value = self.heap_list[left_child_index]
+            right_child_value = self.heap_list[right_child_index]
+            if parent_value > left_child_value and parent_value > right_child_value:
+                return
+            elif left_child_value > right_child_value:
+                self._swap(left_child_index, parent_index)
+                parent_index = left_child_index
+            else:
+                self._swap(right_child_index, parent_index)
+                parent_index = right_child_index
