@@ -73,7 +73,6 @@ class Heap(object):
                 left_child_index = self._left_child_index_from_parent(parent_index)
                 right_child_index = self._right_child_index_from_parent(parent_index)
                 left_child_value = self.heap_list[left_child_index]
-                # import pdb; pdb.set_trace()
                 right_child_value = self.heap_list[right_child_index]
                 if parent_value > left_child_value and parent_value > right_child_value:
                     return

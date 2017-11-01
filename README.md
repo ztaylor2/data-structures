@@ -81,3 +81,10 @@ Time Complexity:
 `def peekleft()`:  O(1)
 
 `def size()`:  O(1)
+
+
+**Binary Heap**
+A binary heap data structure is a tree type data structure that sorts the nodes relative to their parent/child relationship.
+
+`def pop()`:  O(log n)
+`def push(val)`:  O(log n)
