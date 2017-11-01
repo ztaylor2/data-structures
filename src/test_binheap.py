@@ -101,11 +101,25 @@ def test_pop():
     assert heap.pop() == 3
 
 
-def test_pop_full_tree(binheap_full_unsorted):
+def test_pop_one_full_tree(binheap_full_unsorted):
     """."""
     assert binheap_full_unsorted.pop() == 12
 
 
-def test_pop_full_tree_sorted(binheap_full_sorted):
+def test_pop_one_full_tree_sorted(binheap_full_sorted):
     """."""
     assert binheap_full_sorted.pop() == 12
+
+
+def test_pop_all_nodes():
+    """."""
+    from binheap import Heap
+    heap = Heap()
+    test_list = [97, 12, 13, 55, 108]
+    temp_list = []
+    for i in test_list:
+        heap.push(i)
+    for i in test_list:
+        temp_list.append(heap.pop())
+    assert temp_list == [108, 97, 55, 13, 12]
+
