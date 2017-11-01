@@ -74,3 +74,38 @@ def test_parent_value_from_child_index_three(binheap_full_sorted):
 def test_parent_value_from_child_index_two(binheap_full_sorted):
     """."""
     assert binheap_full_sorted._parent_value_from_child_index(2) == 12
+
+
+def test_bubble_up_small():
+    """."""
+    from binheap import Heap
+    heap = Heap()
+    heap.push(2)
+    heap.push(1)
+    heap.push(3)
+    assert heap.heap_list == [3, 1, 2]
+
+
+def test_bubble_up_full_unsorted(binheap_full_unsorted):
+    """."""
+    assert binheap_full_unsorted.heap_list == [12, 10, 11, 5, 8, 9, 2, -2, 0, 7, 3, 4, 6, -1, 1]
+
+
+def test_pop():
+    """."""
+    from binheap import Heap
+    heap = Heap()
+    heap.push(1)
+    heap.push(2)
+    heap.push(3)
+    assert heap.pop() == 3
+
+
+def test_pop_full_tree(binheap_full_unsorted):
+    """."""
+    assert binheap_full_unsorted.pop() == 12
+
+
+def test_pop_full_tree_sorted(binheap_full_sorted):
+    """."""
+    assert binheap_full_sorted.pop() == 12
