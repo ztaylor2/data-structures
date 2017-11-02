@@ -88,3 +88,11 @@ A binary heap data structure is a tree type data structure that sorts the nodes 
 
 `def pop()`:  O(log n)
 `def push(val)`:  O(log n)
+
+
+**Priority Queue**
+The priority queue data structure provides a way to represent data in a ordered "priority".  The benefit using this data structure has is that you can insert a new value at the given priority level without having to resort the entire list.  This makes adding new values much more efficient.  Our priority queue uses a high number = higher priority structure.
+
+`def insert(val, priority)`: O(1)
+`def pop()`:  O(n)
+`def peek()`:  O(n)
