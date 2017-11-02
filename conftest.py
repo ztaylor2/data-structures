@@ -1,4 +1,4 @@
-"""."""
+"""Fixtures for testing."""
 
 import pytest
 
@@ -12,7 +12,7 @@ def binheap_fixture():
 
 @pytest.fixture
 def binheap_full_sorted():
-    """."""
+    """A fully sorted binheap."""
     from binheap import Heap
     binheap = Heap()
     binheap.push(12)
@@ -35,7 +35,7 @@ def binheap_full_sorted():
 
 @pytest.fixture
 def binheap_full_unsorted():
-    """."""
+    """A unsorted binheap."""
     from binheap import Heap
     binheap = Heap()
     binheap.push(-2)
@@ -54,3 +54,36 @@ def binheap_full_unsorted():
     binheap.push(1)
     binheap.push(2)
     return binheap
+
+
+@pytest.fixture()
+def priorityq():
+    """A fixture for an empty priority queue."""
+    from priorityq import PriorityQue
+    priorityq = PriorityQue()
+    return priorityq
+
+
+@pytest.fixture()
+def priorityq_5_first_pushed_no_priority():
+    """A fixture for an empty priority queue."""
+    from priorityq import PriorityQue
+    priorityq = PriorityQue()
+    priorityq.insert(5)
+    priorityq.insert(6)
+    priorityq.insert(7)
+    priorityq.insert(8)
+    priorityq.insert(9)
+    return priorityq
+
+
+@pytest.fixture()
+def priorityq_7_last_pushed_yes_priority():
+    """A fixture for an empty priority queue."""
+    from priorityq import PriorityQue
+    priorityq = PriorityQue()
+    priorityq.insert(5, 0)
+    priorityq.insert(6, 1)
+    priorityq.insert(4, 1)
+    priorityq.insert(7, 2)
+    return priorityq
