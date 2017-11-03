@@ -66,7 +66,7 @@ class Graph(object):
     def del_node(self, val):
         """Delete a node from the graph."""
         try:
-            self.graph.pop(val, None)
+            self.graph.pop(val)
             for key in self.graph:
                 try:
                     # import pdb; pdb.set_trace()
