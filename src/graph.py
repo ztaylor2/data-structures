@@ -36,17 +36,17 @@ class Graph(object):
 
     def edges(self):
         """Return the edges of the graph."""
-        try:
-            edges = []
-            for key in self.graph:
-                for i in self.graph[key]:
-                    try:
-                        pointer_back = key
-                        pointer_front = i
-                        edges.append((pointer_back, pointer_front))
-                    except IndexError:
-                        continue
+        edges = []
+        for key in self.graph:
+            for i in self.graph[key]:
+                try:
+                    pointer_back = key
+                    pointer_front = i
+                    edges.append((pointer_back, pointer_front))
+                except IndexError:
+                    continue
+        if edges == []:
+            raise KeyError("Cannot return edges of empty graph.")
+        else:
             return edges
-        except KeyError: # TODO need to add functionality for empty graph
-            raise KeyError("The graph is empty.")
-            
+

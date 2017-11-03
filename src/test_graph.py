@@ -28,7 +28,7 @@ def test_return_nodes(graph):
     graph.add_nodes(2)
     graph.add_edge(1, 2)
     graph.add_edge(9, 10)
-    assert graph.nodes() == [1, 2, 10, 9]
+    assert graph.nodes() == [1, 2, 9, 10]
 
 
 def test_return_edges(graph):
@@ -38,14 +38,29 @@ def test_return_edges(graph):
     graph.add_edge(1, 2)
     graph.add_edge(9, 10)
     graph.add_edge(1, 10)
-    assert graph.edges() == [(1, 2), (1, 10), (9, 10)]
+    assert sorted(graph.edges()) == [(1, 2), (1, 10), (9, 10)]
 
 
-def test_return_key_error_empty_graph(graph):
+def test_graph_raises_key_error_when_check_edges_of_empty_graph(graph):
     """."""
     with pytest.raises(KeyError):
         graph.edges()
 
+
+def test_delete_edge_one_edge(graph):
+    """Test that deleting an edge deletes one added edge."""
+    graph.add_edge(1, 2)
+    assert graph.edges() == [(1, 2)]
+    graph.del_edge(1, 2)
+    with pytest.raises(KeyError):
+        graph.edges()
+
+
+def test_delete_edge_when_no_edges(graph):
+    """Test that deleting an edge deletes one added edge."""
+    graph.del_edge(1, 2)
+    with pytest.raises(KeyError):
+        graph.edges()
 
 # def test_del_node(graph):
 #     """Test that the node is deleted from graph."""
