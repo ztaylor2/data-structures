@@ -50,7 +50,6 @@ class Graph(object):
         else:
             return edges
 
-
     def del_edge(self, val1, val2):
         """Delete the edge connecting val1 to val2."""
         try:

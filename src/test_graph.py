@@ -57,10 +57,17 @@ def test_delete_edge_one_edge(graph):
 
 
 def test_delete_edge_when_no_edges(graph):
-    """Test that deleting an edge deletes one added edge."""
-    graph.del_edge(1, 2)
+    """Test that deleting an edge with no edge raises error."""
     with pytest.raises(KeyError):
-        graph.edges()
+        graph.del_edge(1, 2)
+
+
+def test_delete_edge_when_not_edge(graph):
+    """Test that deleting an edge with node but no edge raises index error."""
+    graph.add_nodes(1)
+    with pytest.raises(KeyError):
+        graph.del_edge(1, 2)
+
 
 # def test_del_node(graph):
 #     """Test that the node is deleted from graph."""
