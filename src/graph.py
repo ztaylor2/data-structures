@@ -97,5 +97,7 @@ class Graph(object):
             return True
         elif val1 in self.graph[val2]:
             return True
+        elif val1 not in self.graph and val2 not in self.graph:
+            raise KeyError("Neither value in graph.")
         else:
             return False
