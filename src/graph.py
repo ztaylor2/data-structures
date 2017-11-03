@@ -40,8 +40,13 @@ class Graph(object):
             edges = []
             for key in self.graph:
                 for i in self.graph[key]:
+                    try:
                         pointer_back = key
-                        pointer_front = self.graph[key][i]
+                        pointer_front = i
                         edges.append((pointer_back, pointer_front))
+                    except IndexError:
+                        continue
+            return edges
         except KeyError:
+            print("key error thrown")
             return None
