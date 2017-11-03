@@ -129,3 +129,44 @@ def test_has_node_error(graph):
     graph.add_edge(1, 10)
     graph.del_node(10)
     assert graph.has_node(99) is False
+
+
+def test_neighbors(graph):
+    """Test that neighbors function returns the nodes that val is connected with."""
+    graph.add_nodes(1)
+    graph.add_nodes(2)
+    graph.add_edge(1, 2)
+    graph.add_edge(9, 10)
+    graph.add_edge(1, 10)
+    assert graph.neighbors(1) == [2, 10]
+
+
+def test_adjacent_true(graph):
+    """Test the adjacent function."""
+    graph.add_nodes(1)
+    graph.add_nodes(2)
+    graph.add_edge(1, 2)
+    graph.add_edge(9, 10)
+    graph.add_edge(1, 10)
+    assert graph.adjacent(1, 10) is True
+
+
+def test_adjacent_false(graph):
+    """Test the adjacent function."""
+    graph.add_nodes(1)
+    graph.add_nodes(2)
+    graph.add_edge(1, 2)
+    graph.add_edge(9, 10)
+    graph.add_edge(1, 10)
+    assert graph.adjacent(2, 10) is False
+
+
+def test_adjacent_error(graph):
+    """Test the adjacent function."""
+    graph.add_nodes(1)
+    graph.add_nodes(2)
+    graph.add_edge(1, 2)
+    graph.add_edge(9, 10)
+    graph.add_edge(1, 10)
+    with pytest.raises(KeyError):
+        graph.adjacent(1, 99)
