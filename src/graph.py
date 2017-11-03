@@ -49,4 +49,16 @@ class Graph(object):
             return edges
         except KeyError: # TODO need to add functionality for empty graph
             raise KeyError("The graph is empty.")
-            
+
+    def del_edge(self, val1, val2):
+        """Delete the edge connecting val1 to val2."""
+        try:
+            self.graph[val1].remove(val2)
+        except ValueError:
+            try:
+                if self.graph[val2]:
+                    raise IndexError("{} and {} are not connected.".format(val1, val2))
+            except KeyError:
+                raise KeyError("{} is not a node.".format(val2))
+        except KeyError:
+            raise KeyError("{} is not a node.".format(val2))
