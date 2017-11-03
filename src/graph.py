@@ -30,7 +30,7 @@ class Graph(object):
             nodes = []
             for key in self.graph:
                 nodes.append(key)
-            return nodes
+            return sorted(nodes)
         except KeyError:
             return None
 

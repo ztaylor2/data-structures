@@ -78,7 +78,7 @@ def test_del_node(graph):
     graph.add_edge(1, 10)
     graph.del_node(1)
     graph.del_node(9)
-    assert graph.nodes() == [2, 9, 10]
+    assert graph.nodes() == [2, 10]
 
 
 def test_del_node_removes_edges(graph):
