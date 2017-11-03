@@ -83,10 +83,19 @@ class Graph(object):
                 return True
         except KeyError:
             return False
-        
+
     def neighbors(self, val):
         """Return the neighbors of the node connect by an edge."""
         try:
             return self.graph[val]
         except KeyError:
             raise KeyError("{} is not in the graph.".format(val))
+
+    def adjacent(self, val1, val2):
+        """Check if there is an edge between two specified nodes."""
+        if val2 in self.graph[val1]:
+            return True
+        elif val1 in self.graph[val2]:
+            return True
+        else:
+            return False
