@@ -75,3 +75,18 @@ class Graph(object):
                     continue
         except KeyError:
             raise IndexError("No such node in graph.")
+
+    def has_node(self, val):
+        """Check if node is in graph."""
+        try:
+            if self.graph[val]:
+                return True
+        except KeyError:
+            return False
+        
+    def neighbors(self, val):
+        """Return the neighbors of the node connect by an edge."""
+        try:
+            return self.graph[val]
+        except KeyError:
+            raise KeyError("{} is not in the graph.".format(val))

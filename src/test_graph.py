@@ -69,13 +69,63 @@ def test_delete_edge_when_not_edge(graph):
         graph.del_edge(1, 2)
 
 
-# def test_del_node(graph):
-#     """Test that the node is deleted from graph."""
-#     graph.add_nodes(1)
-#     graph.add_nodes(2)
-#     graph.add_edge(1, 2)
-#     graph.add_edge(9, 10)
-#     graph.add_edge(1, 10)
-#     graph.del_node(1)
-#     graph.del_node(9)
-#     assert graph.nodes() == [2, 9, 10]
+def test_del_node(graph):
+    """Test that the node is deleted from graph."""
+    graph.add_nodes(1)
+    graph.add_nodes(2)
+    graph.add_edge(1, 2)
+    graph.add_edge(9, 10)
+    graph.add_edge(1, 10)
+    graph.del_node(1)
+    graph.del_node(9)
+    assert graph.nodes() == [2, 9, 10]
+
+
+def test_del_node_removes_edges(graph):
+    """Test if nodes are deleted their corresponding edges are deleted too."""
+    graph.add_nodes(1)
+    graph.add_nodes(2)
+    graph.add_edge(1, 2)
+    graph.add_edge(9, 10)
+    graph.add_edge(1, 10)
+    graph.del_node(10)
+    assert graph.graph == {1: [2], 2: [], 9: []}
+
+
+def test_del_node_raises_error(graph):
+    """Test that proper error message is raised when deleting empty graph."""
+    with pytest.raises(IndexError):
+        graph.del_node(5)
+
+
+def test_has_node_true(graph):
+    """Test that the node is in the graph."""
+    graph.add_nodes(1)
+    graph.add_nodes(2)
+    graph.add_edge(1, 2)
+    graph.add_edge(9, 10)
+    graph.add_edge(1, 10)
+    graph.del_node(10)
+    assert graph.has_node(1) is True
+
+
+def test_has_node_false(graph):
+    """Test that the node is not in the graph."""
+    graph.add_nodes(1)
+    graph.add_nodes(2)
+    graph.add_edge(1, 2)
+    graph.add_edge(9, 10)
+    graph.add_edge(1, 10)
+    graph.del_node(10)
+    assert graph.has_node(99) is False
+
+
+def test_has_node_error(graph):
+    """Test that the node is in the graph."""
+    graph.add_nodes(1)
+    graph.add_nodes(2)
+    graph.add_edge(1, 2)
+    graph.add_edge(9, 10)
+    graph.add_edge(1, 10)
+    graph.del_node(10)
+    assert graph.has_node(99) is False
