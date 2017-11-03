@@ -47,6 +47,6 @@ class Graph(object):
                     except IndexError:
                         continue
             return edges
-        except KeyError:
-            print("key error thrown")
-            return None
+        except KeyError: # TODO need to add functionality for empty graph
+            raise KeyError("The graph is empty.")
+            
