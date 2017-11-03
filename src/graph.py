@@ -14,6 +14,13 @@ class Graph(object):
     def add_edge(self, val1, val2):
         """Add an edge from the node val1 to the node val2.
             If val1 or val2 nodes do not exist they are created."""
-        # check if the nodes exist
-        if not val1:
-            add_nodes(val1)
+        try:
+            self.graph[val1]
+        except KeyError:
+            self.add_nodes(val1)
+        try:
+            self.graph[val2]
+        except KeyError:
+            self.add_nodes(val2)
+        self.graph[val1].append(val2)
+        
