@@ -87,3 +87,11 @@ def priorityq_7_last_pushed_yes_priority():
     priorityq.insert(4, 1)
     priorityq.insert(7, 2)
     return priorityq
+
+
+@pytest.fixture()
+def graph():
+    """A fixture for an empty graph."""
+    from graph import Graph
+    graph = Graph()
+    return graph
