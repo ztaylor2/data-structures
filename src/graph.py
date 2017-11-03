@@ -25,7 +25,7 @@ class Graph(object):
         self.graph[val1].append(val2)
 
     def nodes(self):
-        """Retrun the nodes of the graph as a list."""
+        """Return the nodes of the graph as a list."""
         try:
             nodes = []
             for key in self.graph:
@@ -69,7 +69,6 @@ class Graph(object):
             self.graph.pop(val)
             for key in self.graph:
                 try:
-                    # import pdb; pdb.set_trace()
                     self.graph[key].remove(val)
                 except ValueError:
                     continue
