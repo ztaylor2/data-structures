@@ -50,3 +50,16 @@ class Graph(object):
         else:
             return edges
 
+
+    def del_edge(self, val1, val2):
+        """Delete the edge connecting val1 to val2."""
+        try:
+            self.graph[val1].remove(val2)
+        except ValueError:
+            try:
+                if self.graph[val2]:
+                    raise IndexError("{} and {} are not connected.".format(val1, val2))
+            except KeyError:
+                raise KeyError("{} is not a node.".format(val2))
+        except KeyError:
+            raise KeyError("{} is not a node.".format(val2))
