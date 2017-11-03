@@ -62,3 +62,16 @@ class Graph(object):
                 raise KeyError("{} is not a node.".format(val2))
         except KeyError:
             raise KeyError("{} is not a node.".format(val2))
+
+    def del_node(self, val):
+        """Delete a node from the graph."""
+        try:
+            self.graph.pop(val, None)
+            for key in self.graph:
+                try:
+                    # import pdb; pdb.set_trace()
+                    self.graph[key].remove(val)
+                except ValueError:
+                    continue
+        except KeyError:
+            raise IndexError("No such node in graph.")
