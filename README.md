@@ -96,3 +96,17 @@ The priority queue data structure provides a way to represent data in a ordered 
 `def insert(val, priority)`: O(1)
 `def pop()`:  O(n)
 `def peek()`:  O(n)
+
+
+**Unweighted Directed Graph**
+A graph datastructure is an abstract way to represent data. Our graph uses a dictionary to store the node values and the edges are stored in a list for each node.
+
+`nodes()`: O(n)
+`edges()`: O(n^2)
+`add_node(val)`: O(1)
+`add_edge(val1, val2`: O(1)
+`del_node(val)`: O(n)
+`del_edge(val1, val2)`: O(1)
+`has_node(val)`: O(1)
+`neighbors(val)`: O(1)
+`adjacent(val1, val2)`: O(1)
