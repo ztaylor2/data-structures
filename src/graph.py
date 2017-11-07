@@ -128,3 +128,5 @@ if __name__ == '__main__':
     graph.add_edge(1, 2)
     graph.add_edge(1, 3)
     graph.add_edge(2, 4)
+    graph.add_edge(4, 3)
+    print(graph.breadth_first_traversal(1))

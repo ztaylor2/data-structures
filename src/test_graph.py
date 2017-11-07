@@ -193,3 +193,4 @@ def test_bft_empty_graph(graph):
     """Raise error on empty graph."""
     with pytest.raises(KeyError):
         graph.breadth_first_traversal(1)
+
