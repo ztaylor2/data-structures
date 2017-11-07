@@ -170,3 +170,8 @@ def test_adjacent_error(graph):
     graph.add_edge(1, 10)
     with pytest.raises(KeyError):
         graph.adjacent(1, 99)
+
+
+def test_bft_output_start_root(graph_7):
+    """Test the output when starting at root."""
+    assert graph_7.breadth_first_traversal(1) == [1, 2, 3, 4, 5, 6, 7]
