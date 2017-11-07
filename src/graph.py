@@ -1,4 +1,5 @@
 """Module for creating a graph data structure."""
+from que_ import Queue
 
 class Graph(object):
     """A graph data structure."""
@@ -109,3 +110,14 @@ class Graph(object):
         and explores the neighbor nodes first before moving on to
         the next depth of neighbors.
         """
+        search_order = []
+        children_queue = Queue()
+        children_queue.enqueue(val)
+        while children_queue.peek():
+            if self.graph[children_queue.peek()] == []:
+                search_order.append(children_queue.dequeue())
+            else:
+                for child in self.graph[children_queue.peek()]:
+                    if child not in search_order:
+                        children_queue.enqueue(child)
+                search_order.append(children_queue.dequeue())
