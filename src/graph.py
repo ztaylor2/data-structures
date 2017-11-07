@@ -100,3 +100,12 @@ class Graph(object):
             raise KeyError("Neither value in graph.")
         else:
             return False
+
+    def breadth_first_traversal(self, val):
+        """
+        Perform a breadth first traversal.
+
+        The breadth first traversal starts at the user input val
+        and explores the neighbor nodes first before moving on to
+        the next depth of neighbors.
+        """
