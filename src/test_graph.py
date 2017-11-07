@@ -194,3 +194,24 @@ def test_bft_empty_graph(graph):
     with pytest.raises(KeyError):
         graph.breadth_first_traversal(1)
 
+
+def test_dfs_output_start_root(graph_7):
+    """Test the output when starting at the root."""
+    assert graph_7.depth_first_traversal(1) == [1, 2, 4, 5, 3, 6, 7]
+
+
+def test_dfs_output_start_mid(graph_7):
+    """Test the output of depth first search when starting in the middle."""
+    assert graph_7.depth_first_traversal(3) == [3, 6, 7]
+
+
+def test_dfs_start_root_points_up(graph_7):
+    """Test that depth first search works properly with a loop in the graph."""
+    graph_7.add_edge(6, 2)
+    assert graph_7.depth_first_traversal(1) == [1, 2, 4, 5, 3, 6, 7]
+    assert graph_7.depth_first_traversal(6) == [6, 2, 4, 5]
+
+def test_dfs_empty_graph(graph_7):
+    """Test error handiling when searching empty graph."""
+    with pytest.raises(KeyError):
+        graph.depth_first_traversal(1)
