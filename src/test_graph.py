@@ -175,3 +175,21 @@ def test_adjacent_error(graph):
 def test_bft_output_start_root(graph_7):
     """Test the output when starting at root."""
     assert graph_7.breadth_first_traversal(1) == [1, 2, 3, 4, 5, 6, 7]
+
+
+def test_bft_output_start_mid(graph_7):
+    """Test the output when starting traversal in middle of tree."""
+    assert graph_7.breadth_first_traversal(3) == [3, 6, 7]
+
+
+def test_bft_output_start_root_point_back_up(graph_7):
+    """Test the output when starting traversal in middle of tree."""
+    graph_7.add_edge(6, 2)
+    assert graph_7.breadth_first_traversal(1) == [1, 2, 3, 4, 5, 6, 7]
+    assert graph_7.breadth_first_traversal(6) == [6, 2, 4, 5]
+
+
+def test_bft_empty_graph(graph):
+    """Raise error on empty graph."""
+    with pytest.raises(KeyError):
+        graph.breadth_first_traversal(1)
