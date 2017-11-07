@@ -121,3 +121,6 @@ class Graph(object):
                     if child not in search_order:
                         children_queue.enqueue(child)
                 search_order.append(children_queue.dequeue())
+
+if __name__ == '__main__':
+    graph = Graph()

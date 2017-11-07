@@ -26,7 +26,10 @@ class Queue(object):
 
     def peek(self):
         """Look at next val to be dequeued without mod queue."""
-        return self.dll.tail.data
+        try:
+            return self.dll.tail.data
+        except AttributeError:
+            return None
 
     def __len__(self):
         """Return length of queue."""
