@@ -110,3 +110,6 @@ A graph datastructure is an abstract way to represent data. Our graph uses a dic
 `has_node(val)`: O(1)
 `neighbors(val)`: O(1)
 `adjacent(val1, val2)`: O(1)
+`breadth_first_traversal(val)`: O(E + V) *
+`depth_first_traversal(val)`: O(E + V) *
+* where E is the number of edges and V is the number of Vertices via: https://stackoverflow.com/questions/6850357/explanation-of-runtimes-of-bfs-and-dfs
