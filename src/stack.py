@@ -33,3 +33,10 @@ class Stack(object):
         """Remove value from top of stack and return it."""
         self.list.pop()
         self._counter -= 1
+
+    def peek(self):
+        """Return the next value to be popped."""
+        try:
+            return self.list.head.data
+        except AttributeError:
+            return None

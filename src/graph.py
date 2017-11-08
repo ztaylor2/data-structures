@@ -1,5 +1,7 @@
 """Module for creating a graph data structure."""
 from que_ import Queue
+from stack import Stack
+
 
 class Graph(object):
     """A graph data structure."""
@@ -123,10 +125,40 @@ class Graph(object):
                 search_order.append(children_queue.dequeue())
         return search_order
 
+    def depth_first_traversal(self, val):
+        """
+        Perform a depth first traversal.
+
+        The depth first traversal continues exploring next node at the next
+        depth until the end of the branch is reached. It will then start from
+        the top and continue down any other branches.
+        """
+        if val not in self.graph:
+            raise KeyError("{} not in graph.".format(val))
+        discovered = []
+
+        def _handle_depth_first_traversal(val):
+            """Helper furnction, allow for recursion w/out redefining discovered list."""
+            discovered.append(val)
+            if self.graph[val] != []:
+                for i in self.graph[val]:
+                    if i not in discovered:
+                        _handle_depth_first_traversal(i)
+            return discovered
+        return _handle_depth_first_traversal(val)
+
+
 if __name__ == '__main__':
     graph = Graph()
     graph.add_edge(1, 2)
     graph.add_edge(1, 3)
     graph.add_edge(2, 4)
+    graph.add_edge(2, 5)
+    graph.add_edge(3, 6)
+    graph.add_edge(3, 7)
+    graph.add_edge(4, 8)
     graph.add_edge(4, 3)
-    print(graph.breadth_first_traversal(1))
+    graph.add_edge(8, 1)
+    graph.add_edge(7, 2)
+    print("breadth first: {}".format(graph.breadth_first_traversal(1)))
+    print("depth first: {}".format(graph.depth_first_traversal(1)))
