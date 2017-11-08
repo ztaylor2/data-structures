@@ -95,3 +95,17 @@ def graph():
     from graph import Graph
     graph = Graph()
     return graph
+
+
+@pytest.fixture()
+def graph_7():
+    """A fixture for an empty graph."""
+    from graph import Graph
+    graph = Graph()
+    graph.add_edge(1, 2)
+    graph.add_edge(1, 3)
+    graph.add_edge(2, 4)
+    graph.add_edge(2, 5)
+    graph.add_edge(3, 6)
+    graph.add_edge(3, 7)
+    return graph

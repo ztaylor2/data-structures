@@ -51,3 +51,11 @@ def test_stack_can_take_iterable():
     a_list = [5, 2, 9, 0, 1]
     s = Stack(a_list)
     assert len(s) == 5
+
+
+def test_peek():
+    """."""
+    from stack import Stack
+    a_list = [5, 2, 9, 0, 1]
+    s = Stack(a_list)
+    assert s.peek() == 1
