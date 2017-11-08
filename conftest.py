@@ -101,11 +101,12 @@ def graph():
 def graph_7():
     """A fixture for an empty graph."""
     from graph import Graph
-    graph = Graph()
-    graph.add_edge(1, 2)
-    graph.add_edge(1, 3)
-    graph.add_edge(2, 4)
-    graph.add_edge(2, 5)
-    graph.add_edge(3, 6)
-    graph.add_edge(3, 7)
+    g = Graph()
+    g.add_edge('A', 'B', 4)
+    g.add_edge('A', 'C', 2)
+    g.add_edge('A', 'D', 2)
+    g.add_edge('C', 'D', 6)
+    g.add_edge('C', 'B', 4)
+    g.add_edge('B', 'E', 4)
+    g.add_edge('E', 'F', 2)
     return graph

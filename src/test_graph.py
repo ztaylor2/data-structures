@@ -18,16 +18,16 @@ def test_add_edge_adds_one_edge(graph):
     """Test that the add edge function adds one edge."""
     graph.add_nodes(5)
     graph.add_nodes(6)
-    graph.add_edge(5, 6)
-    assert graph.graph[5][0] == 6
+    graph.add_edge(5, 6, 4)
+    assert graph.graph[5] == {6: 4}
 
 
 def test_return_nodes(graph):
     """Test that we can return a list of all nodes."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
+    graph.add_edge(1, 2, 4)
+    graph.add_edge(9, 10, 2)
     assert graph.nodes() == [1, 2, 9, 10]
 
 
@@ -35,22 +35,22 @@ def test_return_edges(graph):
     """Test that the edges method returns a list of all edges."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
-    graph.add_edge(1, 10)
-    assert sorted(graph.edges()) == [(1, 2), (1, 10), (9, 10)]
+    graph.add_edge(1, 2, 4)
+    graph.add_edge(9, 10, 6)
+    graph.add_edge(1, 10, 2)
+    assert sorted(graph.edges()) == [(1, 2, 4), (1, 10, 6), (9, 10, 6)]
 
 
 def test_graph_raises_key_error_when_check_edges_of_empty_graph(graph):
-    """."""
+    """Test that KeyError is approporiately raised."""
     with pytest.raises(KeyError):
         graph.edges()
 
 
 def test_delete_edge_one_edge(graph):
     """Test that deleting an edge deletes one added edge."""
-    graph.add_edge(1, 2)
-    assert graph.edges() == [(1, 2)]
+    graph.add_edge(1, 2, 4)
+    assert graph.edges() == [(1, 2, 4)]
     graph.del_edge(1, 2)
     with pytest.raises(KeyError):
         graph.edges()
@@ -73,9 +73,9 @@ def test_del_node(graph):
     """Test that the node is deleted from graph."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
-    graph.add_edge(1, 10)
+    graph.add_edge(1, 2, 4)
+    graph.add_edge(9, 10, 99)
+    graph.add_edge(1, 10, 1)
     graph.del_node(1)
     graph.del_node(9)
     assert graph.nodes() == [2, 10]
@@ -85,11 +85,11 @@ def test_del_node_removes_edges(graph):
     """Test if nodes are deleted their corresponding edges are deleted too."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
-    graph.add_edge(1, 10)
+    graph.add_edge(1, 2, 5)
+    graph.add_edge(9, 10, 4)
+    graph.add_edge(1, 10, 2)
     graph.del_node(10)
-    assert graph.graph == {1: [2], 2: [], 9: []}
+    assert graph.graph == {1: {2: 5}, 2: {}, 9: {}}
 
 
 def test_del_node_raises_error(graph):
@@ -102,9 +102,9 @@ def test_has_node_true(graph):
     """Test that the node is in the graph."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
-    graph.add_edge(1, 10)
+    graph.add_edge(1, 2, 66)
+    graph.add_edge(9, 10, 40)
+    graph.add_edge(1, 10, 20)
     graph.del_node(10)
     assert graph.has_node(1) is True
 
@@ -113,9 +113,9 @@ def test_has_node_false(graph):
     """Test that the node is not in the graph."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
-    graph.add_edge(1, 10)
+    graph.add_edge(1, 2, 10)
+    graph.add_edge(9, 10, 20)
+    graph.add_edge(1, 10, 8)
     graph.del_node(10)
     assert graph.has_node(99) is False
 
@@ -124,9 +124,9 @@ def test_has_node_error(graph):
     """Test that the node is in the graph."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
-    graph.add_edge(1, 10)
+    graph.add_edge(1, 2, 2)
+    graph.add_edge(9, 10, 4)
+    graph.add_edge(1, 10, 6)
     graph.del_node(10)
     assert graph.has_node(99) is False
 
@@ -135,19 +135,19 @@ def test_neighbors(graph):
     """Test that neighbors function returns the nodes that val is connected with."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
-    graph.add_edge(1, 10)
-    assert graph.neighbors(1) == [2, 10]
+    graph.add_edge(1, 2, 2)
+    graph.add_edge(9, 10, 4)
+    graph.add_edge(1, 10, 8)
+    assert graph.neighbors(1) == {2: 2, 10: 8}
 
 
 def test_adjacent_true(graph):
     """Test the adjacent function."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
-    graph.add_edge(1, 10)
+    graph.add_edge(1, 2, 8)
+    graph.add_edge(9, 10, 4)
+    graph.add_edge(1, 10, 10)
     assert graph.adjacent(1, 10) is True
 
 
@@ -155,9 +155,9 @@ def test_adjacent_false(graph):
     """Test the adjacent function."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
-    graph.add_edge(1, 10)
+    graph.add_edge(1, 2, 2)
+    graph.add_edge(9, 10, 4)
+    graph.add_edge(1, 10, 6)
     assert graph.adjacent(2, 10) is False
 
 
@@ -165,9 +165,9 @@ def test_adjacent_error(graph):
     """Test the adjacent function."""
     graph.add_nodes(1)
     graph.add_nodes(2)
-    graph.add_edge(1, 2)
-    graph.add_edge(9, 10)
-    graph.add_edge(1, 10)
+    graph.add_edge(1, 2, 2)
+    graph.add_edge(9, 10, 8)
+    graph.add_edge(1, 10, 3)
     with pytest.raises(KeyError):
         graph.adjacent(1, 99)
 
