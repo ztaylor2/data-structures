@@ -149,6 +149,23 @@ class Graph(object):
             return discovered
         return _handle_depth_first_traversal(val)
 
+    def dijkstra(self, start, target):
+        """Djikstas algorithm to determine shortest path."""
+
+        visited = []
+        # set or dict of nodes and distances (starting at inf.)
+
+        # check childred of start nodes and assign their distances to dict
+
+        # set current to node not in visited with the shortest distance
+
+        while current is not target:
+            # check children of current
+            # if distance to child is shorter than current distance in dict
+                # replace distance
+
+            # set current to node not in visited with shortest distance assigned to it
+
 
 if __name__ == '__main__':
     g = Graph()
