@@ -109,4 +109,4 @@ def graph_7():
     g.add_edge('C', 'B', 4)
     g.add_edge('B', 'E', 4)
     g.add_edge('E', 'F', 2)
-    return graph
+    return g

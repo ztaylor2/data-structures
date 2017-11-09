@@ -38,7 +38,7 @@ def test_return_edges(graph):
     graph.add_edge(1, 2, 4)
     graph.add_edge(9, 10, 6)
     graph.add_edge(1, 10, 2)
-    assert sorted(graph.edges()) == [(1, 2, 4), (1, 10, 6), (9, 10, 6)]
+    assert sorted(graph.edges()) == [(1, 2, 4), (1, 10, 2), (9, 10, 6)]
 
 
 def test_graph_raises_key_error_when_check_edges_of_empty_graph(graph):
@@ -174,19 +174,20 @@ def test_adjacent_error(graph):
 
 def test_bft_output_start_root(graph_7):
     """Test the output when starting at root."""
-    assert graph_7.breadth_first_traversal(1) == [1, 2, 3, 4, 5, 6, 7]
+    # import pdb; pdb.set_trace()
+    assert graph_7.breadth_first_traversal('A') == ['A', 'B', 'C', 'D', 'E', 'F']
 
 
 def test_bft_output_start_mid(graph_7):
     """Test the output when starting traversal in middle of tree."""
-    assert graph_7.breadth_first_traversal(3) == [3, 6, 7]
+    assert graph_7.breadth_first_traversal('C') == ['C', 'D', 'B', 'E', 'F']
 
 
 def test_bft_output_start_root_point_back_up(graph_7):
     """Test the output when starting traversal in middle of tree."""
-    graph_7.add_edge(6, 2)
-    assert graph_7.breadth_first_traversal(1) == [1, 2, 3, 4, 5, 6, 7]
-    assert graph_7.breadth_first_traversal(6) == [6, 2, 4, 5]
+    graph_7.add_edge('F', 'G', 9)
+    assert graph_7.breadth_first_traversal('A') == ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+    assert graph_7.breadth_first_traversal('C') == ['C', 'D', 'B', 'E', 'F', 'G']
 
 
 def test_bft_empty_graph(graph):
@@ -197,25 +198,25 @@ def test_bft_empty_graph(graph):
 
 def test_dfs_output_start_root(graph_7):
     """Test the output when starting at the root."""
-    assert graph_7.depth_first_traversal(1) == [1, 2, 4, 5, 3, 6, 7]
+    assert graph_7.depth_first_traversal('A') == ['A', 'B', 'E', 'F', 'C', 'D']
 
 
 def test_dfs_output_start_mid(graph_7):
     """Test the output of depth first search when starting in the middle."""
-    assert graph_7.depth_first_traversal(3) == [3, 6, 7]
+    assert graph_7.depth_first_traversal('B') == ['B', 'E', 'F']
 
 
 def test_dfs_start_root_points_up(graph_7):
     """Test that depth first search works properly with a loop in the graph."""
-    graph_7.add_edge(6, 2)
-    assert graph_7.depth_first_traversal(1) == [1, 2, 4, 5, 3, 6, 7]
+    graph_7.add_edge('F', 'Z', 90)
+    assert graph_7.depth_first_traversal('C') == ['C', 'D', 'B', 'E', 'F', 'Z']
 
 
 def test_dfs_start_mid_points_up(graph_7):
     """Depth first search works properly with a loop in the graph start mid."""
-    graph_7.add_edge(6, 2)
-    assert graph_7.depth_first_traversal(6) == [6, 2, 4, 5]
-    assert graph_7.depth_first_traversal(1) == [1, 2, 4, 5, 3, 6, 7]
+    graph_7.add_edge('F', 'Z', 90)
+    assert graph_7.depth_first_traversal('A') == ['A', 'B', 'E', 'F', 'Z', 'C', 'D']
+    assert graph_7.depth_first_traversal('C') == ['C', 'D', 'B', 'E', 'F', 'Z']
 
 
 def test_dfs_empty_graph(graph):
