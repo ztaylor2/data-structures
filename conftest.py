@@ -99,7 +99,7 @@ def graph():
 
 @pytest.fixture()
 def graph_7():
-    """A fixture for an empty graph."""
+    """A fixture for a filled graph."""
     from graph import Graph
     g = Graph()
     g.add_edge('A', 'B', 4)
@@ -109,4 +109,21 @@ def graph_7():
     g.add_edge('C', 'B', 4)
     g.add_edge('B', 'E', 4)
     g.add_edge('E', 'F', 2)
+    return g
+
+
+@pytest.fixture()
+def graph_sp():
+    """A fixture for finding shortest path."""
+    from graph import Graph
+    g = Graph()
+    g.add_edge('A', 'B', 7)
+    g.add_edge('A', 'C', 9)
+    g.add_edge('A', 'F', 14)
+    g.add_edge('B', 'C', 10)
+    g.add_edge('B', 'D', 15)
+    g.add_edge('C', 'F', 2)
+    g.add_edge('C', 'D', 11)
+    g.add_edge('F', 'E', 9)
+    g.add_edge('D', 'E', 6)
     return g

@@ -150,7 +150,7 @@ class Graph(object):
         return _handle_depth_first_traversal(val)
 
     def dijkstra(self, start, target):
-        """Djikstas algorithm to determine shortest path."""
+        """Dijkstas algorithm to determine shortest path."""
 
         visited = [start]
         # set or dict of nodes and distances (starting at inf.)
