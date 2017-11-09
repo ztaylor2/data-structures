@@ -152,14 +152,17 @@ class Graph(object):
     def dijkstra(self, start, target):
         """Djikstas algorithm to determine shortest path."""
 
-        visited = []
+        visited = [start]
         # set or dict of nodes and distances (starting at inf.)
+        nodes_with_shortest_distance = {}
 
+        for node in self.nodes():
+            nodes_with_shortest_distance[node] = float("inf")
         # check childred of start nodes and assign their distances to dict
 
         # set current to node not in visited with the shortest distance
 
-        while current is not target:
+        # while current is not target:
             # check children of current
             # if distance to child is shorter than current distance in dict
                 # replace distance
@@ -169,10 +172,15 @@ class Graph(object):
 
 if __name__ == '__main__':
     g = Graph()
-    g.add_edge('A', 'B', 4)
-    g.add_edge('A', 'C', 2)
-    g.add_edge('A', 'D', 2)
-    g.add_edge('C', 'D', 6)
-    g.add_edge('C', 'B', 4)
+    g.add_edge('A', 'B', 7)
+    g.add_edge('A', 'C', 9)
+    g.add_edge('A', 'D', 14)
+    g.add_edge('B', 'C', 10)
+    g.add_edge('B', 'F', 15)
+    g.add_edge('C', 'F', 11)
+    g.add_edge('C', 'D', 2)
+    g.add_edge('D', 'E', 9)
+    g.add_edge('F', 'E', 6)
+    g.dijkstra('A', 'E')
     print("breadth first: {}".format(g.breadth_first_traversal('A')))
     print("depth first: {}".format(g.depth_first_traversal('A')))
