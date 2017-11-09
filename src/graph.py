@@ -1,6 +1,5 @@
 """Module for creating a graph data structure."""
 from que_ import Queue
-from stack import Stack
 
 
 class Graph(object):
@@ -12,9 +11,9 @@ class Graph(object):
 
     def add_nodes(self, val):
         """Add a new node with input val to the graph."""
-        self.graph[val] = []
+        self.graph[val] = {}
 
-    def add_edge(self, val1, val2):
+    def add_edge(self, val1, val2, weight):
         """Add an edge from the node val1 to the node val2.
             If val1 or val2 nodes do not exist they are created."""
         try:
@@ -25,7 +24,7 @@ class Graph(object):
             self.graph[val2]
         except KeyError:
             self.add_nodes(val2)
-        self.graph[val1].append(val2)
+        self.graph[val1].update({val2: weight})
 
     def nodes(self):
         """Return the nodes of the graph as a list."""
@@ -38,14 +37,15 @@ class Graph(object):
             return None
 
     def edges(self):
-        """Return the edges of the graph."""
+        """Return the edges and their weight of the graph."""
         edges = []
         for key in self.graph:
-            for i in self.graph[key]:
+            for val in self.graph[key].items():
                 try:
                     pointer_back = key
-                    pointer_front = i
-                    edges.append((pointer_back, pointer_front))
+                    pointer_front = val[0]
+                    weight = val[1]
+                    edges.append((pointer_back, pointer_front, weight))
                 except IndexError:
                     continue
         if edges == []:
@@ -55,26 +55,26 @@ class Graph(object):
 
     def del_edge(self, val1, val2):
         """Delete the edge connecting val1 to val2."""
-        try:
-            self.graph[val1].remove(val2)
-        except ValueError:
+        if val1 in self.graph and val2 in self.graph:
             try:
-                if self.graph[val2]:
-                    raise IndexError("{} and {} are not connected.".format(val1, val2))
+                del(self.graph[val1][val2])
             except KeyError:
+                raise KeyError("{} and {} are not connected.".format(val1, val2))
+        else:
+            if val1 not in self.graph and val2 not in self.graph:
+                raise KeyError("{} {} are not nodes.".format(val1, val2))
+            elif val1 not in self.graph:
+                raise KeyError("{} is not a node.".format(val1))
+            else:
                 raise KeyError("{} is not a node.".format(val2))
-        except KeyError:
-            raise KeyError("{} is not a node.".format(val2))
 
     def del_node(self, val):
         """Delete a node from the graph."""
         try:
-            self.graph.pop(val)
             for key in self.graph:
-                try:
-                    self.graph[key].remove(val)
-                except ValueError:
-                    continue
+                if val in self.graph[key]:
+                    self.del_edge(key, val)
+            del(self.graph[val])
         except KeyError:
             raise IndexError("No such node in graph.")
 
@@ -87,7 +87,7 @@ class Graph(object):
             return False
 
     def neighbors(self, val):
-        """Return the neighbors of the node connect by an edge."""
+        """Return the neighbors of the node connect by an edge and their weight."""
         try:
             return self.graph[val]
         except KeyError:
@@ -116,10 +116,12 @@ class Graph(object):
         children_queue = Queue()
         children_queue.enqueue(val)
         while children_queue.peek():
-            if self.graph[children_queue.peek()] == []:
-                search_order.append(children_queue.dequeue())
+            if self.graph[children_queue.peek()] == {}:
+                child = children_queue.dequeue()
+                if child not in search_order:
+                    search_order.append(child)
             else:
-                for child in self.graph[children_queue.peek()]:
+                for child in self.graph[children_queue.peek()].keys():
                     if child not in search_order:
                         children_queue.enqueue(child)
                 search_order.append(children_queue.dequeue())
@@ -140,8 +142,8 @@ class Graph(object):
         def _handle_depth_first_traversal(val):
             """Helper furnction, allow for recursion w/out redefining discovered list."""
             discovered.append(val)
-            if self.graph[val] != []:
-                for i in self.graph[val]:
+            if self.graph[val] != {}:
+                for i in self.graph[val].keys():
                     if i not in discovered:
                         _handle_depth_first_traversal(i)
             return discovered
@@ -149,16 +151,11 @@ class Graph(object):
 
 
 if __name__ == '__main__':
-    graph = Graph()
-    graph.add_edge(1, 2)
-    graph.add_edge(1, 3)
-    graph.add_edge(2, 4)
-    graph.add_edge(2, 5)
-    graph.add_edge(3, 6)
-    graph.add_edge(3, 7)
-    graph.add_edge(4, 8)
-    graph.add_edge(4, 3)
-    graph.add_edge(8, 1)
-    graph.add_edge(7, 2)
-    print("breadth first: {}".format(graph.breadth_first_traversal(1)))
-    print("depth first: {}".format(graph.depth_first_traversal(1)))
+    g = Graph()
+    g.add_edge('A', 'B', 4)
+    g.add_edge('A', 'C', 2)
+    g.add_edge('A', 'D', 2)
+    g.add_edge('C', 'D', 6)
+    g.add_edge('C', 'B', 4)
+    print("breadth first: {}".format(g.breadth_first_traversal('A')))
+    print("depth first: {}".format(g.depth_first_traversal('A')))

@@ -104,7 +104,7 @@ A graph datastructure is an abstract way to represent data. Our graph uses a dic
 `nodes()`: O(n)
 `edges()`: O(n^2)
 `add_node(val)`: O(1)
-`add_edge(val1, val2`: O(1)
+`add_edge(val1, val2)`: O(1)
 `del_node(val)`: O(n)
 `del_edge(val1, val2)`: O(1)
 `has_node(val)`: O(1)
@@ -113,3 +113,19 @@ A graph datastructure is an abstract way to represent data. Our graph uses a dic
 `breadth_first_traversal(val)`: O(E + V) *
 `depth_first_traversal(val)`: O(E + V) *
 * where E is the number of edges and V is the number of Vertices via: https://stackoverflow.com/questions/6850357/explanation-of-runtimes-of-bfs-and-dfs
+
+
+**Weighted Directed Graph**
+A weighted graph is a graph that has weights assigned to the pointers.  A useful example of weighted pointers is how mapping software determines the distance between objects.  The objects are nodes, the weight in the pointers are the distances.
+
+`nodes()`: O(n)
+`edges()`: O(n * k)
+`add_node(val)`: O(1)
+`add_edge(val1, val2, weight)`: O(1)
+`del_node(val)`: O(n)
+`del_edge(val1, val2)`: O(1)
+`has_node(val)`: O(1)
+`neighbors(val)`: O(1)
+`adjacent(val1, val2)`: O(1)
+`breadth_first_traversal(val)`: O(n * k)
+`depth_first_traversal(val)`: O(n * k)
