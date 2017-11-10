@@ -246,3 +246,26 @@ def test_dijkstras_on_empty_graph(graph):
     """Test that returns an appropriate error when called on empty graph."""
     with pytest.raises(KeyError):
         graph.dijkstra('A', 'E')
+
+
+def test_bellmanford_sp(graph_sp):
+    """Test the bellmanford algorithm returns shortest path."""
+    assert graph_sp.dijkstra('A', 'E') == 20
+
+
+def test_bellmanford_sp_7(graph_7):
+    """Test the bellmanford algorithm returns shortest path."""
+    graph_7.add_edge('D', 'F', 10)
+    assert graph_7.dijkstra('A', 'F') == 10
+
+
+def test_bellmanford_sp_7_equal_shortest_paths(graph_7):
+    """Test the bellmanford algorithm returns shortest path when there are 2."""
+    graph_7.add_edge('D', 'F', 10)
+    assert graph_7.dijkstra('A', 'E') == 8
+
+
+def test_bellmanford_on_empty_graph(graph):
+    """Test that returns an appropriate error when called on empty graph."""
+    with pytest.raises(KeyError):
+        graph.dijkstra('A', 'E')
