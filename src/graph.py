@@ -183,24 +183,19 @@ class Graph(object):
 
     def bellmanford(self, start, target):
         """Bellman ford shortest path algorithm. 
-            Source: www.geeksforgeeks.com."""
-        # TODO: need to finish this!
+            Help from: www.geeksforgeeks.com & wikipedia."""
         dist = {}
         for node in self.nodes():
             dist[node] = float("inf")
         dist[start] = 0
-
-        current_node = start
-        for i in self.graph:
-            neighbors = self.neighbors(current_node)
-            for neighbor in neighbors:
-                if dist[current_node] != float("inf") and (dist[current_node] + self.graph[current_node][neighbor]) < dist[neighbor]:
-                    dist[neighbor] = dist[current_node] + self.graph[current_node][neighbor]
-            current_node = neighbor
-                # import pdb; pdb.set_trace()
-        return dist
-
-
+        for _ in range(len(self.nodes()) - 1):
+            for u, v, w in self.edges():
+                if dist[u] != float("inf") and (dist[u] + w) < dist[v]:
+                    dist[v] = dist[u] + w
+        for u, v, w in self.edges():
+            if dist[u] + w < dist[v]:
+                raise ValueError("Your graph contains a negative weight cycle.")
+        return dist[target]
 
 
 if __name__ == '__main__':
@@ -216,5 +211,5 @@ if __name__ == '__main__':
     g.add_edge('F', 'E', 6)
     print(g.dijkstra('A', 'E'))
     print(g.bellmanford('A', 'E'))
-    # print("breadth first: {}".format(g.breadth_first_traversal('A')))
-    # print("depth first: {}".format(g.depth_first_traversal('A')))
+    print("breadth first: {}".format(g.breadth_first_traversal('A')))
+    print("depth first: {}".format(g.depth_first_traversal('A')))
