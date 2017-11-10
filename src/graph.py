@@ -152,22 +152,34 @@ class Graph(object):
     def dijkstra(self, start, target):
         """Dijkstas algorithm to determine shortest path."""
 
-        visited = [start]
-        # set or dict of nodes and distances (starting at inf.)
+        visited = []
         nodes_with_shortest_distance = {}
 
         for node in self.nodes():
             nodes_with_shortest_distance[node] = float("inf")
-        # check childred of start nodes and assign their distances to dict
+        nodes_with_shortest_distance[start] = 0
 
-        # set current to node not in visited with the shortest distance
+        current_node = start
 
-        # while current is not target:
-            # check children of current
-            # if distance to child is shorter than current distance in dict
-                # replace distance
+        while current_node != target:
+            neighbors = self.neighbors(current_node)
+            for neighbor in neighbors:
+                distance_curr_to_neigh = self.graph[current_node][neighbor]
+                if nodes_with_shortest_distance[neighbor] > (nodes_with_shortest_distance[current_node] + distance_curr_to_neigh):
+                    nodes_with_shortest_distance[neighbor] = (nodes_with_shortest_distance[current_node] + distance_curr_to_neigh)
 
-            # set current to node not in visited with shortest distance assigned to it
+            visited.append(current_node)
+
+            min_dist = float("inf")
+            for key in nodes_with_shortest_distance:
+                if key not in visited:
+                    if nodes_with_shortest_distance[key] < min_dist:
+                        min_dist = nodes_with_shortest_distance[key]
+                        min_key = key
+
+            current_node = min_key
+
+        return nodes_with_shortest_distance[target]
 
 
 if __name__ == '__main__':
@@ -181,6 +193,6 @@ if __name__ == '__main__':
     g.add_edge('C', 'D', 2)
     g.add_edge('D', 'E', 9)
     g.add_edge('F', 'E', 6)
-    g.dijkstra('A', 'E')
-    print("breadth first: {}".format(g.breadth_first_traversal('A')))
-    print("depth first: {}".format(g.depth_first_traversal('A')))
+    print(g.dijkstra('A', 'E'))
+    # print("breadth first: {}".format(g.breadth_first_traversal('A')))
+    # print("depth first: {}".format(g.depth_first_traversal('A')))
