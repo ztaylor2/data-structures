@@ -220,6 +220,29 @@ def test_dfs_start_mid_points_up(graph_7):
 
 
 def test_dfs_empty_graph(graph):
-    """Test error handiling when searching empty graph."""
+    """Test error handling when searching empty graph."""
     with pytest.raises(KeyError):
         graph.depth_first_traversal(1)
+
+
+def test_dijkstras_sp(graph_sp):
+    """Test the dikstras algorithm returns shortest path."""
+    assert graph_sp.dijkstra('A', 'E') == 20
+
+
+def test_dijkstras_sp_7(graph_7):
+    """Test the dikstras algorithm returns shortest path."""
+    graph_7.add_edge('D', 'F', 10)
+    assert graph_7.dijkstra('A', 'F') == 10
+
+
+def test_dijkstras_sp_7_equal_shortest_paths(graph_7):
+    """Test the dikstras algorithm returns shortest path when there are 2."""
+    graph_7.add_edge('D', 'F', 10)
+    assert graph_7.dijkstra('A', 'E') == 8
+
+
+def test_dijkstras_on_empty_graph(graph):
+    """Test that returns an appropriate error when called on empty graph."""
+    with pytest.raises(KeyError):
+        graph.dijkstra('A', 'E')
