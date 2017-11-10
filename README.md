@@ -129,3 +129,5 @@ A weighted graph is a graph that has weights assigned to the pointers.  A useful
 `adjacent(val1, val2)`: O(1)
 `breadth_first_traversal(val)`: O(n * k)
 `depth_first_traversal(val)`: O(n * k)
+`dijkstra(start, targe)`: O(E + VlogV)
+`bellmanford(start, target)`:O(V * E)

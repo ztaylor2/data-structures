@@ -140,7 +140,7 @@ class Graph(object):
         discovered = []
 
         def _handle_depth_first_traversal(val):
-            """Helper furnction, allow for recursion w/out redefining discovered list."""
+            """Helper furnction, for recursion w/out redefining list."""
             discovered.append(val)
             if self.graph[val] != {}:
                 for i in self.graph[val].keys():
@@ -150,40 +150,36 @@ class Graph(object):
         return _handle_depth_first_traversal(val)
 
     def dijkstra(self, start, target):
-        """Dijkstas algorithm to determine shortest path."""
-
+        """Dijkstra algorithm to determine shortest path."""
         visited = []
-        nodes_with_shortest_distance = {}
-
+        dist = {}
         for node in self.nodes():
-            nodes_with_shortest_distance[node] = float("inf")
-        nodes_with_shortest_distance[start] = 0
-
+            dist[node] = float("inf")
+        dist[start] = 0
         current_node = start
 
         while current_node != target:
             neighbors = self.neighbors(current_node)
             for neighbor in neighbors:
-                distance_curr_to_neigh = self.graph[current_node][neighbor]
-                if nodes_with_shortest_distance[neighbor] > (nodes_with_shortest_distance[current_node] + distance_curr_to_neigh):
-                    nodes_with_shortest_distance[neighbor] = (nodes_with_shortest_distance[current_node] + distance_curr_to_neigh)
-
+                dist_curr_to_neigh = self.graph[current_node][neighbor]
+                if dist[neighbor] > (dist[current_node] + dist_curr_to_neigh):
+                    dist[neighbor] = (dist[current_node] + dist_curr_to_neigh)
             visited.append(current_node)
-
             min_dist = float("inf")
-            for key in nodes_with_shortest_distance:
+            for key in dist:
                 if key not in visited:
-                    if nodes_with_shortest_distance[key] < min_dist:
-                        min_dist = nodes_with_shortest_distance[key]
+                    if dist[key] < min_dist:
+                        min_dist = dist[key]
                         min_key = key
-
             current_node = min_key
-
-        return nodes_with_shortest_distance[target]
+        return dist[target]
 
     def bellmanford(self, start, target):
-        """Bellman ford shortest path algorithm. 
-            Help from: www.geeksforgeeks.com & wikipedia."""
+        """
+        Bellman ford shortest path algorithm.
+
+        Help from: www.geeksforgeeks.com & wikipedia.
+        """
         dist = {}
         for node in self.nodes():
             dist[node] = float("inf")
@@ -194,7 +190,7 @@ class Graph(object):
                     dist[v] = dist[u] + w
         for u, v, w in self.edges():
             if dist[u] + w < dist[v]:
-                raise ValueError("Your graph contains a negative weight cycle.")
+                raise ValueError("Graph contains a negative weight cycle.")
         return dist[target]
 
 

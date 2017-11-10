@@ -174,7 +174,6 @@ def test_adjacent_error(graph):
 
 def test_bft_output_start_root(graph_7):
     """Test the output when starting at root."""
-    # import pdb; pdb.set_trace()
     assert graph_7.breadth_first_traversal('A') == ['A', 'B', 'C', 'D', 'E', 'F']
 
 
