@@ -184,18 +184,21 @@ class Graph(object):
     def bellmanford(self, start, target):
         """Bellman ford shortest path algorithm. 
             Source: www.geeksforgeeks.com."""
-
+        # TODO: need to finish this!
         dist = {}
         for node in self.nodes():
             dist[node] = float("inf")
         dist[start] = 0
+
         current_node = start
-        neighbors = self.neighbors(current_node)
-        for neighbor in neighbors:
-            import pdb; pdb.set_trace()
-            if dist[current_node] != float("inf") and (dist[current_node] + self.graph[current_node][neighbor]) < dist[neighbor]:
-                dist[neighbor] = dist[i] + self.graph[i][neighbor]
-                current_node = neighbor
+        for i in self.graph:
+            neighbors = self.neighbors(current_node)
+            for neighbor in neighbors:
+                if dist[current_node] != float("inf") and (dist[current_node] + self.graph[current_node][neighbor]) < dist[neighbor]:
+                    dist[neighbor] = dist[current_node] + self.graph[current_node][neighbor]
+            current_node = neighbor
+                # import pdb; pdb.set_trace()
+        return dist
 
 
 
