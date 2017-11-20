@@ -174,7 +174,6 @@ def test_adjacent_error(graph):
 
 def test_bft_output_start_root(graph_7):
     """Test the output when starting at root."""
-    # import pdb; pdb.set_trace()
     assert graph_7.breadth_first_traversal('A') == ['A', 'B', 'C', 'D', 'E', 'F']
 
 
@@ -220,6 +219,59 @@ def test_dfs_start_mid_points_up(graph_7):
 
 
 def test_dfs_empty_graph(graph):
-    """Test error handiling when searching empty graph."""
+    """Test error handling when searching empty graph."""
     with pytest.raises(KeyError):
         graph.depth_first_traversal(1)
+
+
+def test_dijkstras_sp(graph_sp):
+    """Test the dikstras algorithm returns shortest path."""
+    assert graph_sp.dijkstra('A', 'E') == 20
+
+
+def test_dijkstras_sp_7(graph_7):
+    """Test the dikstras algorithm returns shortest path."""
+    graph_7.add_edge('D', 'F', 10)
+    assert graph_7.dijkstra('A', 'F') == 10
+
+
+def test_dijkstras_sp_7_equal_shortest_paths(graph_7):
+    """Test the dikstras algorithm returns shortest path when there are 2."""
+    graph_7.add_edge('D', 'F', 10)
+    assert graph_7.dijkstra('A', 'E') == 8
+
+
+def test_dijkstras_on_empty_graph(graph):
+    """Test that returns an appropriate error when called on empty graph."""
+    with pytest.raises(KeyError):
+        graph.dijkstra('A', 'E')
+
+
+def test_bellmanford_sp(graph_sp):
+    """Test the bellmanford algorithm returns shortest path."""
+    assert graph_sp.bellmanford('A', 'E') == 20
+
+
+def test_bellmanford_sp_7(graph_7):
+    """Test the bellmanford algorithm returns shortest path."""
+    graph_7.add_edge('D', 'F', 10)
+    assert graph_7.bellmanford('A', 'F') == 10
+
+
+def test_bellmanford_sp_7_equal_shortest_paths(graph_7):
+    """Test the bellmanford algorithm returns shortest path when there are 2."""
+    graph_7.add_edge('D', 'F', 10)
+    assert graph_7.bellmanford('A', 'E') == 8
+
+
+def test_bellmanford_on_empty_graph(graph):
+    """Test that returns an appropriate error when called on empty graph."""
+    with pytest.raises(KeyError):
+        graph.bellmanford('A', 'E')
+
+
+def test_bellmanford_sp_7_equal_shortest_paths_negative(graph_7):
+    """Test the bellmanford algorithm returns negative cycle error."""
+    graph_7.add_edge('D', 'D', -6)
+    with pytest.raises(ValueError):
+        graph_7.bellmanford('A', 'E')

@@ -129,3 +129,11 @@ A weighted graph is a graph that has weights assigned to the pointers.  A useful
 `adjacent(val1, val2)`: O(1)
 `breadth_first_traversal(val)`: O(n * k)
 `depth_first_traversal(val)`: O(n * k)
+
+###### Shortest Path Alogorithms:
+`dijkstra(start, targe)`: O(E + VlogV)
+`bellmanford(start, target)`:O(V * E)
+
+The benefit of Dijkstra's shortest path algorithm is its efficiency and time complexity. However it does not report if the graph contains any negative looping paths.
+
+The Bellmanford will alert the user of any negative cycles in the graph. However, this algorithm has a worse time complexity than Dijkstras.

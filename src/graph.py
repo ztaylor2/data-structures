@@ -140,7 +140,7 @@ class Graph(object):
         discovered = []
 
         def _handle_depth_first_traversal(val):
-            """Helper furnction, allow for recursion w/out redefining discovered list."""
+            """Helper furnction, for recursion w/out redefining list."""
             discovered.append(val)
             if self.graph[val] != {}:
                 for i in self.graph[val].keys():
@@ -149,13 +149,63 @@ class Graph(object):
             return discovered
         return _handle_depth_first_traversal(val)
 
+    def dijkstra(self, start, target):
+        """Dijkstra algorithm to determine shortest path."""
+        visited = []
+        dist = {}
+        for node in self.nodes():
+            dist[node] = float("inf")
+        dist[start] = 0
+        current_node = start
+
+        while current_node != target:
+            neighbors = self.neighbors(current_node)
+            for neighbor in neighbors:
+                dist_curr_to_neigh = self.graph[current_node][neighbor]
+                if dist[neighbor] > (dist[current_node] + dist_curr_to_neigh):
+                    dist[neighbor] = (dist[current_node] + dist_curr_to_neigh)
+            visited.append(current_node)
+            min_dist = float("inf")
+            for key in dist:
+                if key not in visited:
+                    if dist[key] < min_dist:
+                        min_dist = dist[key]
+                        min_key = key
+            current_node = min_key
+        return dist[target]
+
+    def bellmanford(self, start, target):
+        """
+        Bellman ford shortest path algorithm.
+
+        Help from: www.geeksforgeeks.com & wikipedia.
+        """
+        dist = {}
+        for node in self.nodes():
+            dist[node] = float("inf")
+        dist[start] = 0
+        for _ in range(len(self.nodes()) - 1):
+            for u, v, w in self.edges():
+                if dist[u] != float("inf") and (dist[u] + w) < dist[v]:
+                    dist[v] = dist[u] + w
+        for u, v, w in self.edges():
+            if dist[u] + w < dist[v]:
+                raise ValueError("Graph contains a negative weight cycle.")
+        return dist[target]
+
 
 if __name__ == '__main__':
     g = Graph()
-    g.add_edge('A', 'B', 4)
-    g.add_edge('A', 'C', 2)
-    g.add_edge('A', 'D', 2)
-    g.add_edge('C', 'D', 6)
-    g.add_edge('C', 'B', 4)
+    g.add_edge('A', 'B', 7)
+    g.add_edge('A', 'C', 9)
+    g.add_edge('A', 'D', 14)
+    g.add_edge('B', 'C', 10)
+    g.add_edge('B', 'F', 15)
+    g.add_edge('C', 'F', 11)
+    g.add_edge('C', 'D', 2)
+    g.add_edge('D', 'E', 9)
+    g.add_edge('F', 'E', 6)
+    print(g.dijkstra('A', 'E'))
+    print(g.bellmanford('A', 'E'))
     print("breadth first: {}".format(g.breadth_first_traversal('A')))
     print("depth first: {}".format(g.depth_first_traversal('A')))
