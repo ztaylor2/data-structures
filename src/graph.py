@@ -163,7 +163,7 @@ class Graph(object):
             for neighbor in neighbors:
                 dist_curr_to_neigh = self.graph[current_node][neighbor]
                 if dist[neighbor] > (dist[current_node] + dist_curr_to_neigh):
-                    dist[neighbor] = (dist[current_node] + dist_curr_to_neigh)
+                    dist[neighbor] = dist[current_node] + dist_curr_to_neigh
             visited.append(current_node)
             min_dist = float("inf")
             for key in dist:
