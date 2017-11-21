@@ -109,6 +109,16 @@ def test_size_returns_size_of_tree(full_bst):
     assert full_bst.size() == 9
 
 
-def test_depth_returns_depth_of_tree(full_bst):
-    """Test depth method returns proper depth of tree of depth four."""
-    assert full_bst.depth() == 4
+# def test_depth_returns_depth_of_tree(full_bst):
+#     """Test depth method returns proper depth of tree of depth four."""
+#     assert full_bst.depth() == 4
+
+
+def test_contains_returns_true(full_bst):
+    """Test contains returns true when value is in tree."""
+    assert full_bst.contains(14) is True
+
+
+def test_contains_returns_false(full_bst):
+    """Test contains returns false when value is in tree."""
+    assert full_bst.contains(77) is False

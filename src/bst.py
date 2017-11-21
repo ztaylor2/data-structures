@@ -64,9 +64,11 @@ class BinarySearchTree(object):
         """Return depth."""
 
 
-
     def contains(self, val):
         """Check existance, return boolean."""
+        if self.search(val):
+            return True
+        return False
 
     def balance(self):
         """Return tree balance."""
