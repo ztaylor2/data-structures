@@ -175,3 +175,12 @@ def test_unballanced_tree_two(five_bst):
     five_bst.insert(2)
     five_bst.insert(1)
     assert five_bst.balance() == 4
+
+
+def test_interable_init():
+    """Test init with iterable works."""
+    bst = BinarySearchTree((5, 3, 6))
+    assert bst.size() == 3
+    assert bst.contains(5)
+    assert bst.contains(3)
+    assert bst.contains(6)

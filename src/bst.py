@@ -17,10 +17,16 @@ class BinarySearchTree(object):
 
     def __init__(self, val=None):
         """Init top node."""
-        self.root = Node(val)
         self.size_count = 0
-        if val:
+        if isinstance(val, (list, tuple)):
+            self.root = Node(val[0])
             self.size_count += 1
+            for num in val[1:]:
+                self.insert(num)
+        else:
+            self.root = Node(val)
+            if val:
+                self.size_count += 1
         self.depths_list = []
         self.left_depths_list = []
         self.right_depths_list = []
