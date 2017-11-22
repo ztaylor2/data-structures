@@ -10,7 +10,6 @@ class Node(object):
         self.right = right
         self.left = left
         self.parent = parent
-        self.depth = depth
 
 
 class BinarySearchTree(object):
@@ -23,6 +22,8 @@ class BinarySearchTree(object):
         if val:
             self.size_count += 1
         self.depths_list = []
+        self.left_depths_list = []
+        self.right_depths_list = []
 
     def insert(self, val):
         """Insert node."""
@@ -89,3 +90,16 @@ class BinarySearchTree(object):
 
     def balance(self):
         """Return tree balance."""
+        self.depths_list = []
+        left_depth = 0
+        if self.root.left:
+            self._depth_fxn(self.root.left, left_depth + 1)
+            left_depth = max(self.depths_list)
+
+        self.depths_list = []
+        right_depth = 0
+        if self.root.right:
+            self._depth_fxn(self.root.right, right_depth + 1)
+            right_depth = max(self.depths_list)
+
+        return left_depth - right_depth

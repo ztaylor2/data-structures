@@ -144,3 +144,34 @@ def test_depth_returns_depth_of_tree_zero():
     """Test depth method returns proper depth of tree of depth four."""
     bst = BinarySearchTree()
     assert bst.depth() == 0
+
+
+def test_balance_one_val_in_tree(five_bst):
+    """Test balanced tree returns zero when only one val in tree."""
+    assert five_bst.balance() == 0
+
+
+def test_balance_balanced_tree_full(full_bst):
+    """Test balanced tree returns zero when balanced tree."""
+    assert full_bst.balance() == 0
+
+
+def test_unballanced_tree_one(five_bst):
+    """Test an unbalanced tree returns one when left has one more depth."""
+    five_bst.insert(3)
+    assert five_bst.balance() == 1
+
+
+def test_unballanced_tree_negative_one(five_bst):
+    """Test an unbalanced tree returns negative one when right has one more depth."""
+    five_bst.insert(7)
+    assert five_bst.balance() == -1
+
+
+def test_unballanced_tree_two(five_bst):
+    """Test an unbalanced tree returns one when left has one more depth."""
+    five_bst.insert(4)
+    five_bst.insert(3)
+    five_bst.insert(2)
+    five_bst.insert(1)
+    assert five_bst.balance() == 4
