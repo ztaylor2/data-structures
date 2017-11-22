@@ -109,11 +109,6 @@ def test_size_returns_size_of_tree(full_bst):
     assert full_bst.size() == 9
 
 
-# def test_depth_returns_depth_of_tree(full_bst):
-#     """Test depth method returns proper depth of tree of depth four."""
-#     assert full_bst.depth() == 4
-
-
 def test_contains_returns_true(full_bst):
     """Test contains returns true when value is in tree."""
     assert full_bst.contains(14) is True
@@ -122,3 +117,30 @@ def test_contains_returns_true(full_bst):
 def test_contains_returns_false(full_bst):
     """Test contains returns false when value is in tree."""
     assert full_bst.contains(77) is False
+
+
+def test_parent_pointer_works(full_bst):
+    """Test the parent pointer is working."""
+    assert full_bst.search(6).parent.val == 3
+    assert full_bst.search(14).parent.val == 10
+
+
+def test_parent_pointer_works_none(five_bst):
+    """Test the parent pointer is working."""
+    assert five_bst.root.parent is None
+
+
+def test_depth_returns_depth_of_tree(full_bst):
+    """Test depth method returns proper depth of tree of depth four."""
+    assert full_bst.depth() == 4
+
+
+def test_depth_returns_depth_of_tree_one(five_bst):
+    """Test depth method returns proper depth of tree of depth four."""
+    assert five_bst.depth() == 1
+
+
+def test_depth_returns_depth_of_tree_zero():
+    """Test depth method returns proper depth of tree of depth four."""
+    bst = BinarySearchTree()
+    assert bst.depth() == 0

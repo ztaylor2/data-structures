@@ -4,11 +4,13 @@
 class Node(object):
     """The node class."""
 
-    def __init__(self, val, right=None, left=None):
+    def __init__(self, val, right=None, left=None, parent=None, depth=1):
         """On initialization."""
         self.val = val
         self.right = right
         self.left = left
+        self.parent = parent
+        self.depth = depth
 
 
 class BinarySearchTree(object):
@@ -20,6 +22,7 @@ class BinarySearchTree(object):
         self.size_count = 0
         if val:
             self.size_count += 1
+        self.depths_list = []
 
     def insert(self, val):
         """Insert node."""
@@ -28,13 +31,13 @@ class BinarySearchTree(object):
             while current:
                 if val > current.val:
                     if not current.right:
-                        current.right = Node(val)
+                        current.right = Node(val, None, None, current)
                         self.size_count += 1
                         return
                     current = current.right
                 elif val < current.val:
                     if not current.left:
-                        current.left = Node(val)
+                        current.left = Node(val, None, None, current)
                         self.size_count += 1
                         return
                     current = current.left
@@ -62,7 +65,21 @@ class BinarySearchTree(object):
 
     def depth(self):
         """Return depth."""
+        self.depths_list = []
+        depth = 0
+        if self.root.val:
+            self._depth_fxn(self.root, depth + 1)
+            return max(self.depths_list)
+        return depth
 
+    def _depth_fxn(self, current, depth):
+        if current.right is None and current.left is None:
+            self.depths_list.append(depth)
+            return
+        if current.right:
+            return self._depth_fxn(current.right, depth + 1)
+        if current.left:
+            return self._depth_fxn(current.left, depth + 1)
 
     def contains(self, val):
         """Check existance, return boolean."""
