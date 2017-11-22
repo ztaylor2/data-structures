@@ -1,5 +1,6 @@
 """A binary search tree written in python."""
 
+import timeit
 
 class Node(object):
     """The node class."""
@@ -109,3 +110,38 @@ class BinarySearchTree(object):
             right_depth = max(self.depths_list)
 
         return left_depth - right_depth
+
+
+def _wrapper(func, *args, **kwargs):
+    def _wrapped():
+        return func(*args, **kwargs)
+    return _wrapped
+
+
+if __name__ == '__main__':
+    worst_case_bst = BinarySearchTree()
+    for i in range(15):
+        worst_case_bst.insert(i)
+
+    find15 = _wrapper(worst_case_bst.search, 14)
+    print(timeit.timeit(find15))
+
+    best_case_bst = BinarySearchTree((100, 50, 200, 25, 75, 150, 250,
+                                      12.5, 37.5, 62.5, 87.5, 125, 175,
+                                      225, 275))
+
+    find275 = _wrapper(best_case_bst.search, 275)
+    print(timeit.timeit(find275))
+
+    # why is this O(n) so much faster?
+    list_test = []
+    for i in range(15):
+        list_test.append(i)
+
+    def bla():
+        """."""
+        for i in list_test:
+            if i == 14:
+                return 14
+
+    print(timeit.timeit(bla))
