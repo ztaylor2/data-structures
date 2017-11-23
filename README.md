@@ -147,3 +147,11 @@ A binary search tree is a node based data structure where the left subtree of a 
 `depth()`: O(n) (recursive method)
 `contains`: O(n) Worst Case, O(log(n)) Average
 `balance`: O(n) (recursive method)
+
+**Unballanced Binary Search Tree Traversal**
+Moving through and returning values from a binary search tree. 
+
+`in_order()`:
+`pre_order()`:
+`post_order()`:
+`breadth_first()`:

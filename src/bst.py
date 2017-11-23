@@ -111,6 +111,20 @@ class BinarySearchTree(object):
 
         return left_depth - right_depth
 
+    def in_order(self):
+        """Return a generator returning numbers in tree in order."""
+
+    def pre_order(self):
+        """Return a generator that will return the values in the tree in pre order."""
+
+    def post_order(self):
+        """Return generator that returns values in tree in post order traversal."""
+
+    def breadth_first(self):
+        """Return a generator that returns values in tree in breadth first order."""
+
+
+
 
 def _wrapper(func, *args, **kwargs):
     def _wrapped():
