@@ -1,6 +1,8 @@
 """A binary search tree written in python."""
 
 import timeit
+from que_ import Queue
+
 
 class Node(object):
     """The node class."""
@@ -122,8 +124,18 @@ class BinarySearchTree(object):
 
     def breadth_first(self):
         """Return a generator that returns values in tree in breadth first order."""
+        breadth_list = Queue()
+        breadth_list.enqueue(self.root)
+        yield breadth_list.peek().val
 
-
+        while breadth_list.peek():
+            if breadth_list.peek().left:
+                breadth_list.enqueue(breadth_list.peek().left)
+                yield breadth_list.peek().left.val
+            if breadth_list.peek().right:
+                breadth_list.enqueue(breadth_list.peek().right)
+                yield breadth_list.peek().right.val
+            breadth_list.dequeue()
 
 
 def _wrapper(func, *args, **kwargs):
