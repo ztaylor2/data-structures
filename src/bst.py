@@ -115,6 +115,19 @@ class BinarySearchTree(object):
 
     def in_order(self):
         """Return a generator returning numbers in tree in order."""
+        current = self.root
+        visited = []
+        while True:
+            while current.left:
+                current = current.left
+            yield current.val
+            while current.parent in visited:
+                current = current.parent
+            import pdb; pdb.set_trace()
+            yield current.parent.val
+            visited.append(current.parent)
+            if current.parent.right:
+                current = current.parent.right
 
     def pre_order(self):
         """Return a generator that will return the values in the tree in pre order."""
