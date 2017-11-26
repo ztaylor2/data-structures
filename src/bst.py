@@ -121,7 +121,6 @@ class BinarySearchTree(object):
             yield root_node.val
             if root_node.right:
                 yield from recurse_tree_in_order(root_node.right)
-
         yield from recurse_tree_in_order(self.root)
 
     def pre_order(self):
@@ -133,11 +132,18 @@ class BinarySearchTree(object):
                 yield from recurse_tree_pre_order(root_node.left)
             if root_node.right:
                 yield from recurse_tree_pre_order(root_node.right)
-
         yield from recurse_tree_pre_order(self.root)
 
     def post_order(self):
         """Return generator that returns values in tree in post order traversal."""
+        def recurse_tree_post_order(root_node):
+            """Recurse tree in pre order."""
+            if root_node.left:
+                yield from recurse_tree_post_order(root_node.left)
+            if root_node.right:
+                yield from recurse_tree_post_order(root_node.right)
+            yield root_node.val
+        print(recurse_tree_post_order(self.root))
 
     def breadth_first(self):
         """Return a generator that returns values in tree in breadth first order."""
