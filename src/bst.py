@@ -17,7 +17,6 @@ class Node(object):
 
 class BinarySearchTree(object):
     """Binary Search Tree."""
-
     def __init__(self, val=None):
         """Init top node."""
         self.size_count = 0
@@ -135,10 +134,6 @@ class BinarySearchTree(object):
 
     def in_order(self):
         """In order traversal of binary search tree."""
-        # recurse left tree
-        # return root node
-        # recurse right tree
-
         def recurse_tree(root_node):
             """Recurse tree."""
             if root_node.left:
