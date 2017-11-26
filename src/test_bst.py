@@ -200,8 +200,18 @@ def test_in_order_traversal(full_bst):
     assert next(bf) == 14
 
 
-# def test_pre_order_traversal(full_bst):
-#     """Test pre order trabersal method of bst."""
+def test_pre_order_traversal(full_bst):
+    """Test pre order trabersal method of bst."""
+    bf = full_bst.pre_order()
+    assert next(bf) == 8
+    assert next(bf) == 3
+    assert next(bf) == 1
+    assert next(bf) == 6
+    assert next(bf) == 4
+    assert next(bf) == 7
+    assert next(bf) == 10
+    assert next(bf) == 14
+    assert next(bf) == 13
 
 
 # def test_post_order_traversal(full_bst):
