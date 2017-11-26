@@ -113,21 +113,40 @@ class BinarySearchTree(object):
 
         return left_depth - right_depth
 
+        # interative method:
+    # def in_order(self):
+    #     """Return a generator returning numbers in tree in order."""
+    #     current = self.root
+    #     visited = []
+    #     while True:
+    #         while current.left:
+    #             current = current.left
+    #         yield current.val
+    #         while current.parent in visited:
+    #             current = current.parent
+    #         import pdb; pdb.set_trace()
+    #         yield current.parent.val
+    #         visited.append(current.parent)
+    #         if current.parent.right:
+    #             current = current.parent.right
+
+    # recursive method:
+
+    def recurse_tree(self, root_node):
+        """Recurse tree."""
+        if root_node.left:
+            self.recurse_tree(root_node.left)
+        print(root_node.val)
+        if root_node.right:
+            self.recurse_tree(root_node.right)
+
     def in_order(self):
-        """Return a generator returning numbers in tree in order."""
-        current = self.root
-        visited = []
-        while True:
-            while current.left:
-                current = current.left
-            yield current.val
-            while current.parent in visited:
-                current = current.parent
-            import pdb; pdb.set_trace()
-            yield current.parent.val
-            visited.append(current.parent)
-            if current.parent.right:
-                current = current.parent.right
+        """In order traversal of binary search tree."""
+        # recurse left tree
+        # return root node
+        # recurse right tree
+        return self.recurse_tree(self.root)
+
 
     def pre_order(self):
         """Return a generator that will return the values in the tree in pre order."""
