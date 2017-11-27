@@ -184,3 +184,89 @@ def test_interable_init():
     assert bst.contains(5)
     assert bst.contains(3)
     assert bst.contains(6)
+
+
+def test_in_order_traversal(full_bst):
+    """Test in order traversal method of bst."""
+    bf = full_bst.in_order()
+    assert next(bf) == 1
+    assert next(bf) == 3
+    assert next(bf) == 4
+    assert next(bf) == 6
+    assert next(bf) == 7
+    assert next(bf) == 8
+    assert next(bf) == 10
+    assert next(bf) == 13
+    assert next(bf) == 14
+
+def test_in_order_empty_error():
+    """Test that in order traversal throws index error when empty tree."""
+    bst = BinarySearchTree()
+    bst_traversal = bst.in_order()
+    with pytest.raises(IndexError):
+        next(bst_traversal)
+
+def test_pre_order_traversal(full_bst):
+    """Test pre order trabersal method of bst."""
+    bf = full_bst.pre_order()
+    assert next(bf) == 8
+    assert next(bf) == 3
+    assert next(bf) == 1
+    assert next(bf) == 6
+    assert next(bf) == 4
+    assert next(bf) == 7
+    assert next(bf) == 10
+    assert next(bf) == 14
+    assert next(bf) == 13
+
+
+def test_pre_order_empty_error():
+    """Test that pre order traversal throws index error when empty tree."""
+    bst = BinarySearchTree()
+    bst_traversal = bst.pre_order()
+    with pytest.raises(IndexError):
+        next(bst_traversal)
+
+
+def test_post_order_traversal(full_bst):
+    """Test post order traversal of bst."""
+    bf = full_bst.post_order()
+    assert next(bf) == 1
+    assert next(bf) == 4
+    assert next(bf) == 7
+    assert next(bf) == 6
+    assert next(bf) == 3
+    assert next(bf) == 13
+    assert next(bf) == 14
+    assert next(bf) == 10
+    assert next(bf) == 8
+
+
+def test_post_order_empty_error():
+    """Test that post order traversal throws index error when empty tree."""
+    bst = BinarySearchTree()
+    bst_traversal = bst.post_order()
+    with pytest.raises(IndexError):
+        next(bst_traversal)
+
+
+def test_breadth_first_traversal(full_bst):
+    """Test breadth first traversal of bst."""
+    bf = full_bst.breadth_first()
+    assert next(bf) == 8
+    assert next(bf) == 3
+    assert next(bf) == 10
+    assert next(bf) == 1
+    assert next(bf) == 6
+    assert next(bf) == 14
+    assert next(bf) == 4
+    assert next(bf) == 7
+    assert next(bf) == 13
+
+
+def test_breadth_first_order_empty_error():
+    """Test that post order traversal throws index error when empty tree."""
+    bst = BinarySearchTree()
+    bst_traversal = bst.breadth_first()
+    with pytest.raises(IndexError):
+        next(bst_traversal)
