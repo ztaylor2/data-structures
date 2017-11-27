@@ -143,7 +143,7 @@ class BinarySearchTree(object):
             if root_node.right:
                 yield from recurse_tree_post_order(root_node.right)
             yield root_node.val
-        print(recurse_tree_post_order(self.root))
+        yield from recurse_tree_post_order(self.root)
 
     def breadth_first(self):
         """Return a generator that returns values in tree in breadth first order."""
