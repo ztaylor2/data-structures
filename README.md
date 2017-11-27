@@ -149,9 +149,19 @@ A binary search tree is a node based data structure where the left subtree of a 
 `balance`: O(n) (recursive method)
 
 **Unballanced Binary Search Tree Traversal**
-Moving through and returning values from a binary search tree. 
+Moving through and returning values from a binary search tree (built with generators). 
 
-`in_order()`:
-`pre_order()`:
-`post_order()`:
-`breadth_first()`:
+Tree traversal example:
+```
+from bst import BinarySearchTree()
+
+bst = BinarySearchTree()
+bst_traversal = bst.in_order()
+next(bst_traversal) # returns next number in traversal from generator 
+```
+
+
+`in_order()`: O(n)
+`pre_order()`: O(n)
+`post_order()`: O(n)
+`breadth_first()`: O(n * k) / (Nodes * Edges)

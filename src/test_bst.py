@@ -227,6 +227,7 @@ def test_post_order_traversal(full_bst):
     assert next(bf) == 10
     assert next(bf) == 8
 
+
 def test_breadth_first_traversal(full_bst):
     """Test breadth first traversal of bst."""
     bf = full_bst.breadth_first()
