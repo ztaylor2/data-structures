@@ -114,6 +114,9 @@ class BinarySearchTree(object):
 
     def in_order(self):
         """In order traversal of binary search tree."""
+        if self.size_count == 0:
+            raise IndexError("Cannot traverse empty tree.")
+
         def recurse_tree_in_order(root_node):
             """Recurse tree."""
             if root_node.left:
@@ -125,6 +128,9 @@ class BinarySearchTree(object):
 
     def pre_order(self):
         """Return a generator that will return the values in the tree in pre order."""
+        if self.size_count == 0:
+            raise IndexError("Cannot traverse empty tree.")
+
         def recurse_tree_pre_order(root_node):
             """Recurse tree in pre order."""
             yield root_node.val
@@ -136,6 +142,9 @@ class BinarySearchTree(object):
 
     def post_order(self):
         """Return generator that returns values in tree in post order traversal."""
+        if self.size_count == 0:
+            raise IndexError("Cannot traverse empty tree.")
+
         def recurse_tree_post_order(root_node):
             """Recurse tree in pre order."""
             if root_node.left:
@@ -147,6 +156,9 @@ class BinarySearchTree(object):
 
     def breadth_first(self):
         """Return a generator that returns values in tree in breadth first order."""
+        if self.size_count == 0:
+            raise IndexError("Cannot traverse empty tree.")
+
         breadth_list = Queue()
         breadth_list.enqueue(self.root)
         yield breadth_list.peek().val
