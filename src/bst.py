@@ -97,18 +97,20 @@ class BinarySearchTree(object):
             return True
         return False
 
-    def balance(self):
+    def balance(self, node=None):
         """Return tree balance."""
+        if not node:
+            node = self.root
         self.depths_list = []
         left_depth = 0
-        if self.root.left:
-            self._depth_fxn(self.root.left, left_depth + 1)
+        if node.left:
+            self._depth_fxn(node.left, left_depth + 1)
             left_depth = max(self.depths_list)
 
         self.depths_list = []
         right_depth = 0
-        if self.root.right:
-            self._depth_fxn(self.root.right, right_depth + 1)
+        if node.right:
+            self._depth_fxn(node.right, right_depth + 1)
             right_depth = max(self.depths_list)
 
         return left_depth - right_depth
@@ -259,6 +261,72 @@ class BinarySearchTree(object):
                 breadth_list.enqueue(breadth_list.peek().right)
                 yield breadth_list.peek().right.val
             breadth_list.dequeue()
+
+    def delete(self, val):
+        """Delete a node."""
+        node = self.search(val)
+
+        # leaf node
+        if node.left is None and node.right is None:
+            if node == node.parent.right:
+                node.parent.right = None
+            if node == node.parent.left:
+                node.parent.left = None
+            node.parent = None
+
+        # node to delete has one right child
+        if node.right and not node.left:
+            if node.parent.right == node:
+                node.parent.right = node.right
+                node.right.parent = node.parent
+            if node.parent.left == node:
+                node.parent.left = node.right
+                node.right.parent = node.parent
+            node.parent = None
+
+        # node to delete has one left child
+        if node.left and not node.right:
+            if node.parent.right == node:
+                node.parent.right = node.left
+                node.left.parent = node.parent
+            if node.parent.left == node:
+                node.parent.left = node.left
+                node.left.parent = node.parent
+            node.parent = None
+
+        if node.right and node.left:
+            if self.balance(node) < 0:
+                self._delete_right_subrees_leftmost_child(node)
+
+    def _find_right_subtree_leftmost_child(self, node):
+        """From given node find right subtrees left most child."""
+        current = node.right
+        while current.left:
+            current = current.left
+        return current
+
+    def _find_left_subtree_rightmost_child(self, node):
+        """From given node find left subtrees rihgtmost child."""
+        current = node.left
+        while current.right:
+            current = current.right
+        return current
+
+    def _delete_right_subrees_leftmost_child(self, node):
+        """Delete node with its right subtees leftmost child."""
+        swap_node = self._find_right_subtree_leftmost_child(node)
+        if swap_node.right:
+            swap_node.parent.left = swap_node.right
+            swap_node.right.parent = swap_node.parent
+        swap_node.parent = node.parent
+        swap_node.right = node.right
+        swap_node.left = node.left
+        node.right.parent = swap_node
+        node.left.parent = swap_node
+        if node == node.parent.right:
+            node.parent.right = swap_node
+        if node == node.parent.left:
+            node.parent.left = swap_node
 
 
 def _wrapper(func, *args, **kwargs):

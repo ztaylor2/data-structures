@@ -25,6 +25,36 @@ def full_bst():
     return bst
 
 
+@pytest.fixture
+def five_four_three_six_seven():
+    """BST.
+            5
+        4       6
+       3          7
+    ."""
+    bst = BinarySearchTree(5)
+    bst.insert(4)
+    bst.insert(3)
+    bst.insert(6)
+    bst.insert(7)
+    return bst
+
+
+@pytest.fixture
+def five_three_four_seven_six():
+    """BST.
+             5
+         3       7
+          4     6
+    ."""
+    bst = BinarySearchTree(5)
+    bst.insert(3)
+    bst.insert(4)
+    bst.insert(7)
+    bst.insert(6)
+    return bst
+
+
 def test_root_node_on_init(five_bst):
     """Test that the root node exists on init."""
     assert five_bst.root.val == 5
@@ -320,3 +350,103 @@ def test_breadth_first_order_empty_error():
     bst_traversal = bst.breadth_first()
     with pytest.raises(IndexError):
         next(bst_traversal)
+
+
+def test_bst_delete_leaf(full_bst):
+    """Test bst delete method deletes leaf node."""
+    full_bst.delete(1)
+    bf = full_bst.in_order()
+    assert next(bf) == 3
+    assert not full_bst.contains(1)
+
+
+def test_bst_delete_leaf_pointers_reassigned(full_bst):
+    """Test bst delete method reassignes pointers."""
+    full_bst.delete(1)
+    assert not full_bst.root.left.left
+
+
+def test_bst_delete_one_child_left(full_bst):
+    """Test bst deletes a node with one child (left)."""
+    full_bst.delete(14)
+    bf = full_bst.in_order()
+    assert next(bf) == 1
+    assert next(bf) == 3
+    assert next(bf) == 4
+    assert next(bf) == 6
+    assert next(bf) == 7
+    assert next(bf) == 8
+    assert next(bf) == 10
+    assert next(bf) == 13
+
+
+def test_bst_delete_one_child_right(full_bst):
+    """Test bst deletes a node with one child (right)."""
+    full_bst.delete(10)
+    bf = full_bst.in_order()
+    assert next(bf) == 1
+    assert next(bf) == 3
+    assert next(bf) == 4
+    assert next(bf) == 6
+    assert next(bf) == 7
+    assert next(bf) == 8
+    assert next(bf) == 13
+    assert next(bf) == 14
+
+
+def test_bst_delete_one_child_left_left(five_four_three_six_seven):
+    """Test bst deletes a node with one child (left)."""
+    five_four_three_six_seven.delete(4)
+    bf = five_four_three_six_seven.in_order()
+    assert next(bf) == 3
+    assert next(bf) == 5
+    assert next(bf) == 6
+    assert next(bf) == 7
+
+
+def test_bst_delete_one_child_left_right(five_three_four_seven_six):
+    """Test bst deletes a node with one child (right)."""
+    five_three_four_seven_six.delete(3)
+    bf = five_three_four_seven_six.in_order()
+    assert next(bf) == 4
+    assert next(bf) == 5
+    assert next(bf) == 6
+    assert next(bf) == 7
+
+
+def test_bst_delete_one_child_right_right(five_four_three_six_seven):
+    """Test bst deletes a node with one child (left)."""
+    five_four_three_six_seven.delete(6)
+    bf = five_four_three_six_seven.in_order()
+    assert next(bf) == 3
+    assert next(bf) == 4
+    assert next(bf) == 5
+    assert next(bf) == 7
+
+
+def test_bst_delete_one_child_right_left(five_three_four_seven_six):
+    """Test bst deletes a node with one child (right)."""
+    five_three_four_seven_six.delete(3)
+    bf = five_three_four_seven_six.in_order()
+    assert next(bf) == 4
+    assert next(bf) == 5
+    assert next(bf) == 6
+    assert next(bf) == 7
+
+
+def test_delete_right_subtree_greater_depth(full_bst):
+    """Test delete when right subtree has greater depth."""
+    full_bst.delete(3)
+    bf = full_bst.in_order()
+    assert next(bf) == 1
+    assert next(bf) == 4
+    assert next(bf) == 6
+    assert next(bf) == 7
+    assert next(bf) == 8
+    assert next(bf) == 10
+    assert next(bf) == 13
+    assert next(bf) == 14
+
+
+# def test_swap_right_subtree_left_most_child(full_bst):
+#     from bst.py import _swap_right_subtree_leftmost_child
