@@ -89,7 +89,7 @@ def test_search_returns_node_with_correct_val_full_tree(full_bst):
 
 
 def test_search_return_none_if_val_not_in_tree(full_bst):
-    """Test search method returns none if the value searched for isn't in tree."""
+    """Test search method returns none if the value searched isn't in tree."""
     assert full_bst.search(77) is None
 
 
@@ -163,7 +163,7 @@ def test_unballanced_tree_one(five_bst):
 
 
 def test_unballanced_tree_negative_one(five_bst):
-    """Test an unbalanced tree returns negative one when right has one more depth."""
+    """Test an unbalanced tree returns negative one right has more depth."""
     five_bst.insert(7)
     assert five_bst.balance() == -1
 
@@ -199,16 +199,50 @@ def test_in_order_traversal(full_bst):
     assert next(bf) == 13
     assert next(bf) == 14
 
+
+# Recursive method only works in python 3
+
+def test_in_order_traversal_recurse(full_bst):
+    """Test in order traversal recursive method of bst."""
+    bf = full_bst.in_order('recurse')
+    assert next(bf) == 1
+    assert next(bf) == 3
+    assert next(bf) == 4
+    assert next(bf) == 6
+    assert next(bf) == 7
+    assert next(bf) == 8
+    assert next(bf) == 10
+    assert next(bf) == 13
+    assert next(bf) == 14
+
+
 def test_in_order_empty_error():
     """Test that in order traversal throws index error when empty tree."""
     bst = BinarySearchTree()
     bst_traversal = bst.in_order()
-    with pytest.raises(IndexError):
+    with pytest.raises(StopIteration):
         next(bst_traversal)
+
 
 def test_pre_order_traversal(full_bst):
     """Test pre order trabersal method of bst."""
     bf = full_bst.pre_order()
+    assert next(bf) == 8
+    assert next(bf) == 3
+    assert next(bf) == 1
+    assert next(bf) == 6
+    assert next(bf) == 4
+    assert next(bf) == 7
+    assert next(bf) == 10
+    assert next(bf) == 14
+    assert next(bf) == 13
+
+# Recursive method only works in python 3
+
+
+def test_pre_order_traversal_recurse(full_bst):
+    """Test pre order traversal recursive method of bst."""
+    bf = full_bst.pre_order('recurse')
     assert next(bf) == 8
     assert next(bf) == 3
     assert next(bf) == 1
@@ -241,12 +275,28 @@ def test_post_order_traversal(full_bst):
     assert next(bf) == 10
     assert next(bf) == 8
 
+# Recursive method only works in python 3
+
+
+def test_post_order_traversal_recurse(full_bst):
+    """Test post order traversal recursive method of bst."""
+    bf = full_bst.post_order('recurse')
+    assert next(bf) == 1
+    assert next(bf) == 4
+    assert next(bf) == 7
+    assert next(bf) == 6
+    assert next(bf) == 3
+    assert next(bf) == 13
+    assert next(bf) == 14
+    assert next(bf) == 10
+    assert next(bf) == 8
+
 
 def test_post_order_empty_error():
     """Test that post order traversal throws index error when empty tree."""
     bst = BinarySearchTree()
     bst_traversal = bst.post_order()
-    with pytest.raises(IndexError):
+    with pytest.raises(StopIteration):
         next(bst_traversal)
 
 

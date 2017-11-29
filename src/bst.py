@@ -17,6 +17,7 @@ class Node(object):
 
 class BinarySearchTree(object):
     """Binary Search Tree."""
+
     def __init__(self, val=None):
         """Init top node."""
         self.size_count = 0
@@ -112,7 +113,13 @@ class BinarySearchTree(object):
 
         return left_depth - right_depth
 
-    def in_order(self):
+    def in_order(self, recurse=None):
+        """Call iterable traversal or recursive traversal based on input."""
+        if recurse == 'recurse':
+            return self._in_order_recurse()
+        return self._in_order_iterate()
+
+    def _in_order_recurse(self):
         """In order traversal of binary search tree."""
         if self.size_count == 0:
             raise IndexError("Cannot traverse empty tree.")
@@ -126,8 +133,37 @@ class BinarySearchTree(object):
                 yield from recurse_tree_in_order(root_node.right)
         yield from recurse_tree_in_order(self.root)
 
-    def pre_order(self):
-        """Return a generator that will return the values in the tree in pre order."""
+    def _in_order_iterate(self):
+        """In order traversal solved iteratively."""
+        if self.size_count == 0:
+            return IndexError("Cannot traverse empty tree.")
+
+        current = self.root
+        visited = []
+
+        while len(visited) <= self.size_count:
+            if current.left and current.left.val not in visited:
+                current = current.left
+                continue
+
+            if current.val not in visited:
+                visited.append(current.val)
+                yield current.val
+
+            if current.right and current.right.val not in visited:
+                current = current.right
+                continue
+
+            current = current.parent
+
+    def pre_order(self, recurse=None):
+        """Pre order traversal."""
+        if recurse == 'recurse':
+            return self._pre_order_recurse()
+        return self._pre_order_iterate()
+
+    def _pre_order_recurse(self):
+        """Return a generator that will return values in tree in pre order."""
         if self.size_count == 0:
             raise IndexError("Cannot traverse empty tree.")
 
@@ -140,8 +176,37 @@ class BinarySearchTree(object):
                 yield from recurse_tree_pre_order(root_node.right)
         yield from recurse_tree_pre_order(self.root)
 
-    def post_order(self):
-        """Return generator that returns values in tree in post order traversal."""
+    def _pre_order_iterate(self):
+        """Pre order iteration generator."""
+        if self.size_count == 0:
+            raise IndexError("Cannot traverse empty tree.")
+
+        visited = []
+        current = self.root
+
+        while len(visited) <= self.size_count:
+            if current.val not in visited:
+                visited.append(current.val)
+                yield current.val
+
+            if current.left and current.left.val not in visited:
+                current = current.left
+                continue
+
+            if current.right and current.right.val not in visited:
+                current = current.right
+                continue
+
+            current = current.parent
+
+    def post_order(self, recurse=None):
+        """Post order traversal."""
+        if recurse == 'recurse':
+            return self._post_order_recurse()
+        return self._post_order_iterate()
+
+    def _post_order_recurse(self):
+        """Return generator that returns values in treepost order traversal."""
         if self.size_count == 0:
             raise IndexError("Cannot traverse empty tree.")
 
@@ -154,8 +219,31 @@ class BinarySearchTree(object):
             yield root_node.val
         yield from recurse_tree_post_order(self.root)
 
+    def _post_order_iterate(self):
+        """Iterate for post order traversal."""
+        if self.size_count == 0:
+            return IndexError("Cannot traverse empty tree.")
+
+        visited = []
+        current = self.root
+
+        while len(visited) <= self.size_count:
+            if current.left and current.left.val not in visited:
+                current = current.left
+                continue
+
+            if current.right and current.right.val not in visited:
+                current = current.right
+                continue
+
+            if current.val not in visited:
+                visited.append(current.val)
+                yield current.val
+
+            current = current.parent
+
     def breadth_first(self):
-        """Return a generator that returns values in tree in breadth first order."""
+        """Return a generator that returns values tree breadth first order."""
         if self.size_count == 0:
             raise IndexError("Cannot traverse empty tree.")
 
