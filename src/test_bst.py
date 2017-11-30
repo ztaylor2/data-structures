@@ -72,6 +72,35 @@ def five_balanced():
     return bst
 
 
+@pytest.fixture
+def five_right():
+    """BST.
+              5
+          3       7
+        2  4
+    ."""
+    bst = BinarySearchTree(5)
+    bst.insert(3)
+    bst.insert(4)
+    bst.insert(2)
+    bst.insert(7)
+    return bst
+
+
+@pytest.fixture
+def five_left():
+    """BST.
+              3
+           2     5
+                4  7
+    ."""
+    bst = BinarySearchTree(3)
+    bst.insert(2)
+    bst.insert(5)
+    bst.insert(4)
+    bst.insert(7)
+    return bst
+
 def test_root_node_on_init(five_bst):
     """Test that the root node exists on init."""
     assert five_bst.root.val == 5
@@ -595,3 +624,23 @@ def test_delete_left_subtree_greater_depth(full_bst):
     assert next(bf) == 10
     assert next(bf) == 13
     assert next(bf) == 14
+
+
+def test_right_rotatin(five_right):
+    """Test right rotation on simple tree on root node."""
+    five_right._right_rotation(five_right.root)
+    assert five_right.root.val == 3
+    assert five_right.root.right.val == 5
+    assert five_right.root.right.right.val == 7
+    assert five_right.root.right.left.val == 4
+    assert five_right.root.left.val == 2
+
+
+def test_left_rotatin(five_left):
+    """Test left rotation on simple tree on root node."""
+    five_left._left_rotation(five_left.root)
+    assert five_left.root.val == 5
+    assert five_left.root.right.val == 7
+    assert five_left.root.left.val == 3
+    assert five_left.root.left.left.val == 2
+    assert five_left.root.left.right.val == 4
