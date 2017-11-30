@@ -230,6 +230,19 @@ def test_in_order_traversal(full_bst):
     assert next(bf) == 14
 
 
+def test_in_order_traversal_iterate(full_bst):
+    """Test in order iterate traversal method of bst."""
+    bf = full_bst._in_order_iterate()
+    assert next(bf) == 1
+    assert next(bf) == 3
+    assert next(bf) == 4
+    assert next(bf) == 6
+    assert next(bf) == 7
+    assert next(bf) == 8
+    assert next(bf) == 10
+    assert next(bf) == 13
+    assert next(bf) == 14
+
 # Recursive method only works in python 3
 
 # def test_in_order_traversal_recurse(full_bst):
@@ -255,8 +268,22 @@ def test_in_order_empty_error():
 
 
 def test_pre_order_traversal(full_bst):
-    """Test pre order trabersal method of bst."""
+    """Test pre order traversal method of bst."""
     bf = full_bst.pre_order()
+    assert next(bf) == 8
+    assert next(bf) == 3
+    assert next(bf) == 1
+    assert next(bf) == 6
+    assert next(bf) == 4
+    assert next(bf) == 7
+    assert next(bf) == 10
+    assert next(bf) == 14
+    assert next(bf) == 13
+
+
+def test_pre_order_traversal_iterate(full_bst):
+    """Test pre order iterate traversal method of bst."""
+    bf = full_bst._pre_order_iterate()
     assert next(bf) == 8
     assert next(bf) == 3
     assert next(bf) == 1
@@ -295,6 +322,20 @@ def test_pre_order_empty_error():
 def test_post_order_traversal(full_bst):
     """Test post order traversal of bst."""
     bf = full_bst.post_order()
+    assert next(bf) == 1
+    assert next(bf) == 4
+    assert next(bf) == 7
+    assert next(bf) == 6
+    assert next(bf) == 3
+    assert next(bf) == 13
+    assert next(bf) == 14
+    assert next(bf) == 10
+    assert next(bf) == 8
+
+
+def test_post_order_traversal_iterate(full_bst):
+    """Test post order iteration traversal of bst."""
+    bf = full_bst._post_order_iterate()
     assert next(bf) == 1
     assert next(bf) == 4
     assert next(bf) == 7
@@ -436,7 +477,6 @@ def test_bst_delete_one_child_right_left(five_three_four_seven_six):
 
 def test_find_left_subtree_rightmost_child(full_bst):
     """Test find left subtree right most child returns correct node."""
-    # import pdb; pdb.set_trace()
     assert full_bst._find_left_subtree_rightmost_child(full_bst.root).val == 7
 
 
