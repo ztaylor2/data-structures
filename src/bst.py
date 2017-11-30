@@ -327,10 +327,13 @@ class BinarySearchTree(object):
         swap_node.left = node.left
         node.right.parent = swap_node
         node.left.parent = swap_node
-        if node == node.parent.right:
-            node.parent.right = swap_node
-        if node == node.parent.left:
-            node.parent.left = swap_node
+        if node is not self.root:
+            if node == node.parent.right:
+                node.parent.right = swap_node
+            if node == node.parent.left:
+                node.parent.left = swap_node
+        else:
+            self.root = swap_node
 
     def _delete_left_subtrees_rightmost_child(self, node):
         """Delete node with its left subtrees rightmost child."""
