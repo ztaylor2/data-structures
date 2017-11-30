@@ -520,6 +520,7 @@ def test_delete_when_not_in_tree(five_balanced):
     with pytest.raises(IndexError):
         five_balanced.delete(100)
 
+
 def test_delete_equal_length_subtrees(five_balanced):
     """Test delete on balanced tree."""
     five_balanced.delete(3)
@@ -531,6 +532,22 @@ def test_delete_equal_length_subtrees(five_balanced):
     assert next(bf) == 6
     assert next(bf) == 7
     assert next(bf) == 8
+
+
+def test_delete_right_subtree_greater_swap_node_no_children(five_balanced):
+    """Test delete."""
+    five_balanced.insert(7.5)
+    five_balanced.insert(8.5)
+    five_balanced.delete(7)
+    bf = five_balanced.in_order()
+    assert next(bf) == 2
+    assert next(bf) == 3
+    assert next(bf) == 4
+    assert next(bf) == 5
+    assert next(bf) == 6
+    assert next(bf) == 7.5
+    assert next(bf) == 8
+    assert next(bf) == 8.5
 
 
 def test_delete_right_subtree_greater_depth(full_bst):

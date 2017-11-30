@@ -341,7 +341,6 @@ class BinarySearchTree(object):
             swap_node.left.parent = swap_node.parent
         swap_node.parent = node.parent
         swap_node.right = node.right
-        # import pdb; pdb.set_trace()
         if swap_node is not node.left:
             swap_node.left = node.left
             node.left.parent = swap_node
