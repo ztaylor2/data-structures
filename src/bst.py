@@ -296,7 +296,9 @@ class BinarySearchTree(object):
 
         if node.right and node.left:
             if self.balance(node) < 0:
-                self._delete_right_subrees_leftmost_child(node)
+                self._delete_right_subtrees_leftmost_child(node)
+            else:
+                self._delete_left_subtrees_rightmost_child(node)
 
     def _find_right_subtree_leftmost_child(self, node):
         """From given node find right subtrees left most child."""
@@ -312,12 +314,28 @@ class BinarySearchTree(object):
             current = current.right
         return current
 
-    def _delete_right_subrees_leftmost_child(self, node):
+    def _delete_right_subtrees_leftmost_child(self, node):
         """Delete node with its right subtees leftmost child."""
         swap_node = self._find_right_subtree_leftmost_child(node)
         if swap_node.right:
             swap_node.parent.left = swap_node.right
             swap_node.right.parent = swap_node.parent
+        swap_node.parent = node.parent
+        swap_node.right = node.right
+        swap_node.left = node.left
+        node.right.parent = swap_node
+        node.left.parent = swap_node
+        if node == node.parent.right:
+            node.parent.right = swap_node
+        if node == node.parent.left:
+            node.parent.left = swap_node
+
+    def _delete_left_subtrees_rightmost_child(self, node):
+        """Delete node with its left subtrees rightmost child."""
+        swap_node = self._find_left_subtree_rightmost_child(node)
+        if swap_node.left:
+            swap_node.parent.right = swap_node.left
+            swap_node.left.parent = swap_node.parent
         swap_node.parent = node.parent
         swap_node.right = node.right
         swap_node.left = node.left
