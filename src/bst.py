@@ -268,7 +268,6 @@ class BinarySearchTree(object):
         if node is None:
             raise IndexError("Node not in tree.")
 
-        # leaf node
         if node.left is None and node.right is None:
             if node == node.parent.right:
                 node.parent.right = None
@@ -355,6 +354,11 @@ class BinarySearchTree(object):
         else:
             self.root = swap_node
 
+    def _right_rotation(self, node):
+        """Right rotation."""
+
+    def _left_rotation(self, node):
+        """Left rotation."""
 
 def _wrapper(func, *args, **kwargs):
     def _wrapped():

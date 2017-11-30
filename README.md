@@ -178,6 +178,8 @@ A binary search tree is a node based data structure where the left subtree of a 
 
 `balance`: O(n) (recursive method)
 
+`delete`: O(log(n))
+
 
 **Unballanced Binary Search Tree Traversal**
 Moving through and returning values from a binary search tree (built with generators). 
