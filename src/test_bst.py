@@ -160,6 +160,12 @@ def test_parent_pointer_works_none(five_bst):
     assert five_bst.root.parent is None
 
 
+def test_depth_helper_function(full_bst):
+    """Test the depth helper function."""
+    full_bst._depth_fxn(full_bst.root, 1)
+    assert full_bst.depths_list == [4]
+
+
 def test_depth_returns_depth_of_tree(full_bst):
     """Test depth method returns proper depth of tree of depth four."""
     assert full_bst.depth() == 4
