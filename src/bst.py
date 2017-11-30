@@ -265,6 +265,8 @@ class BinarySearchTree(object):
     def delete(self, val):
         """Delete a node."""
         node = self.search(val)
+        if node is None:
+            raise IndexError("Node not in tree.")
 
         # leaf node
         if node.left is None and node.right is None:
@@ -293,12 +295,13 @@ class BinarySearchTree(object):
                 node.parent.left = node.left
                 node.left.parent = node.parent
             node.parent = None
-
         if node.right and node.left:
             if self.balance(node) < 0:
                 self._delete_right_subtrees_leftmost_child(node)
             else:
                 self._delete_left_subtrees_rightmost_child(node)
+
+        self.size_count -= 1
 
     def _find_right_subtree_leftmost_child(self, node):
         """From given node find right subtrees left most child."""
@@ -338,9 +341,11 @@ class BinarySearchTree(object):
             swap_node.left.parent = swap_node.parent
         swap_node.parent = node.parent
         swap_node.right = node.right
-        swap_node.left = node.left
+        # import pdb; pdb.set_trace()
+        if swap_node is not node.left:
+            swap_node.left = node.left
+            node.left.parent = swap_node
         node.right.parent = swap_node
-        node.left.parent = swap_node
         if node == node.parent.right:
             node.parent.right = swap_node
         if node == node.parent.left:

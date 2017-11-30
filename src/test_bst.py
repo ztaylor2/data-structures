@@ -55,6 +55,23 @@ def five_three_four_seven_six():
     return bst
 
 
+@pytest.fixture
+def five_balanced():
+    """BST.
+              5
+          3       7
+        2  4     6  8
+    ."""
+    bst = BinarySearchTree(5)
+    bst.insert(3)
+    bst.insert(4)
+    bst.insert(2)
+    bst.insert(7)
+    bst.insert(6)
+    bst.insert(8)
+    return bst
+
+
 def test_root_node_on_init(five_bst):
     """Test that the root node exists on init."""
     assert five_bst.root.val == 5
@@ -489,6 +506,31 @@ def test_find_left_subtree_rightmost_child(full_bst):
 def test_find_right_subtree_leftmost_child(full_bst):
     """Test find right subtree lefmost child returns corrent node."""
     assert full_bst._find_right_subtree_leftmost_child(full_bst.root).val == 10
+
+
+def test_delete_decrements_size_count(five_balanced):
+    """Test that after a node is deleted the size of the BST correct."""
+    assert five_balanced.size() == 7
+    five_balanced.delete(2)
+    assert five_balanced.size() == 6
+
+
+def test_delete_when_not_in_tree(five_balanced):
+    """Test delete when val not in tree."""
+    with pytest.raises(IndexError):
+        five_balanced.delete(100)
+
+def test_delete_equal_length_subtrees(five_balanced):
+    """Test delete on balanced tree."""
+    five_balanced.delete(3)
+    assert not five_balanced.contains(3)
+    bf = five_balanced.in_order()
+    assert next(bf) == 2
+    assert next(bf) == 4
+    assert next(bf) == 5
+    assert next(bf) == 6
+    assert next(bf) == 7
+    assert next(bf) == 8
 
 
 def test_delete_right_subtree_greater_depth(full_bst):
