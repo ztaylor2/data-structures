@@ -534,6 +534,19 @@ def test_delete_equal_length_subtrees(five_balanced):
     assert next(bf) == 8
 
 
+def test_delete_root_node(five_balanced):
+    """Test delete root node."""
+    five_balanced.delete(5)
+    assert not five_balanced.contains(5)
+    bf = five_balanced.in_order()
+    assert next(bf) == 2
+    assert next(bf) == 3
+    assert next(bf) == 4
+    assert next(bf) == 6
+    assert next(bf) == 7
+    assert next(bf) == 8
+
+
 def test_delete_right_subtree_greater_swap_node_no_children(five_balanced):
     """Test delete."""
     five_balanced.insert(7.5)

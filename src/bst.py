@@ -276,7 +276,6 @@ class BinarySearchTree(object):
                 node.parent.left = None
             node.parent = None
 
-        # node to delete has one right child
         if node.right and not node.left:
             if node.parent.right == node:
                 node.parent.right = node.right
@@ -286,7 +285,6 @@ class BinarySearchTree(object):
                 node.right.parent = node.parent
             node.parent = None
 
-        # node to delete has one left child
         if node.left and not node.right:
             if node.parent.right == node:
                 node.parent.right = node.left
@@ -295,6 +293,7 @@ class BinarySearchTree(object):
                 node.parent.left = node.left
                 node.left.parent = node.parent
             node.parent = None
+
         if node.right and node.left:
             if self.balance(node) < 0:
                 self._delete_right_subtrees_leftmost_child(node)
@@ -345,10 +344,13 @@ class BinarySearchTree(object):
             swap_node.left = node.left
             node.left.parent = swap_node
         node.right.parent = swap_node
-        if node == node.parent.right:
-            node.parent.right = swap_node
-        if node == node.parent.left:
-            node.parent.left = swap_node
+        if node is not self.root:
+            if node == node.parent.right:
+                node.parent.right = swap_node
+            if node == node.parent.left:
+                node.parent.left = swap_node
+        else:
+            self.root = swap_node
 
 
 def _wrapper(func, *args, **kwargs):
