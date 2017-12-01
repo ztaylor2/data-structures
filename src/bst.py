@@ -357,26 +357,38 @@ class BinarySearchTree(object):
     def _right_rotation(self, node):
         """Right rotation."""
         pivot = node.left
+
         node.left = pivot.right
         pivot.right = node
-        node.parent = pivot
+
         if node == self.root:
             self.root = pivot
-            pivot.parent = None
         else:
-            pivot.parent = node.parent
+            node.parent.left = pivot
+
+        if pivot.right:
+            pivot.right.parent = node
+
+        pivot.parent = node.parent
+        node.parent = pivot
 
     def _left_rotation(self, node):
         """Left rotation."""
         pivot = node.right
+
         node.right = pivot.left
         pivot.left = node
-        node.parent = pivot
+
         if node == self.root:
             self.root = pivot
-            pivot.parent = None
         else:
-            pivot.parent = node.parent
+            node.parent.right = pivot
+
+        if pivot.left:
+            pivot.left.parent = node
+
+        pivot.parent = node.parent
+        node.parent = pivot
 
 
 def _wrapper(func, *args, **kwargs):

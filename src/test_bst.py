@@ -41,6 +41,24 @@ def five_four_three_six_seven():
 
 
 @pytest.fixture
+def five_four_three_two_six_seven_eight():
+    """BST.
+             5
+         4       6
+        3          7
+       2             8
+    ."""
+    bst = BinarySearchTree(5)
+    bst.insert(4)
+    bst.insert(3)
+    bst.insert(2)
+    bst.insert(6)
+    bst.insert(7)
+    bst.insert(8)
+    return bst
+
+
+@pytest.fixture
 def five_three_four_seven_six():
     """BST.
              5
@@ -626,7 +644,7 @@ def test_delete_left_subtree_greater_depth(full_bst):
     assert next(bf) == 14
 
 
-def test_right_rotatin(five_right):
+def test_right_rotation(five_right):
     """Test right rotation on simple tree on root node."""
     five_right._right_rotation(five_right.root)
     assert five_right.root.val == 3
@@ -634,6 +652,18 @@ def test_right_rotatin(five_right):
     assert five_right.root.right.right.val == 7
     assert five_right.root.right.left.val == 4
     assert five_right.root.left.val == 2
+
+
+def test_right_rotation_non_root(five_four_three_two_six_seven_eight):
+    """Test right rotation on non root node."""
+    five_four_three_two_six_seven_eight._right_rotation(five_four_three_two_six_seven_eight.root.left)
+    assert five_four_three_two_six_seven_eight.root.val == 5
+    assert five_four_three_two_six_seven_eight.root.left.val == 3
+    assert five_four_three_two_six_seven_eight.root.left.left.val == 2
+    assert five_four_three_two_six_seven_eight.root.left.right.val == 4
+    assert five_four_three_two_six_seven_eight.root.right.val == 6
+    assert five_four_three_two_six_seven_eight.root.right.right.val == 7
+    assert five_four_three_two_six_seven_eight.root.right.right.right.val == 8
 
 
 def test_left_rotatin(five_left):
@@ -644,3 +674,15 @@ def test_left_rotatin(five_left):
     assert five_left.root.left.val == 3
     assert five_left.root.left.left.val == 2
     assert five_left.root.left.right.val == 4
+
+
+def test_left_rotation_non_root(five_four_three_two_six_seven_eight):
+    """Test left rotation on non root node."""
+    five_four_three_two_six_seven_eight._left_rotation(five_four_three_two_six_seven_eight.root.right)
+    assert five_four_three_two_six_seven_eight.root.val == 5
+    assert five_four_three_two_six_seven_eight.root.left.val == 4
+    assert five_four_three_two_six_seven_eight.root.left.left.val == 3
+    assert five_four_three_two_six_seven_eight.root.left.left.left.val == 2
+    assert five_four_three_two_six_seven_eight.root.right.val == 7
+    assert five_four_three_two_six_seven_eight.root.right.right.val == 8
+    assert five_four_three_two_six_seven_eight.root.right.left.val == 6
