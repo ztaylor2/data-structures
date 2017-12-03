@@ -666,7 +666,7 @@ def test_right_rotation_non_root(five_four_three_two_six_seven_eight):
     assert five_four_three_two_six_seven_eight.root.right.right.right.val == 8
 
 
-def test_left_rotatin(five_left):
+def test_left_rotation(five_left):
     """Test left rotation on simple tree on root node."""
     five_left._left_rotation(five_left.root)
     assert five_left.root.val == 5

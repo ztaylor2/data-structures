@@ -321,11 +321,13 @@ class BinarySearchTree(object):
         if swap_node.right:
             swap_node.parent.left = swap_node.right
             swap_node.right.parent = swap_node.parent
+
         swap_node.parent = node.parent
         swap_node.right = node.right
         swap_node.left = node.left
         node.right.parent = swap_node
         node.left.parent = swap_node
+
         if node is not self.root:
             if node == node.parent.right:
                 node.parent.right = swap_node
@@ -340,12 +342,15 @@ class BinarySearchTree(object):
         if swap_node.left:
             swap_node.parent.right = swap_node.left
             swap_node.left.parent = swap_node.parent
+
         swap_node.parent = node.parent
         swap_node.right = node.right
         if swap_node is not node.left:
             swap_node.left = node.left
             node.left.parent = swap_node
+
         node.right.parent = swap_node
+
         if node is not self.root:
             if node == node.parent.right:
                 node.parent.right = swap_node
@@ -354,41 +359,68 @@ class BinarySearchTree(object):
         else:
             self.root = swap_node
 
+    def _ballance_node(self, node):
+        """Balance on a node."""
+        node_balance = self.balance(node)
+
+        if node.parent.right == node:
+            if node_balance == -1:
+                self._right_rotation(node)
+                self._left_rotation(node)
+            if node_balance >= 0:
+                self._right_rotation(node)
+        if node.parent.left == node:
+            if node_balance == 1:
+                self._left_rotation(node)
+                self._right_rotation(node)
+            if node_balance <= 0:
+                self._left_rotation(node)
+
     def _right_rotation(self, node):
         """Right rotation."""
         pivot = node.left
-
         node.left = pivot.right
-        pivot.right = node
-
-        if node == self.root:
-            self.root = pivot
-        else:
-            node.parent.left = pivot
 
         if pivot.right:
             pivot.right.parent = node
 
         pivot.parent = node.parent
-        node.parent = pivot
-
-    def _left_rotation(self, node):
-        """Left rotation."""
-        pivot = node.right
-
-        node.right = pivot.left
-        pivot.left = node
 
         if node == self.root:
             self.root = pivot
         else:
-            node.parent.right = pivot
+            if node.parent.left == node:
+                node.parent.left = pivot
+            else:
+                node.parent.right = pivot
+
+        pivot.right = node
+        node.parent = pivot
+        # pivot.balance_factor =
+        # node.balance_factor =
+
+    def _left_rotation(self, node):
+        """Left rotation."""
+        pivot = node.right
+        node.right = pivot.left
 
         if pivot.left:
             pivot.left.parent = node
 
         pivot.parent = node.parent
+
+        if node == self.root:
+            self.root = pivot
+        else:
+            if node.parent.left == node:
+                node.parent.left = pivot
+            else:
+                node.parent.right = pivot
+
+        pivot.left = node
         node.parent = pivot
+        # pivot.balance_factor =
+        # node.balance_factor =
 
 
 def _wrapper(func, *args, **kwargs):
