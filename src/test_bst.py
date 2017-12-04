@@ -59,6 +59,24 @@ def five_four_three_two_six_seven_eight():
 
 
 @pytest.fixture
+def five_four_three_threefive_six_seven_sixfive():
+    """BST.
+                5
+            4       6
+         3             7
+          3.5       6.5
+    ."""
+    bst = BinarySearchTree(5)
+    bst.insert(4)
+    bst.insert(3)
+    bst.insert(3.5)
+    bst.insert(6)
+    bst.insert(7)
+    bst.insert(6.5)
+    return bst
+
+
+@pytest.fixture
 def five_three_four_seven_six():
     """BST.
              5
@@ -696,9 +714,25 @@ def test_balance_node_neg_two_neg_one_left_rotation(five_four_three_two_six_seve
     assert five_four_three_two_six_seven_eight.root.right.left.val == 6
 
 
-def test_balance_node_two_one_left_rotation(five_four_three_two_six_seven_eight):
+def test_balance_node_two_one_right_rotation(five_four_three_two_six_seven_eight):
     """Test balance node funciton on format of node.left.left."""
     five_four_three_two_six_seven_eight._balance_node(five_four_three_two_six_seven_eight.root.left)
     assert five_four_three_two_six_seven_eight.root.left.val == 3
     assert five_four_three_two_six_seven_eight.root.left.right.val == 4
     assert five_four_three_two_six_seven_eight.root.left.left.val == 2
+
+
+def test_balance_node_neg_two_one_right_left_rotation(five_four_three_threefive_six_seven_sixfive):
+    """Test balance node funciton on format of node.right.left."""
+    five_four_three_threefive_six_seven_sixfive._balance_node(five_four_three_threefive_six_seven_sixfive.root.right)
+    assert five_four_three_threefive_six_seven_sixfive.root.right.val == 6.5
+    assert five_four_three_threefive_six_seven_sixfive.root.right.left.val == 6
+    assert five_four_three_threefive_six_seven_sixfive.root.right.right.val == 7
+
+
+def test_balance_node_two_neg_one_left_right_rotation(five_four_three_threefive_six_seven_sixfive):
+    """Test balance node funcitno on format of node.left.rihgt."""
+    five_four_three_threefive_six_seven_sixfive._balance_node(five_four_three_threefive_six_seven_sixfive.root.left)
+    assert five_four_three_threefive_six_seven_sixfive.root.left.val == 3.5
+    assert five_four_three_threefive_six_seven_sixfive.root.left.left.val == 3
+    assert five_four_three_threefive_six_seven_sixfive.root.left.right.val == 4
