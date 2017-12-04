@@ -7,12 +7,13 @@ from que_ import Queue
 class Node(object):
     """The node class."""
 
-    def __init__(self, val, right=None, left=None, parent=None, depth=1):
+    def __init__(self, val, right=None, left=None, parent=None):
         """On initialization."""
         self.val = val
         self.right = right
         self.left = left
         self.parent = parent
+        self.depth = 0
 
 
 class BinarySearchTree(object):
@@ -362,6 +363,8 @@ class BinarySearchTree(object):
     def _ballance_node(self, node):
         """Balance on a node."""
         node_balance = self.balance(node)
+        node_right_child_balance = self.balance(node.right)
+        node_left_child_balance = self.balance(node.left)
 
         if node.parent.right == node:
             if node_balance == -1:
