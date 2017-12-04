@@ -2,6 +2,7 @@
 
 import pytest
 from bst import BinarySearchTree
+import random
 
 
 @pytest.fixture
@@ -661,6 +662,7 @@ def test_delete_left_subtree_greater_depth(full_bst):
     assert next(bf) == 13
     assert next(bf) == 14
 
+# moved these methods into self balancing tree class.
 
 # def test_right_rotation(five_right):
 #     """Test right rotation on simple tree on root node."""
@@ -792,3 +794,79 @@ def test_avlbst_balances_on_insert_right_right():
     assert avl.root.val == 6
     assert avl.root.right.val == 7
     assert avl.root.left.val == 5
+
+
+def test_avlbst_delete_method_balances():
+    """Test tree is balanced after delete method."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(5)
+    avl.insert(3)
+    avl.insert(2)
+    avl.insert(7)
+    avl.delete(7)
+    assert avl.root.val == 3
+    assert avl.root.right.val == 5
+    assert avl.root.left.val == 2
+
+
+def test_insert_items_rebal_right_left_rotation():
+    """Test that the tree rebalances on a left right rotation."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(85)
+    avl.insert(2)
+    avl.insert(88)
+    avl.insert(79)
+    avl.insert(55)
+    assert avl.root.val == 85
+    assert avl.root.right.val == 88
+    assert avl.root.left.val == 55
+    assert avl.root.left.left.val == 2
+    assert avl.root.left.right.val == 79
+    avl.insert(50)
+    assert avl.balance() == 1 or avl.balance() == 0 or avl.balance() == -1
+    # import pdb; pdb.set_trace()
+    assert avl.root.val == 55
+
+
+def test_tree_balance_returns_correctly():
+    """Test balance function returns currect balance."""
+    from bst import BinarySearchTree
+    bst = BinarySearchTree()
+    bst.insert(85)
+    bst.insert(55)
+    bst.insert(88)
+    bst.insert(2)
+    bst.insert(79)
+    bst.insert(50)
+    assert bst.balance() == 2
+
+
+def test_depth_function_returns_correctly():
+    """Test that the depth function returns correct val."""
+    from bst import BinarySearchTree
+    bst = BinarySearchTree()
+    bst.insert(85)
+    bst.insert(55)
+    bst.insert(88)
+    bst.insert(2)
+    bst.insert(79)
+    bst.insert(50)
+    assert bst.depth() == 4
+    assert bst.depth(bst.root.right) == 1
+    assert bst.depth(bst.root.left) == 3
+
+
+
+
+# def test_insert_many_times():
+#     """Test self balancing tree still balanced after 50 random insertions."""
+#     from bst import AVLBST
+#     avl = AVLBST()
+#     for _ in range(10):
+#         print(_)
+#         random_int = random.randint(1, 100)
+#         print(random_int)
+#         avl.insert(random_int)
+#     assert avl.balance() == 1 or avl.balance() == 0 or avl.balance() == -1

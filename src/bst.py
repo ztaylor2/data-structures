@@ -77,23 +77,36 @@ class BinarySearchTree(object):
         """Return size."""
         return self.size_count
 
-    def depth(self):
+    def depth(self, node=None):
         """Return depth."""
-        self.depths_list = []
-        depth = 0
-        if self.root.val:
-            self._depth_fxn(self.root, depth + 1)
-            return max(self.depths_list)
-        return depth
+        if node is None:
+            node = self.root
 
-    def _depth_fxn(self, current, depth):
-        if current.right is None and current.left is None:
-            self.depths_list.append(depth)
-            return
-        if current.right:
-            return self._depth_fxn(current.right, depth + 1)
-        if current.left:
-            return self._depth_fxn(current.left, depth + 1)
+        def height(node):
+            if node is None:
+                return 0
+            else:
+                return max(height(node.left), height(node.right)) + 1
+
+        return height(node)
+
+    # def depth(self):
+    #     """Return depth."""
+    #     self.depths_list = []
+    #     depth = 0
+    #     if self.root.val:
+    #         self._depth_fxn(self.root, depth + 1)
+    #         return max(self.depths_list)
+    #     return depth
+
+    # def _depth_fxn(self, current, depth):
+    #     if current.right is None and current.left is None:
+    #         self.depths_list.append(depth)
+    #         return
+    #     if current.right:
+    #         return self._depth_fxn(current.right, depth + 1)
+    #     if current.left:
+    #         return self._depth_fxn(current.left, depth + 1)
 
     def contains(self, val):
         """Check existance, return boolean."""
@@ -110,7 +123,6 @@ class BinarySearchTree(object):
         if node.left:
             self._depth_fxn(node.left, left_depth + 1)
             left_depth = max(self.depths_list)
-
         self.depths_list = []
         right_depth = 0
         if node.right:
@@ -415,12 +427,13 @@ class AVLBST(BinarySearchTree):
 
     def delete(self, val):
         """Inherit method from superclass."""
+        node = self.search(val).parent
         super(AVLBST, self).delete(val)
+        self._balance_tree(node)
 
     def _balance_tree(self, node):
         """Balance entire tree from a starting node up to root."""
         while node:
-            # import pdb; pdb.set_trace()
             self._balance_node(node)
             node = node.parent
 
@@ -446,6 +459,7 @@ class AVLBST(BinarySearchTree):
                 self._right_rotation(node)
 
             if child_balance == 1:
+        # import pdb; pdb.set_trace()
                 self._right_rotation(node)
 
     def _right_rotation(self, node):
@@ -458,10 +472,10 @@ class AVLBST(BinarySearchTree):
 
         pivot.parent = node.parent
 
-        if node == self.root:
+        if node is self.root:
             self.root = pivot
         else:
-            if node.parent.left == node:
+            if node.parent.left is node:
                 node.parent.left = pivot
             else:
                 node.parent.right = pivot
@@ -479,10 +493,10 @@ class AVLBST(BinarySearchTree):
 
         pivot.parent = node.parent
 
-        if node == self.root:
+        if node is self.root:
             self.root = pivot
         else:
-            if node.parent.left == node:
+            if node.parent.left is node:
                 node.parent.left = pivot
             else:
                 node.parent.right = pivot
