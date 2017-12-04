@@ -686,3 +686,4 @@ def test_left_rotation_non_root(five_four_three_two_six_seven_eight):
     assert five_four_three_two_six_seven_eight.root.right.val == 7
     assert five_four_three_two_six_seven_eight.root.right.right.val == 8
     assert five_four_three_two_six_seven_eight.root.right.left.val == 6
+

@@ -44,14 +44,12 @@ class BinarySearchTree(object):
                 if val > current.val:
                     if not current.right:
                         current.right = Node(val, None, None, current)
-                        current.right.balance_factor = self.balance(current.right)
                         self.size_count += 1
                         return
                     current = current.right
                 elif val < current.val:
                     if not current.left:
                         current.left = Node(val, None, None, current)
-                        current.left.balance_factor = self.balance(current.left)
                         self.size_count += 1
                         return
                     current = current.left
