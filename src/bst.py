@@ -7,13 +7,13 @@ from que_ import Queue
 class Node(object):
     """The node class."""
 
-    def __init__(self, val, right=None, left=None, parent=None):
+    def __init__(self, val, right=None, left=None, parent=None, depth=0):
         """On initialization."""
         self.val = val
         self.right = right
         self.left = left
         self.parent = parent
-        self.depth = 0
+        self.depth = depth
 
 
 class BinarySearchTree(object):
