@@ -361,24 +361,27 @@ class BinarySearchTree(object):
         else:
             self.root = swap_node
 
-    def _ballance_node(self, node):
+    def _balance_node(self, node):
         """Balance on a node."""
+        # import pdb; pdb.set_trace()
         node_balance = self.balance(node)
-        node_right_child_balance = self.balance(node.right)
-        node_left_child_balance = self.balance(node.left)
+        # node_right_child_balance = self.balance(node.right)
+        # node_left_child_balance = self.balance(node.left)
 
-        if node.parent.right == node:
-            if node_balance == -1:
+        if node_balance == -2:
+            child_balance = self.balance(node.right)
+
+            if child_balance == 1:
+                self._left_rotation(node.left)
                 self._right_rotation(node)
+
+            if child_balance == -1:
                 self._left_rotation(node)
-            if node_balance >= 0:
+
+        if node_balance == 2:
+            child_balance = self.balance(node.left)
+            if child_balance == 1:
                 self._right_rotation(node)
-        if node.parent.left == node:
-            if node_balance == 1:
-                self._left_rotation(node)
-                self._right_rotation(node)
-            if node_balance <= 0:
-                self._left_rotation(node)
 
     def _right_rotation(self, node):
         """Right rotation."""
