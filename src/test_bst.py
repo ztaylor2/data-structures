@@ -746,12 +746,49 @@ def test_avlbst_class_inherits_bst():
     assert avlbst.root.val == 5
 
 
-def test_avlbst_balances_on_insert():
-    """Test AVLBST balances itself on insert."""
+def test_avlbst_balances_on_insert_left_left():
+    """Test AVLBST balances itself on insert two left."""
     from bst import AVLBST
     avl = AVLBST()
     avl.insert(5)
     avl.insert(4)
     avl.insert(3)
-    # import pdb; pdb.set_trace()
     assert avl.root.val == 4
+    assert avl.root.right.val == 5
+    assert avl.root.left.val == 3
+
+
+def test_avlbst_balances_on_insert_left_right():
+    """Test tree self balances with left right rotation."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(5)
+    avl.insert(3)
+    avl.insert(4)
+    assert avl.root.val == 4
+    assert avl.root.right.val == 5
+    assert avl.root.left.val == 3
+
+
+def test_avlbst_balances_on_insert_right_left():
+    """Test tree self balances with right left rotation."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(5)
+    avl.insert(7)
+    avl.insert(6)
+    assert avl.root.val == 6
+    assert avl.root.right.val == 7
+    assert avl.root.left.val == 5
+
+
+def test_avlbst_balances_on_insert_right_right():
+    """Test tree self balances with a left rotation."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(5)
+    avl.insert(6)
+    avl.insert(7)
+    assert avl.root.val == 6
+    assert avl.root.right.val == 7
+    assert avl.root.left.val == 5
