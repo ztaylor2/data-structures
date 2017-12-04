@@ -662,77 +662,96 @@ def test_delete_left_subtree_greater_depth(full_bst):
     assert next(bf) == 14
 
 
-def test_right_rotation(five_right):
-    """Test right rotation on simple tree on root node."""
-    five_right._right_rotation(five_right.root)
-    assert five_right.root.val == 3
-    assert five_right.root.right.val == 5
-    assert five_right.root.right.right.val == 7
-    assert five_right.root.right.left.val == 4
-    assert five_right.root.left.val == 2
+# def test_right_rotation(five_right):
+#     """Test right rotation on simple tree on root node."""
+#     five_right._right_rotation(five_right.root)
+#     assert five_right.root.val == 3
+#     assert five_right.root.right.val == 5
+#     assert five_right.root.right.right.val == 7
+#     assert five_right.root.right.left.val == 4
+#     assert five_right.root.left.val == 2
 
 
-def test_right_rotation_non_root(five_four_three_two_six_seven_eight):
-    """Test right rotation on non root node."""
-    five_four_three_two_six_seven_eight._right_rotation(five_four_three_two_six_seven_eight.root.left)
-    assert five_four_three_two_six_seven_eight.root.val == 5
-    assert five_four_three_two_six_seven_eight.root.left.val == 3
-    assert five_four_three_two_six_seven_eight.root.left.left.val == 2
-    assert five_four_three_two_six_seven_eight.root.left.right.val == 4
-    assert five_four_three_two_six_seven_eight.root.right.val == 6
-    assert five_four_three_two_six_seven_eight.root.right.right.val == 7
-    assert five_four_three_two_six_seven_eight.root.right.right.right.val == 8
+# def test_right_rotation_non_root(five_four_three_two_six_seven_eight):
+#     """Test right rotation on non root node."""
+#     five_four_three_two_six_seven_eight._right_rotation(five_four_three_two_six_seven_eight.root.left)
+#     assert five_four_three_two_six_seven_eight.root.val == 5
+#     assert five_four_three_two_six_seven_eight.root.left.val == 3
+#     assert five_four_three_two_six_seven_eight.root.left.left.val == 2
+#     assert five_four_three_two_six_seven_eight.root.left.right.val == 4
+#     assert five_four_three_two_six_seven_eight.root.right.val == 6
+#     assert five_four_three_two_six_seven_eight.root.right.right.val == 7
+#     assert five_four_three_two_six_seven_eight.root.right.right.right.val == 8
 
 
-def test_left_rotation(five_left):
-    """Test left rotation on simple tree on root node."""
-    five_left._left_rotation(five_left.root)
-    assert five_left.root.val == 5
-    assert five_left.root.right.val == 7
-    assert five_left.root.left.val == 3
-    assert five_left.root.left.left.val == 2
-    assert five_left.root.left.right.val == 4
+# def test_left_rotation(five_left):
+#     """Test left rotation on simple tree on root node."""
+#     five_left._left_rotation(five_left.root)
+#     assert five_left.root.val == 5
+#     assert five_left.root.right.val == 7
+#     assert five_left.root.left.val == 3
+#     assert five_left.root.left.left.val == 2
+#     assert five_left.root.left.right.val == 4
 
 
-def test_left_rotation_non_root(five_four_three_two_six_seven_eight):
-    """Test left rotation on non root node."""
-    five_four_three_two_six_seven_eight._left_rotation(five_four_three_two_six_seven_eight.root.right)
-    assert five_four_three_two_six_seven_eight.root.val == 5
-    assert five_four_three_two_six_seven_eight.root.left.val == 4
-    assert five_four_three_two_six_seven_eight.root.left.left.val == 3
-    assert five_four_three_two_six_seven_eight.root.left.left.left.val == 2
-    assert five_four_three_two_six_seven_eight.root.right.val == 7
-    assert five_four_three_two_six_seven_eight.root.right.right.val == 8
-    assert five_four_three_two_six_seven_eight.root.right.left.val == 6
+# def test_left_rotation_non_root(five_four_three_two_six_seven_eight):
+#     """Test left rotation on non root node."""
+#     five_four_three_two_six_seven_eight._left_rotation(five_four_three_two_six_seven_eight.root.right)
+#     assert five_four_three_two_six_seven_eight.root.val == 5
+#     assert five_four_three_two_six_seven_eight.root.left.val == 4
+#     assert five_four_three_two_six_seven_eight.root.left.left.val == 3
+#     assert five_four_three_two_six_seven_eight.root.left.left.left.val == 2
+#     assert five_four_three_two_six_seven_eight.root.right.val == 7
+#     assert five_four_three_two_six_seven_eight.root.right.right.val == 8
+#     assert five_four_three_two_six_seven_eight.root.right.left.val == 6
 
 
-def test_balance_node_neg_two_neg_one_left_rotation(five_four_three_two_six_seven_eight):
-    """Test balance node function on format of node.right.right."""
-    five_four_three_two_six_seven_eight._balance_node(five_four_three_two_six_seven_eight.root.right)
-    assert five_four_three_two_six_seven_eight.root.right.val == 7
-    assert five_four_three_two_six_seven_eight.root.right.right.val == 8
-    assert five_four_three_two_six_seven_eight.root.right.left.val == 6
+# def test_balance_node_neg_two_neg_one_left_rotation(five_four_three_two_six_seven_eight):
+#     """Test balance node function on format of node.right.right."""
+#     five_four_three_two_six_seven_eight._balance_node(five_four_three_two_six_seven_eight.root.right)
+#     assert five_four_three_two_six_seven_eight.root.right.val == 7
+#     assert five_four_three_two_six_seven_eight.root.right.right.val == 8
+#     assert five_four_three_two_six_seven_eight.root.right.left.val == 6
 
 
-def test_balance_node_two_one_right_rotation(five_four_three_two_six_seven_eight):
-    """Test balance node funciton on format of node.left.left."""
-    five_four_three_two_six_seven_eight._balance_node(five_four_three_two_six_seven_eight.root.left)
-    assert five_four_three_two_six_seven_eight.root.left.val == 3
-    assert five_four_three_two_six_seven_eight.root.left.right.val == 4
-    assert five_four_three_two_six_seven_eight.root.left.left.val == 2
+# def test_balance_node_two_one_right_rotation(five_four_three_two_six_seven_eight):
+#     """Test balance node funciton on format of node.left.left."""
+#     five_four_three_two_six_seven_eight._balance_node(five_four_three_two_six_seven_eight.root.left)
+#     assert five_four_three_two_six_seven_eight.root.left.val == 3
+#     assert five_four_three_two_six_seven_eight.root.left.right.val == 4
+#     assert five_four_three_two_six_seven_eight.root.left.left.val == 2
 
 
-def test_balance_node_neg_two_one_right_left_rotation(five_four_three_threefive_six_seven_sixfive):
-    """Test balance node funciton on format of node.right.left."""
-    five_four_three_threefive_six_seven_sixfive._balance_node(five_four_three_threefive_six_seven_sixfive.root.right)
-    assert five_four_three_threefive_six_seven_sixfive.root.right.val == 6.5
-    assert five_four_three_threefive_six_seven_sixfive.root.right.left.val == 6
-    assert five_four_three_threefive_six_seven_sixfive.root.right.right.val == 7
+# def test_balance_node_neg_two_one_right_left_rotation(five_four_three_threefive_six_seven_sixfive):
+#     """Test balance node funciton on format of node.right.left."""
+#     five_four_three_threefive_six_seven_sixfive._balance_node(five_four_three_threefive_six_seven_sixfive.root.right)
+#     assert five_four_three_threefive_six_seven_sixfive.root.right.val == 6.5
+#     assert five_four_three_threefive_six_seven_sixfive.root.right.left.val == 6
+#     assert five_four_three_threefive_six_seven_sixfive.root.right.right.val == 7
 
 
-def test_balance_node_two_neg_one_left_right_rotation(five_four_three_threefive_six_seven_sixfive):
-    """Test balance node funcitno on format of node.left.rihgt."""
-    five_four_three_threefive_six_seven_sixfive._balance_node(five_four_three_threefive_six_seven_sixfive.root.left)
-    assert five_four_three_threefive_six_seven_sixfive.root.left.val == 3.5
-    assert five_four_three_threefive_six_seven_sixfive.root.left.left.val == 3
-    assert five_four_three_threefive_six_seven_sixfive.root.left.right.val == 4
+# def test_balance_node_two_neg_one_left_right_rotation(five_four_three_threefive_six_seven_sixfive):
+#     """Test balance node funcitno on format of node.left.rihgt."""
+#     five_four_three_threefive_six_seven_sixfive._balance_node(five_four_three_threefive_six_seven_sixfive.root.left)
+#     assert five_four_three_threefive_six_seven_sixfive.root.left.val == 3.5
+#     assert five_four_three_threefive_six_seven_sixfive.root.left.left.val == 3
+#     assert five_four_three_threefive_six_seven_sixfive.root.left.right.val == 4
+
+
+def test_avlbst_class_inherits_bst():
+    """Test the AVLBST class inherits bst methods."""
+    from bst import AVLBST
+    avlbst = AVLBST()
+    avlbst.insert(5)
+    assert avlbst.root.val == 5
+
+
+def test_avlbst_balances_on_insert():
+    """Test AVLBST balances itself on insert."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(5)
+    avl.insert(4)
+    avl.insert(3)
+    # import pdb; pdb.set_trace()
+    assert avl.root.val == 4

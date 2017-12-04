@@ -44,12 +44,14 @@ class BinarySearchTree(object):
                 if val > current.val:
                     if not current.right:
                         current.right = Node(val, None, None, current)
+                        # self._balance_node(current.parent)
                         self.size_count += 1
                         return
                     current = current.right
                 elif val < current.val:
                     if not current.left:
                         current.left = Node(val, None, None, current)
+                        # self._balance_node(current.parent)
                         self.size_count += 1
                         return
                     current = current.left
@@ -361,9 +363,69 @@ class BinarySearchTree(object):
         else:
             self.root = swap_node
 
+
+class AVLBST(BinarySearchTree):
+    """Self balancing binary search tree."""
+
+    def __init__(self):
+        """Initialize avlbst."""
+        super(AVLBST, self).__init__()
+
+    def insert(self, val):
+        """Inherit method from superclass."""
+        super(AVLBST, self).insert(val)
+        node = self.search(val)
+        self._balance_tree(node)
+
+    def search(self, val):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).search(val)
+
+    def size(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).size()
+
+    def depth(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).depth()
+
+    def contains(self, val):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).contains(val)
+
+    def balance(self, node=None):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).balance(node)
+
+    def in_order(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).in_order()
+
+    def pre_order(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).pre_order()
+
+    def post_order(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).post_order()
+
+    def breadth_first(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).breadth_first()
+
+    def delete(self, val):
+        """Inherit method from superclass."""
+        super(AVLBST, self).delete(val)
+
+    def _balance_tree(self, node):
+        """Balance entire tree from a starting node up to root."""
+        while node:
+            # import pdb; pdb.set_trace()
+            self._balance_node(node)
+            node = node.parent
+
     def _balance_node(self, node):
         """Balance on a node."""
-        # import pdb; pdb.set_trace()
         node_balance = self.balance(node)
 
         if node_balance == -2:
@@ -406,8 +468,6 @@ class BinarySearchTree(object):
 
         pivot.right = node
         node.parent = pivot
-        # pivot.balance_factor =
-        # node.balance_factor =
 
     def _left_rotation(self, node):
         """Left rotation."""
@@ -429,8 +489,6 @@ class BinarySearchTree(object):
 
         pivot.left = node
         node.parent = pivot
-        # pivot.balance_factor =
-        # node.balance_factor =
 
 
 def _wrapper(func, *args, **kwargs):
