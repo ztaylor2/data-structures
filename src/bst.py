@@ -82,13 +82,13 @@ class BinarySearchTree(object):
         if node is None:
             node = self.root
 
-        def height(node):
+        def _height(node):
             if node is None:
                 return 0
             else:
-                return max(height(node.left), height(node.right)) + 1
+                return max(_height(node.left), _height(node.right)) + 1
 
-        return height(node)
+        return _height(node)
 
     # def depth(self):
     #     """Return depth."""
@@ -118,18 +118,26 @@ class BinarySearchTree(object):
         """Return tree balance."""
         if not node:
             node = self.root
-        self.depths_list = []
-        left_depth = 0
-        if node.left:
-            self._depth_fxn(node.left, left_depth + 1)
-            left_depth = max(self.depths_list)
-        self.depths_list = []
-        right_depth = 0
-        if node.right:
-            self._depth_fxn(node.right, right_depth + 1)
-            right_depth = max(self.depths_list)
 
-        return left_depth - right_depth
+        return self.depth(node.left) - self.depth(node.right)
+
+
+    # def balance(self, node=None):
+    #     """Return tree balance."""
+    #     if not node:
+    #         node = self.root
+    #     self.depths_list = []
+    #     left_depth = 0
+    #     if node.left:
+    #         self._depth_fxn(node.left, left_depth + 1)
+    #         left_depth = max(self.depths_list)
+    #     self.depths_list = []
+    #     right_depth = 0
+    #     if node.right:
+    #         self._depth_fxn(node.right, right_depth + 1)
+    #         right_depth = max(self.depths_list)
+
+    #     return left_depth - right_depth
 
     def in_order(self, recurse=None):
         """Call iterable traversal or recursive traversal based on input."""
