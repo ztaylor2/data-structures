@@ -41,24 +41,30 @@ class BinarySearchTree(object):
 
     def insert(self, val):
         """Insert node."""
-        if self.root.val:
+        if self.root:
             current = self.root
             while current:
                 if val > current.val:
                     if not current.right:
                         current.right = Node(val, None, None, current)
-                        # self._balance_node(current.parent)
                         self.size_count += 1
+                        self._update_depths(current)
                         return
                     current = current.right
                 elif val < current.val:
                     if not current.left:
                         current.left = Node(val, None, None, current)
-                        # self._balance_node(current.parent)
                         self.size_count += 1
+                        self._update_depths(current)
                         return
                     current = current.left
-        self.root.val = val
+        self.root = Node(val)
+
+    def _update_depths(self, node):
+        """Update the depths of all parent nodes."""
+        while node:
+            node.depth += 1
+            node = node.parent
 
     def search(self, val):
         """Return node containing val."""
@@ -80,11 +86,8 @@ class BinarySearchTree(object):
         """Return size."""
         return self.size_count
 
-    def depth(self, node=None):
+    def depth(self):
         """Return depth."""
-        if node is None:
-            node = self.root
-
         def _height(node):
             if node is None:
                 return 0
@@ -123,7 +126,6 @@ class BinarySearchTree(object):
             node = self.root
 
         return self.depth(node.right) - self.depth(node.left)
-
 
     # def balance(self, node=None):
     #     """Return tree balance."""
@@ -470,7 +472,6 @@ class AVLBST(BinarySearchTree):
                 self._right_rotation(node)
 
             if child_balance == 1:
-        # import pdb; pdb.set_trace()
                 self._right_rotation(node)
 
     def _right_rotation(self, node):

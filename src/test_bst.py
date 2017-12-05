@@ -293,7 +293,7 @@ def test_unballanced_tree_two(five_bst):
     five_bst.insert(3)
     five_bst.insert(2)
     five_bst.insert(1)
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
     assert five_bst.balance() == 4
 
 
@@ -858,6 +858,16 @@ def test_depth_function_returns_correctly():
     assert bst.depth(bst.root.left) == 3
 
 
+def test_node_depth_attribute_updates():
+    """Test the node depth attribute is accurate."""
+    from bst import BinarySearchTree
+    bst = BinarySearchTree()
+    bst.insert(5)
+    assert bst.root.depth == 0
+    bst.insert(6)
+    assert bst.root.depth == 1
+    bst.insert(7)
+    assert bst.root.depth == 2
 
 
 # def test_insert_many_times():
