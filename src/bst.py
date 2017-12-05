@@ -281,9 +281,7 @@ class BinarySearchTree(object):
                 return
             if node == node.parent.right:
                 node.parent.right = None
-            # if node == node.parent.left:
             node.parent.left = None
-            # node.parent = None
 
         if node.right and not node.left:
             if node == self.root:
@@ -300,7 +298,6 @@ class BinarySearchTree(object):
 
             if node.parent:
                 self._rebalance_nodes_up_tree(node)
-            # node.parent = None
 
         if node.left and not node.right:
             if node == self.root:
@@ -317,7 +314,6 @@ class BinarySearchTree(object):
 
             if node.parent:
                 self._rebalance_nodes_up_tree(node)
-            # node.parent = None
 
         if node.right and node.left:
             if self.balance(node) < 0:
@@ -582,48 +578,29 @@ def _wrapper(func, *args, **kwargs):
 
 
 if __name__ == '__main__':
-    # worst_case_bst = BinarySearchTree()
-    # for i in range(15):
-    #     worst_case_bst.insert(i)
+    worst_case_bst = BinarySearchTree()
+    for i in range(15):
+        worst_case_bst.insert(i)
 
-    # find15 = _wrapper(worst_case_bst.search, 14)
-    # print(timeit.timeit(find15))
+    find15 = _wrapper(worst_case_bst.search, 14)
+    print(timeit.timeit(find15))
 
-    # best_case_bst = BinarySearchTree((100, 50, 200, 25, 75, 150, 250,
-    #                                   12.5, 37.5, 62.5, 87.5, 125, 175,
-    #                                   225, 275))
+    best_case_bst = BinarySearchTree((100, 50, 200, 25, 75, 150, 250,
+                                      12.5, 37.5, 62.5, 87.5, 125, 175,
+                                      225, 275))
 
-    # find275 = _wrapper(best_case_bst.search, 275)
-    # print(timeit.timeit(find275))
+    find275 = _wrapper(best_case_bst.search, 275)
+    print(timeit.timeit(find275))
 
-    # # why is this O(n) so much faster?
-    # list_test = []
-    # for i in range(15):
-    #     list_test.append(i)
+    # why is this O(n) so much faster?
+    list_test = []
+    for i in range(15):
+        list_test.append(i)
 
-    # def bla():
-    #     """."""
-    #     for i in list_test:
-    #         if i == 14:
-    #             return 14
+    def bla():
+        """."""
+        for i in list_test:
+            if i == 14:
+                return 14
 
-    # print(timeit.timeit(bla))
-
-    import random
-    avl = AVLBST()
-
-    nodes_to_delete = []
-
-    for _ in range(50):
-        random_int = random.randint(1, 1000)
-        # 50% chance of node being added to delete list
-        delete_probability = random.randint(1, 2)
-
-        if delete_probability == 1:
-            if random_int not in nodes_to_delete:
-                nodes_to_delete.append(random_int)
-
-        avl.insert(random_int)
-
-    for val in nodes_to_delete:
-        avl.delete(val)
+    print(timeit.timeit(bla))
