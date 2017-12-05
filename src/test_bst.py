@@ -853,6 +853,7 @@ def test_depth_function_returns_correctly():
     bst.insert(2)
     bst.insert(79)
     bst.insert(50)
+    import pdb; pdb.set_trace()
     assert bst.depth() == 4
     assert bst.depth(bst.root.right) == 1
     assert bst.depth(bst.root.left) == 3
@@ -869,6 +870,11 @@ def test_node_depth_attribute_updates():
     bst.insert(7)
     assert bst.root.depth == 2
 
+
+# def test_update_depths_helper():
+#     """Test the update depths helper funciton."""
+#     from bst import BinarySearchTree
+#     bst = BinarySearchTree()
 
 # def test_insert_many_times():
 #     """Test self balancing tree still balanced after 50 random insertions."""

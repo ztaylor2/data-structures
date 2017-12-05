@@ -7,7 +7,7 @@ from que_ import Queue
 class Node(object):
     """The node class."""
 
-    def __init__(self, val, right=None, left=None, parent=None, depth=0):
+    def __init__(self, val, right=None, left=None, parent=None, depth=1):
         """On initialization."""
         self.val = val
         self.right = right
@@ -47,23 +47,28 @@ class BinarySearchTree(object):
                 if val > current.val:
                     if not current.right:
                         current.right = Node(val, None, None, current)
+                        self._update_depths(current.right)
                         self.size_count += 1
-                        self._update_depths(current)
                         return
                     current = current.right
                 elif val < current.val:
                     if not current.left:
                         current.left = Node(val, None, None, current)
+                        self._update_depths(current.left)
                         self.size_count += 1
-                        self._update_depths(current)
                         return
                     current = current.left
         self.root = Node(val)
 
     def _update_depths(self, node):
-        """Update the depths of all parent nodes."""
-        while node:
-            node.depth += 1
+        """Update the depths of all parent nodes starting with leif node."""
+        current_depth = 1
+        while node.parent:
+
+            if node.parent.depth < node.depth + 1:
+                node.parent.depth = current_depth + 1
+
+            current_depth += 1
             node = node.parent
 
     def search(self, val):
@@ -88,31 +93,9 @@ class BinarySearchTree(object):
 
     def depth(self):
         """Return depth."""
-        def _height(node):
-            if node is None:
-                return 0
-            else:
-                return max(_height(node.left), _height(node.right)) + 1
-
-        return _height(node)
-
-    # def depth(self):
-    #     """Return depth."""
-    #     self.depths_list = []
-    #     depth = 0
-    #     if self.root.val:
-    #         self._depth_fxn(self.root, depth + 1)
-    #         return max(self.depths_list)
-    #     return depth
-
-    # def _depth_fxn(self, current, depth):
-    #     if current.right is None and current.left is None:
-    #         self.depths_list.append(depth)
-    #         return
-    #     if current.right:
-    #         return self._depth_fxn(current.right, depth + 1)
-    #     if current.left:
-    #         return self._depth_fxn(current.left, depth + 1)
+        if not self.root:
+            return 0
+        return self.root.depth
 
     def contains(self, val):
         """Check existance, return boolean."""
@@ -125,24 +108,17 @@ class BinarySearchTree(object):
         if not node:
             node = self.root
 
-        return self.depth(node.right) - self.depth(node.left)
+        if not node.right:
+            right_depth = 0
+        else:
+            right_depth = node.right.depth
 
-    # def balance(self, node=None):
-    #     """Return tree balance."""
-    #     if not node:
-    #         node = self.root
-    #     self.depths_list = []
-    #     left_depth = 0
-    #     if node.left:
-    #         self._depth_fxn(node.left, left_depth + 1)
-    #         left_depth = max(self.depths_list)
-    #     self.depths_list = []
-    #     right_depth = 0
-    #     if node.right:
-    #         self._depth_fxn(node.right, right_depth + 1)
-    #         right_depth = max(self.depths_list)
+        if not node.left:
+            left_depth = 0
+        else:
+            left_depth = node.left.depth
 
-    #     return left_depth - right_depth
+        return left_depth - right_depth
 
     def in_order(self, recurse=None):
         """Call iterable traversal or recursive traversal based on input."""
