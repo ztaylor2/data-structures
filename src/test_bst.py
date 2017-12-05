@@ -595,7 +595,6 @@ def test_delete_when_not_in_tree(five_balanced):
 
 def test_delete_equal_length_subtrees(five_balanced):
     """Test delete on balanced tree."""
-    # import pdb; pdb.set_trace()
     five_balanced.delete(3)
     assert not five_balanced.contains(3)
     bf = five_balanced.in_order()
@@ -983,6 +982,7 @@ def test_delete_node_only_left_no_right_reassignes_depths(bst):
 
 
 def test_delete_two_children_depths_reassigned(bst):
+    """Test depths get reassinged."""
     bst.insert(5)
     bst.insert(3)
     bst.insert(7)
@@ -995,3 +995,26 @@ def test_delete_two_children_depths_reassigned(bst):
     bst.delete(3)
     assert bst.root.left.val == 2.75
     assert bst.root.left.depth == 3
+
+
+def test_self_balancing_after_many_rotations():
+    """Test all balance methods work in tandom."""
+    from bst import AVLBST
+    bst = AVLBST([50, 25, 15, 60, 70, 10, 12, 80, 75])
+    assert bst.root.val == 60
+    assert bst.root.left.val == 25
+    assert bst.root.left.left.val == 12
+    assert bst.root.left.left.left.val == 10
+    assert bst.root.left.left.right.val == 15
+    assert not bst.root.left.left.left.right
+    assert not bst.root.left.left.left.left
+    assert bst.root.left.right.val == 50
+    assert not bst.root.left.right.right
+    assert not bst.root.left.right.left
+    assert bst.root.right.val == 75
+    assert bst.root.right.right.val == 80
+    assert not bst.root.right.right.right
+    assert not bst.root.right.right.left
+    assert bst.root.right.left.val == 70
+    assert not bst.root.right.left.left
+    assert not bst.root.right.left.right

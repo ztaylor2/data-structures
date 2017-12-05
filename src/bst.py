@@ -406,8 +406,6 @@ class BinarySearchTree(object):
         elif swap_node.parent.right == swap_node:
             swap_node.parent.right = None
 
-        # import pdb; pdb.set_trace()
-
         swap_node.parent = node.parent
         swap_node.right = node.right
         if swap_node is not node.left:
@@ -429,9 +427,9 @@ class BinarySearchTree(object):
 class AVLBST(BinarySearchTree):
     """Self balancing binary search tree."""
 
-    def __init__(self):
+    def __init__(self, val=None):
         """Initialize avlbst."""
-        super(AVLBST, self).__init__()
+        super(AVLBST, self).__init__(val)
 
     def insert(self, val):
         """Inherit method from superclass."""
