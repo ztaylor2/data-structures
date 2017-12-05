@@ -321,9 +321,15 @@ class BinarySearchTree(object):
 
         if node.right and node.left:
             if self.balance(node) < 0:
-                self._delete_right_subtrees_leftmost_child(node)
+                swap_node = self._find_right_subtree_leftmost_child(node)
+                swap_node_parent = swap_node.parent
+                self._delete_right_subtrees_leftmost_child(node, swap_node)
+                self._rebalance_nodes_up_tree(swap_node_parent)
             else:
-                self._delete_left_subtrees_rightmost_child(node)
+                swap_node = self._find_left_subtree_rightmost_child(node)
+                swap_node_parent = swap_node.parent
+                self._delete_left_subtrees_rightmost_child(node, swap_node)
+                self._rebalance_nodes_up_tree(swap_node_parent)
 
         self.size_count -= 1
 
@@ -360,20 +366,26 @@ class BinarySearchTree(object):
             current = current.right
         return current
 
-    def _delete_right_subtrees_leftmost_child(self, node):
+    def _delete_right_subtrees_leftmost_child(self, node, swap_node):
         """Delete node with its right subtees leftmost child."""
-        swap_node = self._find_right_subtree_leftmost_child(node)
         if swap_node.right:
             swap_node.parent.left = swap_node.right
             swap_node.right.parent = swap_node.parent
+
+        if swap_node.parent.left == swap_node:
+            swap_node.parent.left = None
+        elif swap_node.parent.right == swap_node:
+            swap_node.parent.right = None
 
         swap_node.parent = node.parent
         swap_node.right = node.right
         if swap_node is not node.left:
             swap_node.left = node.left
-            node.left.parent = swap_node
+            if node.left:
+                node.left.parent = swap_node
 
-        node.right.parent = swap_node
+        if node.right:
+            node.right.parent = swap_node
 
         if node is not self.root:
             if node == node.parent.right:
@@ -383,18 +395,25 @@ class BinarySearchTree(object):
         else:
             self.root = swap_node
 
-    def _delete_left_subtrees_rightmost_child(self, node):
+    def _delete_left_subtrees_rightmost_child(self, node, swap_node):
         """Delete node with its left subtrees rightmost child."""
-        swap_node = self._find_left_subtree_rightmost_child(node)
         if swap_node.left:
             swap_node.parent.right = swap_node.left
             swap_node.left.parent = swap_node.parent
+
+        if swap_node.parent.left == swap_node:
+            swap_node.parent.left = None
+        elif swap_node.parent.right == swap_node:
+            swap_node.parent.right = None
+
+        # import pdb; pdb.set_trace()
 
         swap_node.parent = node.parent
         swap_node.right = node.right
         if swap_node is not node.left:
             swap_node.left = node.left
-            node.left.parent = swap_node
+            if node.left:
+                node.left.parent = swap_node
 
         node.right.parent = swap_node
 
@@ -458,7 +477,10 @@ class AVLBST(BinarySearchTree):
 
     def delete(self, val):
         """Inherit method from superclass."""
-        node = self.search(val).parent
+        try:
+            node = self.search(val).parent
+        except AttributeError:
+            return
         super(AVLBST, self).delete(val)
         self._balance_tree(node)
 

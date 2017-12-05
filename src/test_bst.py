@@ -300,7 +300,6 @@ def test_unballanced_tree_two(five_bst):
     five_bst.insert(3)
     five_bst.insert(2)
     five_bst.insert(1)
-    
     assert five_bst.balance() == 4
 
 
@@ -596,6 +595,7 @@ def test_delete_when_not_in_tree(five_balanced):
 
 def test_delete_equal_length_subtrees(five_balanced):
     """Test delete on balanced tree."""
+    # import pdb; pdb.set_trace()
     five_balanced.delete(3)
     assert not five_balanced.contains(3)
     bf = five_balanced.in_order()
@@ -902,7 +902,6 @@ def test_insert_many_times_delete_many_times():
 
         avl.insert(random_int)
 
-    # import pdb; pdb.set_trace()
     for val in nodes_to_delete:
         avl.delete(val)
 
@@ -983,3 +982,16 @@ def test_delete_node_only_left_no_right_reassignes_depths(bst):
     assert bst.root.right.depth == 1
 
 
+def test_delete_two_children_depths_reassigned(bst):
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(7)
+    bst.insert(8)
+    bst.insert(6)
+    bst.insert(2)
+    bst.insert(4)
+    bst.insert(2.5)
+    bst.insert(2.75)
+    bst.delete(3)
+    assert bst.root.left.val == 2.75
+    assert bst.root.left.depth == 3
