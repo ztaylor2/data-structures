@@ -471,6 +471,9 @@ class AVLBST(BinarySearchTree):
         pivot.right = node
         node.parent = pivot
 
+        self._rebalance_node(node)
+        self._rebalance_node(pivot)
+
     def _left_rotation(self, node):
         """Left rotation."""
         pivot = node.right
@@ -491,6 +494,24 @@ class AVLBST(BinarySearchTree):
 
         pivot.left = node
         node.parent = pivot
+
+        self._rebalance_node(node)
+        self._rebalance_node(pivot)
+
+    def _rebalance_node(self, node):
+        """Rebalance a node based on its children."""
+        # import pdb; pdb.set_trace()
+        if node.left:
+            left_depth = node.left.depth
+        else:
+            left_depth = 0
+
+        if node.right:
+            right_depth = node.right.depth
+        else:
+            right_depth = 0
+
+        node.depth = max([left_depth, right_depth]) + 1
 
 
 def _wrapper(func, *args, **kwargs):
