@@ -279,8 +279,10 @@ class BinarySearchTree(object):
             if node == self.root:
                 self.root = None
                 return
+
             if node == node.parent.right:
                 node.parent.right = None
+
             node.parent.left = None
 
         if node.right and not node.left:
@@ -321,6 +323,7 @@ class BinarySearchTree(object):
                 swap_node_parent = swap_node.parent
                 self._delete_right_subtrees_leftmost_child(node, swap_node)
                 self._rebalance_nodes_up_tree(swap_node_parent)
+
             else:
                 swap_node = self._find_left_subtree_rightmost_child(node)
                 swap_node_parent = swap_node.parent

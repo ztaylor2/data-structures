@@ -392,7 +392,6 @@ def test_pre_order_traversal_iterate(full_bst):
 
 # Recursive method only works in python 3
 
-
 # def test_pre_order_traversal_recurse(full_bst):
 #     """Test pre order traversal recursive method of bst."""
 #     bf = full_bst.pre_order('recurse')
