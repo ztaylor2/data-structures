@@ -146,7 +146,7 @@ def test_root_node_on_init(five_bst):
 def test_root_node_none():
     """Test that the root node is none if no value put in."""
     bst = BinarySearchTree()
-    assert not bst.root.val
+    assert not bst.root
 
 
 def test_insert_adds_node(five_bst):
@@ -243,10 +243,10 @@ def test_parent_pointer_works_none(five_bst):
     assert five_bst.root.parent is None
 
 
-def test_depth_helper_function(full_bst):
-    """Test the depth helper function."""
-    full_bst._depth_fxn(full_bst.root, 1)
-    assert full_bst.depths_list == [4]
+# def test_depth_helper_function(full_bst):
+#     """Test the depth helper function."""
+#     full_bst._depth_fxn(full_bst.root, 1)
+#     assert full_bst.depths_list == [4]
 
 
 def test_depth_returns_depth_of_tree(full_bst):
@@ -293,6 +293,7 @@ def test_unballanced_tree_two(five_bst):
     five_bst.insert(3)
     five_bst.insert(2)
     five_bst.insert(1)
+    import pdb; pdb.set_trace()
     assert five_bst.balance() == 4
 
 
@@ -826,7 +827,6 @@ def test_insert_items_rebal_right_left_rotation():
     assert avl.root.left.right.val == 79
     avl.insert(50)
     assert avl.balance() == 1 or avl.balance() == 0 or avl.balance() == -1
-    # import pdb; pdb.set_trace()
     assert avl.root.val == 55
 
 

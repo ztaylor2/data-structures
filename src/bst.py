@@ -23,15 +23,18 @@ class BinarySearchTree(object):
     def __init__(self, val=None):
         """Init top node."""
         self.size_count = 0
+
         if isinstance(val, (list, tuple)):
             self.root = Node(val[0])
             self.size_count += 1
             for num in val[1:]:
                 self.insert(num)
-        else:
+        elif val:
             self.root = Node(val)
-            if val:
-                self.size_count += 1
+            self.size_count += 1
+        else:
+            self.root = None
+
         self.depths_list = []
         self.left_depths_list = []
         self.right_depths_list = []
@@ -119,7 +122,7 @@ class BinarySearchTree(object):
         if not node:
             node = self.root
 
-        return self.depth(node.left) - self.depth(node.right)
+        return self.depth(node.right) - self.depth(node.left)
 
 
     # def balance(self, node=None):
