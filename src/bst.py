@@ -13,6 +13,8 @@ class Node(object):
         self.right = right
         self.left = left
         self.parent = parent
+        self.depth = depth
+        self.balance_factor = 0
 
 
 class BinarySearchTree(object):
@@ -21,37 +23,55 @@ class BinarySearchTree(object):
     def __init__(self, val=None):
         """Init top node."""
         self.size_count = 0
+
         if isinstance(val, (list, tuple)):
             self.root = Node(val[0])
             self.size_count += 1
             for num in val[1:]:
                 self.insert(num)
-        else:
+        elif val:
             self.root = Node(val)
-            if val:
-                self.size_count += 1
+            self.size_count += 1
+        else:
+            self.root = None
+
         self.depths_list = []
         self.left_depths_list = []
         self.right_depths_list = []
 
     def insert(self, val):
         """Insert node."""
-        if self.root.val:
+        if self.root:
             current = self.root
             while current:
+                if val == current.val:
+                    return
                 if val > current.val:
                     if not current.right:
                         current.right = Node(val, None, None, current)
+                        self._update_depths(current.right)
                         self.size_count += 1
                         return
                     current = current.right
                 elif val < current.val:
                     if not current.left:
                         current.left = Node(val, None, None, current)
+                        self._update_depths(current.left)
                         self.size_count += 1
                         return
                     current = current.left
-        self.root.val = val
+        self.root = Node(val)
+
+    def _update_depths(self, node):
+        """Update the depths of all parent nodes starting with leif node."""
+        current_depth = node.depth
+        while node.parent:
+
+            if node.parent.depth < node.depth + 1:
+                node.parent.depth = current_depth + 1
+
+            current_depth += 1
+            node = node.parent
 
     def search(self, val):
         """Return node containing val."""
@@ -75,21 +95,9 @@ class BinarySearchTree(object):
 
     def depth(self):
         """Return depth."""
-        self.depths_list = []
-        depth = 0
-        if self.root.val:
-            self._depth_fxn(self.root, depth + 1)
-            return max(self.depths_list)
-        return depth
-
-    def _depth_fxn(self, current, depth):
-        if current.right is None and current.left is None:
-            self.depths_list.append(depth)
-            return
-        if current.right:
-            return self._depth_fxn(current.right, depth + 1)
-        if current.left:
-            return self._depth_fxn(current.left, depth + 1)
+        if not self.root:
+            return 0
+        return self.root.depth
 
     def contains(self, val):
         """Check existance, return boolean."""
@@ -101,17 +109,16 @@ class BinarySearchTree(object):
         """Return tree balance."""
         if not node:
             node = self.root
-        self.depths_list = []
-        left_depth = 0
-        if node.left:
-            self._depth_fxn(node.left, left_depth + 1)
-            left_depth = max(self.depths_list)
 
-        self.depths_list = []
-        right_depth = 0
-        if node.right:
-            self._depth_fxn(node.right, right_depth + 1)
-            right_depth = max(self.depths_list)
+        if not node.right:
+            right_depth = 0
+        else:
+            right_depth = node.right.depth
+
+        if not node.left:
+            left_depth = 0
+        else:
+            left_depth = node.left.depth
 
         return left_depth - right_depth
 
@@ -266,41 +273,83 @@ class BinarySearchTree(object):
         """Delete a node."""
         node = self.search(val)
         if node is None:
-            raise IndexError("Node not in tree.")
+            return
 
-        # leaf node
         if node.left is None and node.right is None:
+            if node == self.root:
+                self.root = None
+                return
+
             if node == node.parent.right:
                 node.parent.right = None
-            if node == node.parent.left:
-                node.parent.left = None
-            node.parent = None
+
+            node.parent.left = None
 
         if node.right and not node.left:
-            if node.parent.right == node:
+            if node == self.root:
+                self.root = node.right
+                self.root.parent = None
+
+            elif node.parent.right == node:
                 node.parent.right = node.right
                 node.right.parent = node.parent
-            if node.parent.left == node:
+
+            elif node.parent.left == node:
                 node.parent.left = node.right
                 node.right.parent = node.parent
-            node.parent = None
+
+            if node.parent:
+                self._rebalance_nodes_up_tree(node)
 
         if node.left and not node.right:
-            if node.parent.right == node:
+            if node == self.root:
+                self.root = node.left
+                self.root.parent = None
+
+            elif node.parent.right == node:
                 node.parent.right = node.left
                 node.left.parent = node.parent
-            if node.parent.left == node:
+
+            elif node.parent.left == node:
                 node.parent.left = node.left
                 node.left.parent = node.parent
-            node.parent = None
+
+            if node.parent:
+                self._rebalance_nodes_up_tree(node)
 
         if node.right and node.left:
             if self.balance(node) < 0:
-                self._delete_right_subtrees_leftmost_child(node)
+                swap_node = self._find_right_subtree_leftmost_child(node)
+                swap_node_parent = swap_node.parent
+                self._delete_right_subtrees_leftmost_child(node, swap_node)
+                self._rebalance_nodes_up_tree(swap_node_parent)
+
             else:
-                self._delete_left_subtrees_rightmost_child(node)
+                swap_node = self._find_left_subtree_rightmost_child(node)
+                swap_node_parent = swap_node.parent
+                self._delete_left_subtrees_rightmost_child(node, swap_node)
+                self._rebalance_nodes_up_tree(swap_node_parent)
 
         self.size_count -= 1
+
+    def _rebalance_nodes_up_tree(self, node):
+        while node:
+            self._rebalance_node(node)
+            node = node.parent
+
+    def _rebalance_node(self, node):
+        """Rebalance a node based on its children."""
+        if node.left:
+            left_depth = node.left.depth
+        else:
+            left_depth = 0
+
+        if node.right:
+            right_depth = node.right.depth
+        else:
+            right_depth = 0
+
+        node.depth = max([left_depth, right_depth]) + 1
 
     def _find_right_subtree_leftmost_child(self, node):
         """From given node find right subtrees left most child."""
@@ -316,17 +365,27 @@ class BinarySearchTree(object):
             current = current.right
         return current
 
-    def _delete_right_subtrees_leftmost_child(self, node):
+    def _delete_right_subtrees_leftmost_child(self, node, swap_node):
         """Delete node with its right subtees leftmost child."""
-        swap_node = self._find_right_subtree_leftmost_child(node)
         if swap_node.right:
             swap_node.parent.left = swap_node.right
             swap_node.right.parent = swap_node.parent
+
+        if swap_node.parent.left == swap_node:
+            swap_node.parent.left = None
+        elif swap_node.parent.right == swap_node:
+            swap_node.parent.right = None
+
         swap_node.parent = node.parent
         swap_node.right = node.right
-        swap_node.left = node.left
-        node.right.parent = swap_node
-        node.left.parent = swap_node
+        if swap_node is not node.left:
+            swap_node.left = node.left
+            if node.left:
+                node.left.parent = swap_node
+
+        if node.right:
+            node.right.parent = swap_node
+
         if node is not self.root:
             if node == node.parent.right:
                 node.parent.right = swap_node
@@ -335,18 +394,26 @@ class BinarySearchTree(object):
         else:
             self.root = swap_node
 
-    def _delete_left_subtrees_rightmost_child(self, node):
+    def _delete_left_subtrees_rightmost_child(self, node, swap_node):
         """Delete node with its left subtrees rightmost child."""
-        swap_node = self._find_left_subtree_rightmost_child(node)
         if swap_node.left:
             swap_node.parent.right = swap_node.left
             swap_node.left.parent = swap_node.parent
+
+        if swap_node.parent.left == swap_node:
+            swap_node.parent.left = None
+        elif swap_node.parent.right == swap_node:
+            swap_node.parent.right = None
+
         swap_node.parent = node.parent
         swap_node.right = node.right
         if swap_node is not node.left:
             swap_node.left = node.left
-            node.left.parent = swap_node
+            if node.left:
+                node.left.parent = swap_node
+
         node.right.parent = swap_node
+
         if node is not self.root:
             if node == node.parent.right:
                 node.parent.right = swap_node
@@ -354,6 +421,157 @@ class BinarySearchTree(object):
                 node.parent.left = swap_node
         else:
             self.root = swap_node
+
+
+class AVLBST(BinarySearchTree):
+    """Self balancing binary search tree."""
+
+    def __init__(self, val=None):
+        """Initialize avlbst."""
+        super(AVLBST, self).__init__(val)
+
+    def insert(self, val):
+        """Inherit method from superclass."""
+        super(AVLBST, self).insert(val)
+        node = self.search(val)
+        self._balance_tree(node)
+
+    def search(self, val):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).search(val)
+
+    def size(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).size()
+
+    def depth(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).depth()
+
+    def contains(self, val):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).contains(val)
+
+    def balance(self, node=None):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).balance(node)
+
+    def in_order(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).in_order()
+
+    def pre_order(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).pre_order()
+
+    def post_order(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).post_order()
+
+    def breadth_first(self):
+        """Inherit method from superclass."""
+        return super(AVLBST, self).breadth_first()
+
+    def delete(self, val):
+        """Inherit method from superclass."""
+        try:
+            node = self.search(val).parent
+        except AttributeError:
+            return
+        super(AVLBST, self).delete(val)
+        self._balance_tree(node)
+
+    def _balance_tree(self, node):
+        """Balance entire tree from a starting node up to root."""
+        while node:
+            self._balance_node(node)
+            node = node.parent
+
+    def _balance_node(self, node):
+        """Balance on a node."""
+        node_balance = self.balance(node)
+
+        if node_balance == -2:
+            child_balance = self.balance(node.right)
+
+            if child_balance == 1:
+                self._right_rotation(node.right)
+                self._left_rotation(node)
+
+            if child_balance == -1:
+                self._left_rotation(node)
+
+        if node_balance == 2:
+            child_balance = self.balance(node.left)
+
+            if child_balance == -1:
+                self._left_rotation(node.left)
+                self._right_rotation(node)
+
+            if child_balance == 1:
+                self._right_rotation(node)
+
+    def _right_rotation(self, node):
+        """Right rotation."""
+        pivot = node.left
+        node.left = pivot.right
+
+        if pivot.right:
+            pivot.right.parent = node
+
+        pivot.parent = node.parent
+
+        if node is self.root:
+            self.root = pivot
+        else:
+            if node.parent.left is node:
+                node.parent.left = pivot
+            else:
+                node.parent.right = pivot
+
+        pivot.right = node
+        node.parent = pivot
+
+        self._rebalance_node(node)
+        self._rebalance_node(pivot)
+
+    def _left_rotation(self, node):
+        """Left rotation."""
+        pivot = node.right
+        node.right = pivot.left
+
+        if pivot.left:
+            pivot.left.parent = node
+
+        pivot.parent = node.parent
+
+        if node is self.root:
+            self.root = pivot
+        else:
+            if node.parent.left is node:
+                node.parent.left = pivot
+            else:
+                node.parent.right = pivot
+
+        pivot.left = node
+        node.parent = pivot
+
+        self._rebalance_node(node)
+        self._rebalance_node(pivot)
+
+    def _rebalance_node(self, node):
+        """Rebalance a node based on its children."""
+        if node.left:
+            left_depth = node.left.depth
+        else:
+            left_depth = 0
+
+        if node.right:
+            right_depth = node.right.depth
+        else:
+            right_depth = 0
+
+        node.depth = max([left_depth, right_depth]) + 1
 
 
 def _wrapper(func, *args, **kwargs):

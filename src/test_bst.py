@@ -2,6 +2,13 @@
 
 import pytest
 from bst import BinarySearchTree
+import random
+
+
+@pytest.fixture
+def bst():
+    """Binary search tree."""
+    return BinarySearchTree()
 
 
 @pytest.fixture
@@ -12,7 +19,7 @@ def five_bst():
 
 @pytest.fixture
 def full_bst():
-    """Binary search tree with root value of 5."""
+    """Binary search tree with root value of 8."""
     bst = BinarySearchTree(8)
     bst.insert(3)
     bst.insert(10)
@@ -37,6 +44,42 @@ def five_four_three_six_seven():
     bst.insert(3)
     bst.insert(6)
     bst.insert(7)
+    return bst
+
+
+@pytest.fixture
+def five_four_three_two_six_seven_eight():
+    """BST.
+             5
+         4       6
+        3          7
+       2             8
+    ."""
+    bst = BinarySearchTree(5)
+    bst.insert(4)
+    bst.insert(3)
+    bst.insert(2)
+    bst.insert(6)
+    bst.insert(7)
+    bst.insert(8)
+    return bst
+
+
+@pytest.fixture
+def five_four_three_threefive_six_seven_sixfive():
+    """BST.
+                5
+            4       6
+         3             7
+          3.5       6.5
+    ."""
+    bst = BinarySearchTree(5)
+    bst.insert(4)
+    bst.insert(3)
+    bst.insert(3.5)
+    bst.insert(6)
+    bst.insert(7)
+    bst.insert(6.5)
     return bst
 
 
@@ -72,6 +115,36 @@ def five_balanced():
     return bst
 
 
+@pytest.fixture
+def five_right():
+    """BST.
+              5
+          3       7
+        2  4
+    ."""
+    bst = BinarySearchTree(5)
+    bst.insert(3)
+    bst.insert(4)
+    bst.insert(2)
+    bst.insert(7)
+    return bst
+
+
+@pytest.fixture
+def five_left():
+    """BST.
+              3
+           2     5
+                4  7
+    ."""
+    bst = BinarySearchTree(3)
+    bst.insert(2)
+    bst.insert(5)
+    bst.insert(4)
+    bst.insert(7)
+    return bst
+
+
 def test_root_node_on_init(five_bst):
     """Test that the root node exists on init."""
     assert five_bst.root.val == 5
@@ -80,7 +153,7 @@ def test_root_node_on_init(five_bst):
 def test_root_node_none():
     """Test that the root node is none if no value put in."""
     bst = BinarySearchTree()
-    assert not bst.root.val
+    assert not bst.root
 
 
 def test_insert_adds_node(five_bst):
@@ -177,10 +250,10 @@ def test_parent_pointer_works_none(five_bst):
     assert five_bst.root.parent is None
 
 
-def test_depth_helper_function(full_bst):
-    """Test the depth helper function."""
-    full_bst._depth_fxn(full_bst.root, 1)
-    assert full_bst.depths_list == [4]
+# def test_depth_helper_function(full_bst):
+#     """Test the depth helper function."""
+#     full_bst._depth_fxn(full_bst.root, 1)
+#     assert full_bst.depths_list == [4]
 
 
 def test_depth_returns_depth_of_tree(full_bst):
@@ -318,7 +391,6 @@ def test_pre_order_traversal_iterate(full_bst):
     assert next(bf) == 13
 
 # Recursive method only works in python 3
-
 
 # def test_pre_order_traversal_recurse(full_bst):
 #     """Test pre order traversal recursive method of bst."""
@@ -517,8 +589,7 @@ def test_delete_decrements_size_count(five_balanced):
 
 def test_delete_when_not_in_tree(five_balanced):
     """Test delete when val not in tree."""
-    with pytest.raises(IndexError):
-        five_balanced.delete(100)
+    assert five_balanced.delete(100) is None
 
 
 def test_delete_equal_length_subtrees(five_balanced):
@@ -595,3 +666,354 @@ def test_delete_left_subtree_greater_depth(full_bst):
     assert next(bf) == 10
     assert next(bf) == 13
     assert next(bf) == 14
+
+# moved these methods into self balancing tree class.
+
+# def test_right_rotation(five_right):
+#     """Test right rotation on simple tree on root node."""
+#     five_right._right_rotation(five_right.root)
+#     assert five_right.root.val == 3
+#     assert five_right.root.right.val == 5
+#     assert five_right.root.right.right.val == 7
+#     assert five_right.root.right.left.val == 4
+#     assert five_right.root.left.val == 2
+
+
+# def test_right_rotation_non_root(five_four_three_two_six_seven_eight):
+#     """Test right rotation on non root node."""
+#     five_four_three_two_six_seven_eight._right_rotation(five_four_three_two_six_seven_eight.root.left)
+#     assert five_four_three_two_six_seven_eight.root.val == 5
+#     assert five_four_three_two_six_seven_eight.root.left.val == 3
+#     assert five_four_three_two_six_seven_eight.root.left.left.val == 2
+#     assert five_four_three_two_six_seven_eight.root.left.right.val == 4
+#     assert five_four_three_two_six_seven_eight.root.right.val == 6
+#     assert five_four_three_two_six_seven_eight.root.right.right.val == 7
+#     assert five_four_three_two_six_seven_eight.root.right.right.right.val == 8
+
+
+# def test_left_rotation(five_left):
+#     """Test left rotation on simple tree on root node."""
+#     five_left._left_rotation(five_left.root)
+#     assert five_left.root.val == 5
+#     assert five_left.root.right.val == 7
+#     assert five_left.root.left.val == 3
+#     assert five_left.root.left.left.val == 2
+#     assert five_left.root.left.right.val == 4
+
+
+# def test_left_rotation_non_root(five_four_three_two_six_seven_eight):
+#     """Test left rotation on non root node."""
+#     five_four_three_two_six_seven_eight._left_rotation(five_four_three_two_six_seven_eight.root.right)
+#     assert five_four_three_two_six_seven_eight.root.val == 5
+#     assert five_four_three_two_six_seven_eight.root.left.val == 4
+#     assert five_four_three_two_six_seven_eight.root.left.left.val == 3
+#     assert five_four_three_two_six_seven_eight.root.left.left.left.val == 2
+#     assert five_four_three_two_six_seven_eight.root.right.val == 7
+#     assert five_four_three_two_six_seven_eight.root.right.right.val == 8
+#     assert five_four_three_two_six_seven_eight.root.right.left.val == 6
+
+
+# def test_balance_node_neg_two_neg_one_left_rotation(five_four_three_two_six_seven_eight):
+#     """Test balance node function on format of node.right.right."""
+#     five_four_three_two_six_seven_eight._balance_node(five_four_three_two_six_seven_eight.root.right)
+#     assert five_four_three_two_six_seven_eight.root.right.val == 7
+#     assert five_four_three_two_six_seven_eight.root.right.right.val == 8
+#     assert five_four_three_two_six_seven_eight.root.right.left.val == 6
+
+
+# def test_balance_node_two_one_right_rotation(five_four_three_two_six_seven_eight):
+#     """Test balance node funciton on format of node.left.left."""
+#     five_four_three_two_six_seven_eight._balance_node(five_four_three_two_six_seven_eight.root.left)
+#     assert five_four_three_two_six_seven_eight.root.left.val == 3
+#     assert five_four_three_two_six_seven_eight.root.left.right.val == 4
+#     assert five_four_three_two_six_seven_eight.root.left.left.val == 2
+
+
+# def test_balance_node_neg_two_one_right_left_rotation(five_four_three_threefive_six_seven_sixfive):
+#     """Test balance node funciton on format of node.right.left."""
+#     five_four_three_threefive_six_seven_sixfive._balance_node(five_four_three_threefive_six_seven_sixfive.root.right)
+#     assert five_four_three_threefive_six_seven_sixfive.root.right.val == 6.5
+#     assert five_four_three_threefive_six_seven_sixfive.root.right.left.val == 6
+#     assert five_four_three_threefive_six_seven_sixfive.root.right.right.val == 7
+
+
+# def test_balance_node_two_neg_one_left_right_rotation(five_four_three_threefive_six_seven_sixfive):
+#     """Test balance node funcitno on format of node.left.rihgt."""
+#     five_four_three_threefive_six_seven_sixfive._balance_node(five_four_three_threefive_six_seven_sixfive.root.left)
+#     assert five_four_three_threefive_six_seven_sixfive.root.left.val == 3.5
+#     assert five_four_three_threefive_six_seven_sixfive.root.left.left.val == 3
+#     assert five_four_three_threefive_six_seven_sixfive.root.left.right.val == 4
+
+
+def test_avlbst_class_inherits_bst():
+    """Test the AVLBST class inherits bst methods."""
+    from bst import AVLBST
+    avlbst = AVLBST()
+    avlbst.insert(5)
+    assert avlbst.root.val == 5
+
+
+def test_avlbst_balances_on_insert_left_left():
+    """Test AVLBST balances itself on insert two left."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(5)
+    avl.insert(4)
+    avl.insert(3)
+    assert avl.root.val == 4
+    assert avl.root.right.val == 5
+    assert avl.root.left.val == 3
+
+
+def test_avlbst_balances_on_insert_left_right():
+    """Test tree self balances with left right rotation."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(5)
+    avl.insert(3)
+    avl.insert(4)
+    assert avl.root.val == 4
+    assert avl.root.right.val == 5
+    assert avl.root.left.val == 3
+
+
+def test_avlbst_balances_on_insert_right_left():
+    """Test tree self balances with right left rotation."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(5)
+    avl.insert(7)
+    avl.insert(6)
+    assert avl.root.val == 6
+    assert avl.root.right.val == 7
+    assert avl.root.left.val == 5
+
+
+def test_avlbst_balances_on_insert_right_right():
+    """Test tree self balances with a left rotation."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(5)
+    avl.insert(6)
+    avl.insert(7)
+    assert avl.root.val == 6
+    assert avl.root.right.val == 7
+    assert avl.root.left.val == 5
+
+
+def test_avlbst_delete_method_balances():
+    """Test tree is balanced after delete method."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(5)
+    avl.insert(3)
+    avl.insert(2)
+    avl.insert(7)
+    avl.delete(7)
+    assert avl.root.val == 3
+    assert avl.root.right.val == 5
+    assert avl.root.left.val == 2
+
+
+def test_insert_items_rebal_right_left_rotation():
+    """Test that the tree rebalances on a left right rotation."""
+    from bst import AVLBST
+    avl = AVLBST()
+    avl.insert(85)
+    avl.insert(2)
+    avl.insert(88)
+    avl.insert(79)
+    avl.insert(55)
+    assert avl.root.val == 85
+    assert avl.root.right.val == 88
+    assert avl.root.left.val == 55
+    assert avl.root.left.left.val == 2
+    assert avl.root.left.right.val == 79
+    avl.insert(50)
+    assert avl.balance() == 1 or avl.balance() == 0 or avl.balance() == -1
+    assert avl.root.val == 55
+
+
+def test_tree_balance_returns_correctly():
+    """Test balance function returns currect balance."""
+    from bst import BinarySearchTree
+    bst = BinarySearchTree()
+    bst.insert(85)
+    bst.insert(55)
+    bst.insert(88)
+    bst.insert(2)
+    bst.insert(79)
+    bst.insert(50)
+    assert bst.balance() == 2
+
+
+def test_depth_function_returns_correctly():
+    """Test that the depth function returns correct val."""
+    from bst import BinarySearchTree
+    bst = BinarySearchTree()
+    bst.insert(85)
+    bst.insert(55)
+    bst.insert(88)
+    bst.insert(2)
+    bst.insert(79)
+    bst.insert(50)
+    assert bst.depth() == 4
+
+
+def test_node_depth_attribute_updates():
+    """Test the node depth attribute is accurate."""
+    from bst import BinarySearchTree
+    bst = BinarySearchTree()
+    bst.insert(5)
+    assert bst.root.depth == 1
+    bst.insert(6)
+    assert bst.root.depth == 2
+    bst.insert(7)
+    assert bst.root.depth == 3
+
+
+def test_insert_many_times_balance():
+    """Test self balancing tree still balanced after 50 random insertions."""
+    from bst import AVLBST
+    avl = AVLBST()
+    for _ in range(50):
+        random_int = random.randint(1, 1000)
+        avl.insert(random_int)
+    assert avl.balance() == 1 or avl.balance() == 0 or avl.balance() == -1
+
+
+def test_insert_many_times_delete_many_times():
+    """Test that inserting then deleting many times results in balanced tree."""
+    from bst import AVLBST
+    avl = AVLBST()
+
+    nodes_to_delete = []
+
+    for _ in range(50):
+        random_int = random.randint(1, 1000)
+        # 50% chance of node being added to delete list
+        delete_probability = random.randint(1, 2)
+
+        if delete_probability == 1:
+            if random_int not in nodes_to_delete:
+                nodes_to_delete.append(random_int)
+
+        avl.insert(random_int)
+
+    for val in nodes_to_delete:
+        avl.delete(val)
+
+    assert avl.balance() == 1 or avl.balance() == 0 or avl.balance() == -1
+
+
+def test_delete_root_node_only_node(bst):
+    """Test deleteing the root node."""
+    bst.insert(5)
+    bst.delete(5)
+    assert bst.root is None
+
+
+def test_delete_root_node_one_right_child(bst):
+    """Test delete root node w one rihgt child."""
+    bst.insert(5)
+    bst.insert(6)
+    bst.delete(5)
+    assert bst.root.val == 6
+    assert bst.root.parent is None
+    assert bst.root.right is None
+    assert bst.root.left is None
+    assert bst.root.depth == 1
+
+
+def test_delete_root_node_one_left_child(bst):
+    """Test deleting root node wiht one left child."""
+    bst.insert(5)
+    bst.insert(4)
+    bst.delete(5)
+    assert bst.root.val == 4
+    assert bst.root.parent is None
+    assert bst.root.right is None
+    assert bst.root.left is None
+    assert bst.root.depth == 1
+
+
+def test_delete_node_only_right_no_left_child_reassignes_depths(bst):
+    """Test deleting node w node.right not node.left reassignes depths."""
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(7)
+    bst.insert(9)
+    bst.delete(7)
+    assert bst.root.depth == 2
+    assert bst.root.right.depth == 1
+    assert bst.root.left.depth == 1
+
+
+def test_delete_reassignes_depth_large_tree(bst):
+    """Test delete reassignes depths correctly all the way up tree."""
+    bst.insert(8)
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(2)
+    bst.insert(1)
+    assert bst.root.left.left.left.left.depth == 1
+    assert bst.root.left.left.left.depth == 2
+    assert bst.root.left.left.depth == 3
+    assert bst.root.left.depth == 4
+    assert bst.root.depth == 5
+    bst.delete(2)
+    assert bst.root.left.left.left.depth == 1
+    assert bst.root.left.left.depth == 2
+    assert bst.root.left.depth == 3
+    assert bst.root.depth == 4
+
+
+def test_delete_node_only_left_no_right_reassignes_depths(bst):
+    """Test deleting node w node.left not node.right reassignes depths."""
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(6)
+    bst.insert(2)
+    bst.delete(3)
+    assert bst.root.depth == 2
+    assert bst.root.left.depth == 1
+    assert bst.root.right.depth == 1
+
+
+def test_delete_two_children_depths_reassigned(bst):
+    """Test depths get reassinged."""
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(7)
+    bst.insert(8)
+    bst.insert(6)
+    bst.insert(2)
+    bst.insert(4)
+    bst.insert(2.5)
+    bst.insert(2.75)
+    bst.delete(3)
+    assert bst.root.left.val == 2.75
+    assert bst.root.left.depth == 3
+
+
+def test_self_balancing_after_many_rotations():
+    """Test all balance methods work in tandom."""
+    from bst import AVLBST
+    bst = AVLBST([50, 25, 15, 60, 70, 10, 12, 80, 75])
+    assert bst.root.val == 60
+    assert bst.root.left.val == 25
+    assert bst.root.left.left.val == 12
+    assert bst.root.left.left.left.val == 10
+    assert bst.root.left.left.right.val == 15
+    assert not bst.root.left.left.left.right
+    assert not bst.root.left.left.left.left
+    assert bst.root.left.right.val == 50
+    assert not bst.root.left.right.right
+    assert not bst.root.left.right.left
+    assert bst.root.right.val == 75
+    assert bst.root.right.right.val == 80
+    assert not bst.root.right.right.right
+    assert not bst.root.right.right.left
+    assert bst.root.right.left.val == 70
+    assert not bst.root.right.left.left
+    assert not bst.root.right.left.right
