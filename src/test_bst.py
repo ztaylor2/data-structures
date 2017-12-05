@@ -6,6 +6,12 @@ import random
 
 
 @pytest.fixture
+def bst():
+    """Binary search tree."""
+    return BinarySearchTree()
+
+
+@pytest.fixture
 def five_bst():
     """Binary search tree with root value of 5."""
     return BinarySearchTree(5)
@@ -13,7 +19,7 @@ def five_bst():
 
 @pytest.fixture
 def full_bst():
-    """Binary search tree with root value of 5."""
+    """Binary search tree with root value of 8."""
     bst = BinarySearchTree(8)
     bst.insert(3)
     bst.insert(10)
@@ -137,6 +143,7 @@ def five_left():
     bst.insert(4)
     bst.insert(7)
     return bst
+
 
 def test_root_node_on_init(five_bst):
     """Test that the root node exists on init."""
@@ -584,8 +591,7 @@ def test_delete_decrements_size_count(five_balanced):
 
 def test_delete_when_not_in_tree(five_balanced):
     """Test delete when val not in tree."""
-    with pytest.raises(IndexError):
-        five_balanced.delete(100)
+    assert five_balanced.delete(100) is None
 
 
 def test_delete_equal_length_subtrees(five_balanced):
@@ -804,7 +810,6 @@ def test_avlbst_delete_method_balances():
     avl.insert(5)
     avl.insert(3)
     avl.insert(2)
-    # import pdb; pdb.set_trace()
     avl.insert(7)
     avl.delete(7)
     assert avl.root.val == 3
@@ -869,13 +874,112 @@ def test_node_depth_attribute_updates():
     assert bst.root.depth == 3
 
 
-def test_insert_many_times():
+def test_insert_many_times_balance():
     """Test self balancing tree still balanced after 50 random insertions."""
     from bst import AVLBST
     avl = AVLBST()
-    for _ in range(10):
-        print(_)
-        random_int = random.randint(1, 100)
-        print(random_int)
+    for _ in range(50):
+        random_int = random.randint(1, 1000)
         avl.insert(random_int)
     assert avl.balance() == 1 or avl.balance() == 0 or avl.balance() == -1
+
+
+def test_insert_many_times_delete_many_times():
+    """Test that inserting then deleting many times results in balanced tree."""
+    from bst import AVLBST
+    avl = AVLBST()
+
+    nodes_to_delete = []
+
+    for _ in range(50):
+        random_int = random.randint(1, 1000)
+        # 50% chance of node being added to delete list
+        delete_probability = random.randint(1, 2)
+
+        if delete_probability == 1:
+            if random_int not in nodes_to_delete:
+                nodes_to_delete.append(random_int)
+
+        avl.insert(random_int)
+
+    # import pdb; pdb.set_trace()
+    for val in nodes_to_delete:
+        avl.delete(val)
+
+    assert avl.balance() == 1 or avl.balance() == 0 or avl.balance() == -1
+
+
+def test_delete_root_node_only_node(bst):
+    """Test deleteing the root node."""
+    bst.insert(5)
+    bst.delete(5)
+    assert bst.root is None
+
+
+def test_delete_root_node_one_right_child(bst):
+    """Test delete root node w one rihgt child."""
+    bst.insert(5)
+    bst.insert(6)
+    bst.delete(5)
+    assert bst.root.val == 6
+    assert bst.root.parent is None
+    assert bst.root.right is None
+    assert bst.root.left is None
+    assert bst.root.depth == 1
+
+
+def test_delete_root_node_one_left_child(bst):
+    """Test deleting root node wiht one left child."""
+    bst.insert(5)
+    bst.insert(4)
+    bst.delete(5)
+    assert bst.root.val == 4
+    assert bst.root.parent is None
+    assert bst.root.right is None
+    assert bst.root.left is None
+    assert bst.root.depth == 1
+
+
+def test_delete_node_only_right_no_left_child_reassignes_depths(bst):
+    """Test deleting node w node.right not node.left reassignes depths."""
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(7)
+    bst.insert(9)
+    bst.delete(7)
+    assert bst.root.depth == 2
+    assert bst.root.right.depth == 1
+    assert bst.root.left.depth == 1
+
+
+def test_delete_reassignes_depth_large_tree(bst):
+    """Test delete reassignes depths correctly all the way up tree."""
+    bst.insert(8)
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(2)
+    bst.insert(1)
+    assert bst.root.left.left.left.left.depth == 1
+    assert bst.root.left.left.left.depth == 2
+    assert bst.root.left.left.depth == 3
+    assert bst.root.left.depth == 4
+    assert bst.root.depth == 5
+    bst.delete(2)
+    assert bst.root.left.left.left.depth == 1
+    assert bst.root.left.left.depth == 2
+    assert bst.root.left.depth == 3
+    assert bst.root.depth == 4
+
+
+def test_delete_node_only_left_no_right_reassignes_depths(bst):
+    """Test deleting node w node.left not node.right reassignes depths."""
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(6)
+    bst.insert(2)
+    bst.delete(3)
+    assert bst.root.depth == 2
+    assert bst.root.left.depth == 1
+    assert bst.root.right.depth == 1
+
+

@@ -64,7 +64,7 @@ class BinarySearchTree(object):
 
     def _update_depths(self, node):
         """Update the depths of all parent nodes starting with leif node."""
-        current_depth = 1
+        current_depth = node.depth
         while node.parent:
 
             if node.parent.depth < node.depth + 1:
@@ -273,32 +273,51 @@ class BinarySearchTree(object):
         """Delete a node."""
         node = self.search(val)
         if node is None:
-            raise IndexError("Node not in tree.")
+            return
 
         if node.left is None and node.right is None:
+            if node == self.root:
+                self.root = None
+                return
             if node == node.parent.right:
                 node.parent.right = None
-            if node == node.parent.left:
-                node.parent.left = None
-            node.parent = None
+            # if node == node.parent.left:
+            node.parent.left = None
+            # node.parent = None
 
         if node.right and not node.left:
-            if node.parent.right == node:
+            if node == self.root:
+                self.root = node.right
+                self.root.parent = None
+
+            elif node.parent.right == node:
                 node.parent.right = node.right
                 node.right.parent = node.parent
-            if node.parent.left == node:
+
+            elif node.parent.left == node:
                 node.parent.left = node.right
                 node.right.parent = node.parent
-            node.parent = None
+
+            if node.parent:
+                self._rebalance_nodes_up_tree(node)
+            # node.parent = None
 
         if node.left and not node.right:
-            if node.parent.right == node:
+            if node == self.root:
+                self.root = node.left
+                self.root.parent = None
+
+            elif node.parent.right == node:
                 node.parent.right = node.left
                 node.left.parent = node.parent
-            if node.parent.left == node:
+
+            elif node.parent.left == node:
                 node.parent.left = node.left
                 node.left.parent = node.parent
-            node.parent = None
+
+            if node.parent:
+                self._rebalance_nodes_up_tree(node)
+            # node.parent = None
 
         if node.right and node.left:
             if self.balance(node) < 0:
@@ -307,6 +326,25 @@ class BinarySearchTree(object):
                 self._delete_left_subtrees_rightmost_child(node)
 
         self.size_count -= 1
+
+    def _rebalance_nodes_up_tree(self, node):
+        while node:
+            self._rebalance_node(node)
+            node = node.parent
+
+    def _rebalance_node(self, node):
+        """Rebalance a node based on its children."""
+        if node.left:
+            left_depth = node.left.depth
+        else:
+            left_depth = 0
+
+        if node.right:
+            right_depth = node.right.depth
+        else:
+            right_depth = 0
+
+        node.depth = max([left_depth, right_depth]) + 1
 
     def _find_right_subtree_leftmost_child(self, node):
         """From given node find right subtrees left most child."""
@@ -331,9 +369,11 @@ class BinarySearchTree(object):
 
         swap_node.parent = node.parent
         swap_node.right = node.right
-        swap_node.left = node.left
+        if swap_node is not node.left:
+            swap_node.left = node.left
+            node.left.parent = swap_node
+
         node.right.parent = swap_node
-        node.left.parent = swap_node
 
         if node is not self.root:
             if node == node.parent.right:
@@ -522,29 +562,48 @@ def _wrapper(func, *args, **kwargs):
 
 
 if __name__ == '__main__':
-    worst_case_bst = BinarySearchTree()
-    for i in range(15):
-        worst_case_bst.insert(i)
+    # worst_case_bst = BinarySearchTree()
+    # for i in range(15):
+    #     worst_case_bst.insert(i)
 
-    find15 = _wrapper(worst_case_bst.search, 14)
-    print(timeit.timeit(find15))
+    # find15 = _wrapper(worst_case_bst.search, 14)
+    # print(timeit.timeit(find15))
 
-    best_case_bst = BinarySearchTree((100, 50, 200, 25, 75, 150, 250,
-                                      12.5, 37.5, 62.5, 87.5, 125, 175,
-                                      225, 275))
+    # best_case_bst = BinarySearchTree((100, 50, 200, 25, 75, 150, 250,
+    #                                   12.5, 37.5, 62.5, 87.5, 125, 175,
+    #                                   225, 275))
 
-    find275 = _wrapper(best_case_bst.search, 275)
-    print(timeit.timeit(find275))
+    # find275 = _wrapper(best_case_bst.search, 275)
+    # print(timeit.timeit(find275))
 
-    # why is this O(n) so much faster?
-    list_test = []
-    for i in range(15):
-        list_test.append(i)
+    # # why is this O(n) so much faster?
+    # list_test = []
+    # for i in range(15):
+    #     list_test.append(i)
 
-    def bla():
-        """."""
-        for i in list_test:
-            if i == 14:
-                return 14
+    # def bla():
+    #     """."""
+    #     for i in list_test:
+    #         if i == 14:
+    #             return 14
 
-    print(timeit.timeit(bla))
+    # print(timeit.timeit(bla))
+
+    import random
+    avl = AVLBST()
+
+    nodes_to_delete = []
+
+    for _ in range(50):
+        random_int = random.randint(1, 1000)
+        # 50% chance of node being added to delete list
+        delete_probability = random.randint(1, 2)
+
+        if delete_probability == 1:
+            if random_int not in nodes_to_delete:
+                nodes_to_delete.append(random_int)
+
+        avl.insert(random_int)
+
+    for val in nodes_to_delete:
+        avl.delete(val)
