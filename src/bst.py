@@ -44,6 +44,8 @@ class BinarySearchTree(object):
         if self.root:
             current = self.root
             while current:
+                if val == current.val:
+                    return
                 if val > current.val:
                     if not current.right:
                         current.right = Node(val, None, None, current)
@@ -500,7 +502,6 @@ class AVLBST(BinarySearchTree):
 
     def _rebalance_node(self, node):
         """Rebalance a node based on its children."""
-        # import pdb; pdb.set_trace()
         if node.left:
             left_depth = node.left.depth
         else:

@@ -869,18 +869,13 @@ def test_node_depth_attribute_updates():
     assert bst.root.depth == 3
 
 
-# def test_update_depths_helper():
-#     """Test the update depths helper funciton."""
-#     from bst import BinarySearchTree
-#     bst = BinarySearchTree()
-
-# def test_insert_many_times():
-#     """Test self balancing tree still balanced after 50 random insertions."""
-#     from bst import AVLBST
-#     avl = AVLBST()
-#     for _ in range(10):
-#         print(_)
-#         random_int = random.randint(1, 100)
-#         print(random_int)
-#         avl.insert(random_int)
-#     assert avl.balance() == 1 or avl.balance() == 0 or avl.balance() == -1
+def test_insert_many_times():
+    """Test self balancing tree still balanced after 50 random insertions."""
+    from bst import AVLBST
+    avl = AVLBST()
+    for _ in range(10):
+        print(_)
+        random_int = random.randint(1, 100)
+        print(random_int)
+        avl.insert(random_int)
+    assert avl.balance() == 1 or avl.balance() == 0 or avl.balance() == -1
