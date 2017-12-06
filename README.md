@@ -3,7 +3,7 @@
 
 **Authors: Zach Taylor & John Jensen**
 
-https://travis-ci.org/ztaylor2/data-structures.svg?branch=master
+[![Build Status](https://travis-ci.org/ztaylor2/data-structures.svg?branch=master)](https://travis-ci.org/ztaylor2/data-structures)
 
 **Linked List**
 Linked list is a linked data structure with only one pointer to the next node.
