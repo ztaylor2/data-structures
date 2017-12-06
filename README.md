@@ -3,6 +3,8 @@
 
 **Authors: Zach Taylor & John Jensen**
 
+https://travis-ci.org/ztaylor2/data-structures.svg?branch=master
+
 **Linked List**
 Linked list is a linked data structure with only one pointer to the next node.
 
@@ -174,14 +176,18 @@ A binary search tree is a node based data structure where the left subtree of a 
 
 `depth()`: O(n) (recursive method)
 
+`depth()`: O(1) (Depths stored in nodes) (Current implementation)
+
 `contains`: O(n) Worst Case, O(log(n)) Average
 
 `balance`: O(n) (recursive method)
 
+`balance`: O(1) (Depths stored in nodes) (Current implementation)
+
 `delete`: O(log(n))
 
 
-**Unballanced Binary Search Tree Traversal**
+**Unbalanced Binary Search Tree Traversal**
 Moving through and returning values from a binary search tree (built with generators). 
 
 Tree traversal example:
@@ -203,3 +209,22 @@ next(bst_traversal) # returns next number in traversal from generator
 `post_order()`: O(n)
 
 `breadth_first()`: O(n * k) / (Nodes * Edges)
+
+
+**Self Balancing AVL Binary Search Tree**
+A binary search tree that self balances upon insertion and deletion.
+Many worst case scenarios are improved with self balancing implementation.
+
+`insert()`: O(log(n))
+
+`search()`: O(log(n))
+
+`size()`: O(1)
+
+`depth()`: O(1) (Depths stored in nodes)
+
+`contains`: O(log(n))
+
+`balance`: O(1) (Depths stored in nodes)
+
+`delete`: O(log(n))
