@@ -8,13 +8,21 @@ class HashTable(object):
         """Init hash table."""
         self.size = size
         self.hash_func = hash_func
-        self.buckets = []
-        if self.hash_func != 'add' or self.hash_func != 'exor' or self.hash_func != 'fnv':
+        self.buckets = [None for i in range(size)]
+        if self.hash_func != 'add' and self.hash_func != 'exor' and self.hash_func != 'fnv':
             raise ValueError('Valid hash_func vals include add, exor, and fnv')
 
-    def get(self, val):
+    def get(self, key):
         """Get a value from the table."""
-        pass
+        if self.hash_func == 'add':
+            hashed_key = self._additive_hash(key)
+        if self.hash_func == 'exor':
+            hashed_key = self._exor_hash(key)
+        if self.hash_func == 'fnv':
+            hashed_key = self._fnv_hash(key)
+
+        mapped_key = hashed_key % self.size
+        return self.buckets[mapped_key]
 
     def set(self, key, val):
         """Set a value in the table."""
@@ -57,7 +65,3 @@ class HashTable(object):
             h = (h * 16777619) ^ ord(char)
 
         return h
-
-    def _map_index(self, hash):
-        """Map a hashed value to an index."""
-        pass
