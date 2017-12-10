@@ -1,5 +1,7 @@
 """Hash table in python."""
 
+from linked_list import LinkedList
+
 
 class HashTable(object):
     """A hash table in python."""
@@ -8,7 +10,7 @@ class HashTable(object):
         """Init hash table."""
         self.size = size
         self.hash_func = hash_func
-        self.buckets = [None for i in range(size)]
+        self.buckets = [LinkedList() for i in range(size)]
         if self.hash_func != 'add' and self.hash_func != 'exor' and self.hash_func != 'fnv':
             raise ValueError('Valid hash_func vals include add, exor, and fnv')
 
@@ -22,7 +24,9 @@ class HashTable(object):
             hashed_key = self._fnv_hash(key)
 
         mapped_key = hashed_key % self.size
-        return self.buckets[mapped_key]
+        return self.buckets[mapped_key].search(key)
+
+        # store key and val in linked list then access val with key
 
     def set(self, key, val):
         """Set a value in the table."""
@@ -37,7 +41,7 @@ class HashTable(object):
 
             mapped_key = hashed_key % self.size
 
-            self.buckets[mapped_key] = val
+            self.buckets[mapped_key].push(val)
 
         else:
             raise ValueError('Keys should be strings.')
