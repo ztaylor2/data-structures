@@ -228,3 +228,17 @@ Many worst case scenarios are improved with self balancing implementation.
 `balance`: O(1) (Depths stored in nodes)
 
 `delete`: O(log(n))
+
+
+**Hash Table**
+A hash table implemented with linked list collision handling.
+
+`get()`: O(1)
+
+`put()`: O(1)
+
+
+**Bubblesort**
+A sorting method that compared values down the list and swaps until sorted.
+
+`bubblesort()` O(n^2)

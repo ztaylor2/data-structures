@@ -574,13 +574,13 @@ class AVLBST(BinarySearchTree):
         node.depth = max([left_depth, right_depth]) + 1
 
 
-def _wrapper(func, *args, **kwargs):
-    def _wrapped():
+def _wrapper(func, *args, **kwargs): # pragma: no cover
+    def _wrapped(): # pragema: no cover
         return func(*args, **kwargs)
     return _wrapped
 
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     worst_case_bst = BinarySearchTree()
     for i in range(15):
         worst_case_bst.insert(i)
@@ -600,7 +600,7 @@ if __name__ == '__main__':
     for i in range(15):
         list_test.append(i)
 
-    def bla():
+    def bla(): # pragma: no cover
         """."""
         for i in list_test:
             if i == 14:

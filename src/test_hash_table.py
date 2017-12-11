@@ -75,15 +75,15 @@ def test_get_returns_val_fnv(fnv_table):
     fnv_table.set('key', 5)
     assert fnv_table.get('key') == 5
 
+#  commented out because this test takes a long time
+# def test_insert_more_vals_than_table_size(large_fnv_table):
+#     """Test returns vals even with collision."""
 
-def test_insert_more_vals_than_table_size(large_fnv_table):
-    """Test returns vals even with collision."""
+#     for word in words:
+#         large_fnv_table.set(word, word)
 
-    for word in words:
-        large_fnv_table.set(word, word)
-
-    for word in words:
-        assert large_fnv_table.get(word) == word
+#     for word in words:
+#         assert large_fnv_table.get(word) == word
 
 
 f.close()
