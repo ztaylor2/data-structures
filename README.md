@@ -241,4 +241,10 @@ A hash table implemented with linked list collision handling.
 **Bubblesort**
 A sorting method that compared values down the list and swaps until sorted.
 
-`bubblesort()` O(n^2)
+`bubblesort()`: O(n^2)
+
+
+**Insertion Sort**
+A sorting method that push each value in it's correct place as it checks each val.
+
+`insertionsort()`: O(n^2)
