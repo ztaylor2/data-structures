@@ -248,3 +248,15 @@ A sorting method that compared values down the list and swaps until sorted.
 A sorting method that push each value in it's correct place as it checks each val.
 
 `insertionsort()`: O(n^2)
+
+
+**Merge Sort**
+A sorting method that recursively sorts a list by deviding it into sublists and then sorting those. 
+
+`mergesort()`: O(n * log(n))
+
+
+**Quick Sort**
+A sorting method that recursively sorts a list. 
+
+`quicksort()`: O(n * log(n))
