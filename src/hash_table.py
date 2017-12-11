@@ -27,7 +27,6 @@ class HashTable(object):
 
         current_node = self.buckets[mapped_key].head
 
-        # import pdb; pdb.set_trace()
         while current_node:
             if current_node.data == key:
                 return current_node.next.data
@@ -50,7 +49,6 @@ class HashTable(object):
                 hashed_key = self._fnv_hash(key)
 
             mapped_key = hashed_key % self.size
-            # import pdb; pdb.set_trace()
 
             # this linked list will insert this tuple as seperate nodes
             self.buckets[mapped_key].push((val, key))

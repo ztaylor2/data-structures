@@ -1,10 +1,8 @@
 """Tests for hash table."""
 import pytest
-import random 
 
 f = open("/usr/share/dict/words", "r")
 words = f.read().split('\n')
-# import pdb; pdb.set_trace()
 
 
 @pytest.fixture
@@ -80,8 +78,6 @@ def test_get_returns_val_fnv(fnv_table):
 
 def test_insert_more_vals_than_table_size(large_fnv_table):
     """Test returns vals even with collision."""
-    # rand_key = 
-    # rand_val = random.randint(1, 100)
 
     for word in words:
         large_fnv_table.set(word, word)
