@@ -1,4 +1,6 @@
 """Merge sort in python."""
+import random
+import timeit
 
 
 def mergesort(unsorted_list):
@@ -37,3 +39,23 @@ def mergesort(unsorted_list):
             k = k + 1
 
         return unsorted_list
+
+
+def _wrapper(func, *args, **kwargs): # pragma: no cover
+    def _wrapped(): # pragema: no cover
+        return func(*args, **kwargs)
+    return _wrapped
+
+
+if __name__ == '__main__': # pragma: no cover
+    print('Sorting list of 10 rand nums between 0-1000')
+
+    unsorted_list = []
+    for i in range(10):
+        unsorted_list.append(random.randint(0, 1000))
+
+    sorted_list = mergesort(unsorted_list)
+
+    mergesort_list = _wrapper(mergesort, unsorted_list)
+    print('Time to sort 1M times:')
+    print(timeit.timeit(mergesort_list))
