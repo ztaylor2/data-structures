@@ -24,9 +24,19 @@ class HashTable(object):
             hashed_key = self._fnv_hash(key)
 
         mapped_key = hashed_key % self.size
-        return self.buckets[mapped_key].search(key)
 
-        # store key and val in linked list then access val with key
+        current_node = self.buckets[mapped_key].head
+
+        # import pdb; pdb.set_trace()
+        while current_node:
+            if current_node.data == key:
+                return current_node.next.data
+
+            current_node = current_node.next
+
+        raise KeyError("Key not in HashTable")
+
+        # store key and val in linked list as toople then access val with key
 
     def set(self, key, val):
         """Set a value in the table."""
@@ -40,8 +50,10 @@ class HashTable(object):
                 hashed_key = self._fnv_hash(key)
 
             mapped_key = hashed_key % self.size
+            # import pdb; pdb.set_trace()
 
-            self.buckets[mapped_key].push(val)
+            # this linked list will insert this tuple as seperate nodes
+            self.buckets[mapped_key].push((val, key))
 
         else:
             raise ValueError('Keys should be strings.')
