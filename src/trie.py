@@ -81,17 +81,22 @@ class TrieTree(object):
         # set start node
         current_node = self.root
 
+        start_letter = ''
         # if start != '':
         for letter in start:
             if letter not in current_node.children:
                 return
             current_node = current_node.children[letter]
+            start_letter = letter
 
-        return self._dfs(current_node)
+        return self._dfs(current_node, start_letter)
 
-    def _dfs(self, current_node):
+    def _dfs(self, current_node, letter):
+        """Depth first search."""
+        if letter != '' and letter != '$':
+            yield letter
         for letter in current_node.children:
-            for letter_to_yield in self._dfs(current_node.children[letter]):
+            for letter_to_yield in self._dfs(current_node.children[letter], letter):
                 yield letter_to_yield
 
 

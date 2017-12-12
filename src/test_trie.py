@@ -165,5 +165,9 @@ def test_traversal(tree):
     tree.insert('hello')
     traversal = tree.traversal('')
     assert next(traversal) == 'h'
+    assert next(traversal) == 'e'
+    assert next(traversal) == 'l'
+    assert next(traversal) == 'l'
+    assert next(traversal) == 'o'
 
 f.close()
