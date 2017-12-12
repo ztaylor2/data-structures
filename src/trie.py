@@ -43,8 +43,18 @@ class TrieTree(object):
 
     def contains(self, word):
         """Check if tree contains."""
-        
-        pass
+
+        current_node = self.root
+
+        for letter in word:
+            if letter not in current_node.children:
+                return False
+            current_node = current_node.children[letter]
+
+        if not current_node.children['$']:
+            return False
+
+        return True
 
     def size(self):
         """Check  of tree."""

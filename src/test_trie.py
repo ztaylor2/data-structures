@@ -53,3 +53,29 @@ def test_insert_adds_two_words_correctly(tree):
     assert tree.root.children['h'].children['i']
     assert tree.root.children['h'].children['o'].children['$']
     assert tree.root.children['h'].children['i'].children['$']
+
+
+def test_contains_retuirns_true(tree):
+    """Test that contains returns true with one word."""
+    tree.insert('hi')
+    assert tree.contains('hi')
+
+
+def test_containes_returns_false(tree):
+    """Test that contanes returns false if word not in."""
+    assert not tree.contains('hi')
+
+
+def test_contains_returns_correct_many_vals(tree):
+    """Test contains returns true with many values."""
+    tree.insert('hi')
+    tree.insert('hello')
+    tree.insert('help')
+    tree.insert('no')
+    assert tree.contains('hi')
+    assert tree.contains('hello')
+    assert tree.contains('help')
+    assert tree.contains('no')
+    assert not tree.contains('hiiii')
+    assert not tree.contains('not')
+    assert not tree.contains('bla')
