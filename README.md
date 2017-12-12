@@ -263,12 +263,12 @@ A sorting method that recursively sorts a list.
 
 
 **Trie Tree**
-A trie tree that stores words.
+A trie tree that stores words.  Helpful for autocomplete.
 
-`insert()`:
+`insert()`: O(n)
 
-`contains()`:
+`contains()`: O(n)
 
-`size()`:
+`size()`: O(1)
 
-`remove()`:
+`remove()`: O(n)
