@@ -6,7 +6,6 @@ class Node(object):
 
     def __init__(self):
         """Init node."""
-        self.prefix_count = 0
         self.children = {}
 
 
@@ -33,7 +32,6 @@ class TrieTree(object):
             if letter not in current_node.children:
                 current_node.children[letter] = Node()
             current_node = current_node.children[letter]
-            current_node.prefix_count += 1
 
         # add ending charactor
         current_node.children['$'] = Node()
@@ -74,3 +72,33 @@ class TrieTree(object):
 
         except KeyError:
             raise KeyError('Word not in tree.')
+
+    def traversal(self, start):
+        """A depth first traversal of the trie tree."""
+        if not isinstance(start, str):
+            raise ValueError('Argument must be string.')
+
+        # set start node
+        current_node = self.root
+
+        # if start != '':
+        for letter in start:
+            if letter not in current_node.children:
+                return
+            current_node = current_node.children[letter]
+
+        return self._dfs(current_node)
+
+    def _dfs(self, current_node):
+        for letter in current_node.children:
+            for letter_to_yield in self._dfs(current_node.children[letter]):
+                yield letter_to_yield
+
+
+
+if __name__ == '__main__':
+    tree = TrieTree()
+    tree.insert('hello')
+    tree.insert('hi')
+    import pdb; pdb.set_trace()
+    print(next(tree.traversal('')))
