@@ -170,4 +170,25 @@ def test_traversal(tree):
     assert next(traversal) == 'l'
     assert next(traversal) == 'o'
 
+
+def test_traversal_with_start(tree):
+    """Test traversal given start."""
+    tree.insert('hello')
+    traversal = tree.traversal('he')
+    assert next(traversal) == 'l'
+    assert next(traversal) == 'l'
+    assert next(traversal) == 'o'
+
+
+def test_traversal_verbose(tree):
+    """A more verbose traversal test."""
+    tree.insert('hello')
+    tree.insert('hi')
+    tree.insert('help')
+    tree.insert('cool')
+    traversal = tree.traversal('')
+    output = 'hellopicool'
+    for letter in output:
+        assert next(traversal) == letter
+
 f.close()

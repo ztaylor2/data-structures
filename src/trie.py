@@ -93,17 +93,8 @@ class TrieTree(object):
 
     def _dfs(self, current_node, letter):
         """Depth first search."""
-        if letter != '' and letter != '$':
-            yield letter
         for letter in current_node.children:
+            if letter != '$':
+                yield letter
             for letter_to_yield in self._dfs(current_node.children[letter], letter):
                 yield letter_to_yield
-
-
-
-if __name__ == '__main__':
-    tree = TrieTree()
-    tree.insert('hello')
-    tree.insert('hi')
-    import pdb; pdb.set_trace()
-    print(next(tree.traversal('')))
