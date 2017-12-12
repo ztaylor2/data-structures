@@ -43,7 +43,6 @@ class TrieTree(object):
 
     def contains(self, word):
         """Check if tree contains."""
-
         current_node = self.root
 
         for letter in word:
@@ -51,7 +50,7 @@ class TrieTree(object):
                 return False
             current_node = current_node.children[letter]
 
-        if not current_node.children['$']:
+        if '$' not in current_node.children:
             return False
 
         return True
@@ -62,4 +61,16 @@ class TrieTree(object):
 
     def remove(self, word):
         """Remove from tree."""
-        self.size_count -= 1
+        current_node = self.root
+
+        try:
+            for letter in word:
+                current_node = current_node.children[letter]
+
+            if '$' in current_node.children:
+                current_node.children.pop('$', None)
+
+            self.size_count -= 1
+
+        except KeyError:
+            raise KeyError('Word not in tree.')
