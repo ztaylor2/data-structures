@@ -260,3 +260,15 @@ A sorting method that recursively sorts a list by deviding it into sublists and 
 A sorting method that recursively sorts a list. 
 
 `quicksort()`: O(n * log(n))
+
+
+**Trie Tree**
+A trie tree that stores words.
+
+`insert()`:
+
+`contains()`:
+
+`size()`:
+
+`remove()`:
