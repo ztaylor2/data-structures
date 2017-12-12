@@ -272,3 +272,5 @@ A trie tree that stores words.  Helpful for autocomplete.
 `size()`: O(1)
 
 `remove()`: O(n)
+
+`traversal()`: O(n)

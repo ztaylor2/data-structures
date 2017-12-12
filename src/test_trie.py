@@ -139,9 +139,56 @@ def test_remove_removes_many_words(tree):
         assert not tree.contains(word)
 
 
+def test_insert_remove_insert_remove(tree):
+    """Test insert then remove insert etc."""
+    for i in range(5):
+        tree.insert('hi')
+        assert tree.contains('hi')
+        tree.remove('hi')
+        assert not tree.contains('hi')
+
+
 def test_remove_raises_error_if_not_in_tree(tree):
     """Test that remove throws an error if word not in tree."""
     with pytest.raises(KeyError):
         tree.remove('hi')
+
+
+def test_traversal_when_not_string_raises_error(tree):
+    """Test traversal when not string raises error."""
+    with pytest.raises(ValueError):
+        tree.traversal(5)
+
+
+def test_traversal(tree):
+    """Test traversal."""
+    tree.insert('hello')
+    traversal = tree.traversal('')
+    assert next(traversal) == 'h'
+    assert next(traversal) == 'e'
+    assert next(traversal) == 'l'
+    assert next(traversal) == 'l'
+    assert next(traversal) == 'o'
+
+
+def test_traversal_with_start(tree):
+    """Test traversal given start."""
+    tree.insert('hello')
+    traversal = tree.traversal('he')
+    assert next(traversal) == 'l'
+    assert next(traversal) == 'l'
+    assert next(traversal) == 'o'
+
+
+def test_traversal_verbose(tree):
+    """A more verbose traversal test."""
+    tree.insert('hello')
+    tree.insert('hi')
+    tree.insert('help')
+    tree.insert('cool')
+    traversal = tree.traversal('')
+    output = 'hellopicool'
+    for letter in output:
+        assert next(traversal) == letter
 
 f.close()
