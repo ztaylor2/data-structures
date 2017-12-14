@@ -1,6 +1,6 @@
 """Radix sort."""
 from collections import OrderedDict
-from stack import Stack
+from que_ import Queue
 
 
 def stringify_nums(nums_list):
@@ -16,16 +16,15 @@ def while_condition(string_unsorted_list):
     num_lengths = []
     for num in string_unsorted_list:
         num_lengths.append(len(num))
-    return max(num_lengths) - 1
+    return max(num_lengths)
 
 
 def unravel_buckets(bucket_dict):
     """."""
     unraveled_nums = []
     for bucket in bucket_dict:
-        # import pdb; pdb.set_trace()
         while bucket_dict[bucket].peek():
-            unraveled_nums.append(bucket_dict[bucket].pop())
+            unraveled_nums.append(bucket_dict[bucket].dequeue())
     return unraveled_nums
 
 
@@ -33,29 +32,32 @@ def push_into_buckets(stringified_nums, i, buckets_dict):
     """."""
     for num in stringified_nums:
         try:
-            buckets_dict[num[-i]].push(num)
+            buckets_dict[num[-i]].enqueue(num)
         except IndexError:
-            buckets_dict['none'].push(num)
+            buckets_dict['none'].enqueue(num)
     return buckets_dict
 
 
 def radixsort(unsorted_list):
     """."""
+    if len(unsorted_list) == 0:
+        return unsorted_list
+
     stringified_nums = stringify_nums(unsorted_list)
     while_condition_int = while_condition(stringified_nums)
 
     buckets_dict = OrderedDict({
-        'none': Stack(),
-        '0': Stack(),
-        '1': Stack(),
-        '2': Stack(),
-        '3': Stack(),
-        '4': Stack(),
-        '5': Stack(),
-        '6': Stack(),
-        '7': Stack(),
-        '8': Stack(),
-        '9': Stack(),
+        'none': Queue(),
+        '0': Queue(),
+        '1': Queue(),
+        '2': Queue(),
+        '3': Queue(),
+        '4': Queue(),
+        '5': Queue(),
+        '6': Queue(),
+        '7': Queue(),
+        '8': Queue(),
+        '9': Queue(),
     })
 
     i = 0
