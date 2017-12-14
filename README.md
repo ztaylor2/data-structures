@@ -175,7 +175,7 @@ The benefit of Dijkstra's shortest path algorithm is its efficiency and time com
 
 The Bellmanford will alert the user of any negative cycles in the graph. However, this algorithm has a worse time complexity than Dijkstras.
 
-**Unballanced Binary Search Tree**
+**Unbalanced Binary Search Tree**
 
 A binary search tree is a node based data structure where the left subtree of a node contains values less than the node, and the right subtree contains values greater than the node.
 

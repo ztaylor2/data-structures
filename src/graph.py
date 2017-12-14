@@ -13,7 +13,7 @@ class Graph(object):
         """Add a new node with input val to the graph."""
         self.graph[val] = {}
 
-    def add_edge(self, val1, val2, weight):
+    def add_edge(self, val1, val2, weight=0):
         """Add an edge from the node val1 to the node val2.
             If val1 or val2 nodes do not exist they are created."""
         try:
@@ -48,10 +48,7 @@ class Graph(object):
                     edges.append((pointer_back, pointer_front, weight))
                 except IndexError:
                     continue
-        if edges == []:
-            raise KeyError("Cannot return edges of empty graph.")
-        else:
-            return edges
+        return edges
 
     def del_edge(self, val1, val2):
         """Delete the edge connecting val1 to val2."""
