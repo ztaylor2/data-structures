@@ -6,6 +6,7 @@
 [![Build Status](https://travis-ci.org/ztaylor2/data-structures.svg?branch=master)](https://travis-ci.org/ztaylor2/data-structures)
 
 **Linked List**
+
 Linked list is a linked data structure with only one pointer to the next node.
 
 `def push(self, data):` O(1)
@@ -25,6 +26,7 @@ Linked list is a linked data structure with only one pointer to the next node.
 `def __str__(self):` O(1)
 
 **Stack**
+
 A stack is a data structure where elements are stacked on top of one another. It operates in a first in first out fashion.
 
 `def __len__(self):` O(1)
@@ -34,6 +36,7 @@ A stack is a data structure where elements are stacked on top of one another. It
 `def pop(self):` 
 
 **Doubly Linked List**
+
 Doubly linked list is a linked data structure that has a link to previous and next nodes from inside of it.
 
 Time Complexity:
@@ -52,6 +55,7 @@ Time Complexity:
 
 
 **Queue**
+
 We used composition from our doubly linked list to build our queue. The queue adds(enqueues) elements on one end and removes (dequeues) from the other end.
 
 Time Complexity:
@@ -66,6 +70,7 @@ Time Complexity:
 
 
 **Deque**
+
 The deque is a data structure that allows data to be inserted and removed from each end.
 
 Time Complexity:
@@ -86,6 +91,7 @@ Time Complexity:
 
 
 **Binary Heap**
+
 A binary heap data structure is a tree type data structure that sorts the nodes relative to their parent/child relationship.
 
 `def pop()`:  O(log n)
@@ -94,6 +100,7 @@ A binary heap data structure is a tree type data structure that sorts the nodes 
 
 
 **Priority Queue**
+
 The priority queue data structure provides a way to represent data in a ordered "priority".  The benefit using this data structure has is that you can insert a new value at the given priority level without having to resort the entire list.  This makes adding new values much more efficient.  Our priority queue uses a high number = higher priority structure.
 
 `def insert(val, priority)`: O(1)
@@ -104,6 +111,7 @@ The priority queue data structure provides a way to represent data in a ordered 
 
 
 **Unweighted Directed Graph**
+
 A graph datastructure is an abstract way to represent data. Our graph uses a dictionary to store the node values and the edges are stored in a list for each node.
 
 `nodes()`: O(n)
@@ -132,6 +140,7 @@ A graph datastructure is an abstract way to represent data. Our graph uses a dic
 
 
 **Weighted Directed Graph**
+
 A weighted graph is a graph that has weights assigned to the pointers.  A useful example of weighted pointers is how mapping software determines the distance between objects.  The objects are nodes, the weight in the pointers are the distances.
 
 `nodes()`: O(n)
@@ -157,6 +166,7 @@ A weighted graph is a graph that has weights assigned to the pointers.  A useful
 `depth_first_traversal(val)`: O(n * k)
 
 ###### Shortest Path Alogorithms:
+
 `dijkstra(start, targe)`: O(E + VlogV)
 
 `bellmanford(start, target)`:O(V * E)
@@ -166,6 +176,7 @@ The benefit of Dijkstra's shortest path algorithm is its efficiency and time com
 The Bellmanford will alert the user of any negative cycles in the graph. However, this algorithm has a worse time complexity than Dijkstras.
 
 **Unballanced Binary Search Tree**
+
 A binary search tree is a node based data structure where the left subtree of a node contains values less than the node, and the right subtree contains values greater than the node.
 
 `insert()`: O(n) Worst Case, O(log(n)) Average
@@ -188,6 +199,7 @@ A binary search tree is a node based data structure where the left subtree of a 
 
 
 **Unbalanced Binary Search Tree Traversal**
+
 Moving through and returning values from a binary search tree (built with generators). 
 
 Tree traversal example:
@@ -212,6 +224,7 @@ next(bst_traversal) # returns next number in traversal from generator
 
 
 **Self Balancing AVL Binary Search Tree**
+
 A binary search tree that self balances upon insertion and deletion.
 Many worst case scenarios are improved with self balancing implementation.
 
@@ -231,6 +244,7 @@ Many worst case scenarios are improved with self balancing implementation.
 
 
 **Hash Table**
+
 A hash table implemented with linked list collision handling.
 
 `get()`: O(1)
@@ -239,34 +253,40 @@ A hash table implemented with linked list collision handling.
 
 
 **Bubblesort**
+
 A sorting method that compared values down the list and swaps until sorted.
 
 `bubblesort()`: O(n^2)
 
 
 **Insertion Sort**
+
 A sorting method that push each value in it's correct place as it checks each val.
 
 `insertionsort()`: O(n^2)
 
 
 **Merge Sort**
+
 A sorting method that recursively sorts a list by deviding it into sublists and then sorting those. 
 
 `mergesort()`: O(n * log(n))
 
 
 **Quick Sort**
+
 A sorting method that recursively sorts a list. 
 
 `quicksort()`: O(n * log(n)) Average - O(n^2) Worst
 
 **Radix Sort**
+
 A sorting method that sorts numbers based on the values of their segnificant digits.
 
 `radixsort()`: O(n * k)
 
 **Trie Tree**
+
 A trie tree that stores words.  Helpful for autocomplete.
 
 `insert()`: O(n)
