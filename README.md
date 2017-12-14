@@ -261,6 +261,10 @@ A sorting method that recursively sorts a list.
 
 `quicksort()`: O(n * log(n)) Average - O(n^2) Worst
 
+**Radix Sort**
+A sorting method that sorts numbers based on the values of their segnificant digits.
+
+`radixsort()`: O(n * k)
 
 **Trie Tree**
 A trie tree that stores words.  Helpful for autocomplete.
