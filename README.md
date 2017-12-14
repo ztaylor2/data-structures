@@ -1,7 +1,7 @@
 # Data-Structures
-**Classic data structures in python.  Paired programming.**
+**Data Structures and Algorithms written in Python.**
 
-**Authors: Zach Taylor & John Jensen**
+**Author: Zach Taylor**
 
 [![Build Status](https://travis-ci.org/ztaylor2/data-structures.svg?branch=master)](https://travis-ci.org/ztaylor2/data-structures)
 
