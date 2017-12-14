@@ -1,4 +1,4 @@
-# Data-Structures
+# Data Structures & Algorithms
 **Data Structures and Algorithms written in Python.**
 
 **Author: Zach Taylor**
