@@ -41,10 +41,9 @@ def test_return_edges(graph):
     assert sorted(graph.edges()) == [(1, 2, 4), (1, 10, 2), (9, 10, 6)]
 
 
-def test_graph_raises_key_error_when_check_edges_of_empty_graph(graph):
+def test_graph_returns_empty_list_when_check_edges_of_empty_graph(graph):
     """Test that KeyError is approporiately raised."""
-    with pytest.raises(KeyError):
-        graph.edges()
+    assert graph.edges() == []
 
 
 def test_delete_edge_one_edge(graph):
@@ -52,8 +51,7 @@ def test_delete_edge_one_edge(graph):
     graph.add_edge(1, 2, 4)
     assert graph.edges() == [(1, 2, 4)]
     graph.del_edge(1, 2)
-    with pytest.raises(KeyError):
-        graph.edges()
+    assert graph.edges() == []
 
 
 def test_delete_edge_when_no_edges(graph):
