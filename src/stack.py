@@ -31,8 +31,9 @@ class Stack(object):
 
     def pop(self):
         """Remove value from top of stack and return it."""
-        self.list.pop()
+        val = self.list.pop()
         self._counter -= 1
+        return val
 
     def peek(self):
         """Return the next value to be popped."""
