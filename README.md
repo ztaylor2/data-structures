@@ -259,7 +259,7 @@ A sorting method that recursively sorts a list by deviding it into sublists and 
 **Quick Sort**
 A sorting method that recursively sorts a list. 
 
-`quicksort()`: O(n * log(n))
+`quicksort()`: O(n * log(n)) Average - O(n^2) Worst
 
 
 **Trie Tree**
