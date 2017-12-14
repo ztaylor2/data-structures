@@ -1,6 +1,8 @@
 """Test radix sort."""
 
 import random
+from collections import OrderedDict
+from que_ import Queue
 
 
 def test_stringify_nums():
@@ -16,6 +18,56 @@ def test_while_condition():
     from radixsort import while_condition
     stringified_nums = ['1', '2', '3', '4', '5000']
     assert while_condition(stringified_nums) == 4
+
+
+def test_unravel_buckets():
+    """."""
+    from radixsort import unravel_buckets
+    buckets_dict = OrderedDict({
+        'none': Queue(),
+        '0': Queue(),
+        '1': Queue(),
+        '2': Queue(),
+        '3': Queue(),
+        '4': Queue(),
+        '5': Queue(),
+        '6': Queue(),
+        '7': Queue(),
+        '8': Queue(),
+        '9': Queue(),
+    })
+
+    for bucket in buckets_dict:
+        buckets_dict[bucket].enqueue(bucket)
+
+    assert unravel_buckets(buckets_dict) == ['none', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+
+def test_push_into_buckets():
+    """."""
+    from radixsort import push_into_buckets
+
+    buckets_dict = OrderedDict({
+        'none': Queue(),
+        '0': Queue(),
+        '1': Queue(),
+        '2': Queue(),
+        '3': Queue(),
+        '4': Queue(),
+        '5': Queue(),
+        '6': Queue(),
+        '7': Queue(),
+        '8': Queue(),
+        '9': Queue(),
+    })
+
+    nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+    full_buckets_dict = push_into_buckets(nums, 0, buckets_dict)
+
+    for key in full_buckets_dict:
+        if full_buckets_dict[key].peek():
+            assert full_buckets_dict[key].dequeue() == key
 
 
 def test_radix_sort():
