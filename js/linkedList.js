@@ -26,7 +26,7 @@ class LinkedList {
 
     pop() {
         let node = this.head;
-        while(node.next.next !== null) {
+        while (node.next.next !== null) {
             node = node.next;
         }
         let popped_val = node.next.val;
@@ -35,10 +35,20 @@ class LinkedList {
         return popped_val;
     }
 
-    size(){
+    size() {
         return this._length;
     }
 
+    search(val) {
+        let node = this.head;
+        while (node) {
+            if (node.val == val) {
+                return node;
+            }
+            node = node.next;
+        }
+        return null;
+    }
 };
 
 module.exports = {LinkedList,

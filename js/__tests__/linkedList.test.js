@@ -32,4 +32,10 @@ test('Test counter workes after push and pop', () => {
     ll.pop()
     ll.pop()
     expect(ll.size()).toBe(3)
-})
+});
+
+test('Test search returns correct node.', () => {
+    let ll = new linkedList.LinkedList([1, 2, 3, 4, 5]);
+    expect(ll.search(3).val).toBe(3)
+    expect(ll.search(7)).toBeNull()
+});
