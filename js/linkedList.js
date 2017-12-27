@@ -62,13 +62,15 @@ class LinkedList {
     }
 
     remove(val) {
-        // if (this.head) {
+        if (this._length === 0) {
+            throw new Error('List is empty.'); 
+        }
+
         if (this.head.val === val) {
             this.head = this.head.next;
             this._length--;
             return
         }
-        // }
 
         let node = this.head;
         while (node.next) {
