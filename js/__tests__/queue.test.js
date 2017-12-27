@@ -19,7 +19,7 @@ test('Test size returns size after enqueing vals.', () => {
     q.enqueue(2)
     q.enqueue(3)
     expect(q.size()).toBe(3)
-})
+});
 
 test('Test peek returns correct value.', () => {
     let q = new queue.Queue();
@@ -27,4 +27,18 @@ test('Test peek returns correct value.', () => {
     q.enqueue(2)
     q.enqueue(3)
     expect(q.peek()).toBe(1)
+});
+
+test('Test dequeue list length one.', () => {
+    let q = new queue.Queue();
+    q.enqueue(1)
+    expect(q.dequeue()).toBe(1)
+})
+
+test('Test dequeue list length greater than one', () => {
+    let q = new queue.Queue();
+    q.enqueue(1)
+    q.enqueue(2)
+    q.enqueue(3)
+    expect(q.dequeue()).toBe(1)
 })

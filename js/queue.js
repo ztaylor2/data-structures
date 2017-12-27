@@ -22,7 +22,21 @@ class Queue {
         if (this._length === 0) {
             throw new Error('List is empty.'); 
         }
+        if (this._length === 1) {
+            let val = this.head.val
+            this.head = null
+            this._length--;
+            return val
+        }
+
+        let node = this.head
+        while (node.next.next) {
+            node = node.next;
+        }
+        let val = node.next.val;
+        node.next = null;
         this._length--;
+        return val
     }
 
     peek() {
