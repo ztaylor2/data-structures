@@ -13,13 +13,26 @@ class LinkedList {
         this.head = null;
         this._length = 0;
         if(Array.isArray(iterable)) {
-            for (i = 0; i < length(iterable); i++) {
-                self.push(iterable[i]);
+            for (let i = 0; i < iterable.length; i++) {
+                this.push(iterable[i]);
             }
         }
     }
 
+    push(val) {
+        this.head = new Node(val, this.head);
+        this._length++;
+    }
 
+    pop() {
+        let node = this.head;
+        while(node.next.next !== null) {
+            node = node.next;
+        }
+        let popped_val = node.next.val;
+        node.next = null;
+        return popped_val;
+    }
 
 };
 
