@@ -41,6 +41,7 @@ class Queue {
     size() {
         return this._length
     }
-
-
 }
+
+module.exports = {Queue,
+                  Node};
