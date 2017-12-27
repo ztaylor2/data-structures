@@ -2,10 +2,10 @@
 
 
 class Node(object):
-    """."""
+    """The node object."""
 
     def __init__(self, data, next):
-        """Build node attributes."""
+        """Build node attributes on init."""
         self.data = data
         self.next = next
 
