@@ -31,7 +31,12 @@ class LinkedList {
         }
         let popped_val = node.next.val;
         node.next = null;
+        this._length--;
         return popped_val;
+    }
+
+    size(){
+        return this._length;
     }
 
 };
