@@ -84,6 +84,20 @@ class LinkedList {
 
         throw new Error('Value not in list');
     }
+
+    display() {
+        let output_string = '('
+        let node = this.head;
+        while (node) {
+            if (typeof node.val === 'string' || node.val instanceof String)
+                output_string += `\'${node.val}\', `
+            else
+                output_string += `${node.val}, `
+            node = node.next;
+        }
+        output_string = output_string.slice(0, -2);
+        return output_string += ')'
+    }
 };
 
 module.exports = {LinkedList,

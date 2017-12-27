@@ -104,3 +104,23 @@ test('Test remove random value in list', () => {
     expect(ll.pop()).toBe(5)
     expect(ll.pop()).toBeNull()
 });
+
+test('Test remove last value in list', () => {
+    let ll = new linkedList.LinkedList([1, 2, 3, 4, 5]);
+    ll.remove(5)
+    expect(ll.pop()).toBe(1)
+    expect(ll.pop()).toBe(2)
+    expect(ll.pop()).toBe(3)
+    expect(ll.pop()).toBe(4)
+    expect(ll.pop()).toBeNull()
+});
+
+test('Test display list of nums', () => {
+    let ll = new linkedList.LinkedList([1, 2, 3, 4, 5]);
+    expect(ll.display()).toBe('(5, 4, 3, 2, 1)')
+});
+
+test('Test display works with strings', () => {
+    let ll = new linkedList.LinkedList(['hey', 'whatsup', 'hello']);
+    expect(ll.display()).toBe('(\'hello\', \'whatsup\', \'hey\')')
+})
