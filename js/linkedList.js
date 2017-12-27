@@ -25,8 +25,19 @@ class LinkedList {
     }
 
     pop() {
+        if (this._length === 0) {
+            return null
+        }
+
+        if (this._length === 1) {
+            let popped_val = this.head.val;
+            this.head = null;
+            this._length--;
+            return popped_val
+        }
+
         let node = this.head;
-        while (node.next.next !== null) {
+        while (node.next.next) {
             node = node.next;
         }
         let popped_val = node.next.val;
@@ -42,11 +53,33 @@ class LinkedList {
     search(val) {
         let node = this.head;
         while (node) {
-            if (node.val == val) {
+            if (node.val === val) {
                 return node;
             }
             node = node.next;
         }
+        return null;
+    }
+
+    remove(val) {
+        // if (this.head) {
+        if (this.head.val === val) {
+            this.head = this.head.next;
+            this._length--;
+            return
+        }
+        // }
+
+        let node = this.head;
+        while (node.next) {
+            if (node.next.val === val) {
+                node.next = node.next.next;
+                this._length--;
+                return;
+            }
+            node = node.next;
+        }
+
         return null;
     }
 };
