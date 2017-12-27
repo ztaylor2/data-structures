@@ -67,7 +67,7 @@ test('Test search list of length one.', () => {
     let ll = new linkedList.LinkedList();
     ll.push(1)
     expect(ll.search(1).val).toBe(1)
-})
+});
 
 test('Test remove head of list', () => {
     let ll = new linkedList.LinkedList([1, 2, 3, 4, 5]);
@@ -78,11 +78,29 @@ test('Test remove head of list', () => {
     expect(ll.pop()).toBe(4)
     expect(ll.pop()).toBe(5)
     expect(ll.pop()).toBeNull()
-})
+});
 
-test('Test remove val if no val in list', () => {
+test('Test remove val if empty list', () => {
     let ll = new linkedList.LinkedList();
     expect(() => {
         ll.remove(1)
     }).toThrow()
-})
+});
+
+test('Test remove if val not in list.', () => {
+    let ll = new linkedList.LinkedList();
+    ll.push(5)
+    expect(() => {
+        ll.remove(3)
+    }).toThrow()
+});
+
+test('Test remove random value in list', () => {
+    let ll = new linkedList.LinkedList([1, 2, 3, 4, 5]);
+    ll.remove(4)
+    expect(ll.pop()).toBe(1)
+    expect(ll.pop()).toBe(2)
+    expect(ll.pop()).toBe(3)
+    expect(ll.pop()).toBe(5)
+    expect(ll.pop()).toBeNull()
+});

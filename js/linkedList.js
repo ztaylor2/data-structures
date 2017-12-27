@@ -82,7 +82,7 @@ class LinkedList {
             node = node.next;
         }
 
-        return null;
+        throw new Error('Value not in list');
     }
 };
 
