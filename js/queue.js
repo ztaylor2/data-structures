@@ -30,7 +30,7 @@ class Queue {
             throw new Error('List is empty.'); 
         }
 
-        let node = self.head;
+        let node = this.head;
         while (node.next) {
             node = node.next;
         }
