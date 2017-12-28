@@ -27,7 +27,6 @@ class Stack {
     pop() {
         if (this.length === 0) {
             throw new Error('Stack is empty');
-
         }
         let val = this.top.val;
         this.top = this.top.next;
