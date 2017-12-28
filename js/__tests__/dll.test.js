@@ -1,0 +1,40 @@
+'use strict';
+
+let dll = require('../dll');
+
+test('Test push method adds one val correctly.', () => {
+    let d = new dll.Dll();
+    d.push(1)
+    expect(d.head.val).toBe(1)
+    expect(d.head.next).toBeNull()
+    expect(d.head.prev).toBeNull()
+    expect(d.tail.val).toBe(1)
+    expect(d.tail.next).toBeNull()
+    expect(d.tail.prev).toBeNull()
+});
+
+test('Test push two vals into list.', () => {
+    let d = new dll.Dll();
+    d.push(1)
+    d.push(2)
+    expect(d.head.val).toBe(2)
+    expect(d.head.next).toBe(d.tail)
+    expect(d.head.prev).toBeNull()
+    expect(d.tail.val).toBe(1)
+    expect(d.tail.prev).toBe(d.head)
+    expect(d.tail.next).toBeNull()
+});
+
+test('Test push three values into list.', () => {
+    let d = new dll.Dll();
+    d.push(1)
+    d.push(2)
+    d.push(3)
+    expect(d.head.val).toBe(3)
+    expect(d.head.prev).toBeNull()
+    expect(d.head.next.val).toBe(2)
+    expect(d.head.next.next.val).toBe(1)
+    expect(d.tail.next).toBeNull()
+    expect(d.tail.prev.val).toBe(2)
+    expect(d.tail.prev.prev.val).toBe(3)
+})
