@@ -116,4 +116,34 @@ test('Test shift three vals in list', () => {
     expect(d.shift()).toBe(2)
     expect(d.shift()).toBe(1)
     expect(() => d.shift()).toThrow()
+});
+
+test('Test remove head', () => {
+    let d = new dll.Dll();
+    d.push(1)
+    d.push(2)
+    d.push(3)
+    d.remove(3)
+    expect(d.head.val).toBe(2)
+    expect(d.length).toBe(2)
+});
+
+test('Test remove tail.', () => {
+    let d = new dll.Dll();
+    d.push(1)
+    d.push(2)
+    d.push(3)
+    d.remove(1)
+    expect(d.tail.val).toBe(2)
+    expect(d.length).toBe(2)
+});
+
+test('Test remove val in middle of list.', () => {
+    let d = new dll.Dll();
+    d.push(1)
+    d.push(2)
+    d.push(3)
+    d.remove(2)
+    expect(d.head.val).toBe(3)
+    expect(d.head.next).toBe(d.tail)
 })

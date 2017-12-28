@@ -74,8 +74,23 @@ class Dll {
         }
     }
 
-    remove() {
-
+    remove(val) {
+        if (this.head.val === val) {
+            this.shift()
+        } else if (this.tail.val === val) {
+            this.pop()
+        } else {
+            let node = this.head;
+            while (node) {
+                if (node.val === val) {
+                    node.prev.next = node.next;
+                    node.next.prev = node.prev;
+                    self.length--;
+                    return
+                }
+                node = node.next;
+            }
+        }
     }
 }
 
