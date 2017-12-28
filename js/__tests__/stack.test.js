@@ -46,4 +46,16 @@ test('Test push, pop, then peek.', () => {
     expect(s.pop()).toBe(1)
     expect(s.peek()).toBeNull()
     expect(() => s.pop()).toThrow()
+});
+
+test('Test length returns correctly.', () => {
+    let s = new stack.Stack();
+    s.push(1)
+    expect(s.length).toBe(1)
+    s.push(2)
+    expect(s.length).toBe(2)
+    s.pop()
+    expect(s.length).toBe(1)
+    s.pop()
+    expect(s.length).toBe(0)
 })
