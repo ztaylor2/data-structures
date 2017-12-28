@@ -18,7 +18,7 @@ class Dll {
     push(val) {
         if (this.length === 0) {
             this.head = new Node(val);
-            this.tail = this.head
+            this.tail = this.head;
         } else {
             this.head = new Node(val, this.head);
             this.head.next.prev = this.head;
@@ -27,7 +27,14 @@ class Dll {
     }
 
     append(val) {
-
+        if (this.length === 0) {
+            this.tail = new Node(val);
+            this.head = this.tail;
+        } else {
+            this.tail = new Node(val, null, this.tail);
+            this.tail.prev.next = this.tail;
+        }
+        this.length++;
     }
 
     pop() {
@@ -43,5 +50,4 @@ class Dll {
     }
 }
 
-module.exports = {Dll,
-                  Node}
+module.exports = {Dll}
