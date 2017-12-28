@@ -77,3 +77,43 @@ test('Test append three values into list.', () => {
     expect(d.head.next.next).toBe(d.tail)
     expect(d.head.next.prev).toBe(d.head)
 });
+
+test('Test pop method pop no values.', () => {
+    let d = new dll.Dll();
+    expect(() => d.pop()).toThrow()
+});
+
+test('Test pop method two values in list, then one value.', () => {
+    let d = new dll.Dll();
+    d.push(1)
+    d.push(2)
+    expect(d.pop()).toBe(1)
+    expect(d.pop()).toBe(2)
+    expect(() => d.pop()).toThrow()
+});
+
+test('Test pop method three values in list', () => {
+    let d = new dll.Dll();
+    d.push(1)
+    d.push(2)
+    d.push(3)
+    expect(d.pop()).toBe(1)
+});
+
+test('Test shift one val in list', () => {
+    let d = new dll.Dll();
+    d.push(1)
+    expect(d.shift()).toBe(1)
+    expect(() => d.shift()).toThrow()
+});
+
+test('Test shift three vals in list', () => {
+    let d = new dll.Dll();
+    d.push(1)
+    d.push(2)
+    d.push(3)
+    expect(d.shift()).toBe(3)
+    expect(d.shift()).toBe(2)
+    expect(d.shift()).toBe(1)
+    expect(() => d.shift()).toThrow()
+})

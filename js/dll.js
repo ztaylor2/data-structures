@@ -38,11 +38,40 @@ class Dll {
     }
 
     pop() {
+        if (this.length === 0) {
+            throw new Error('List is empry.')
+        } else if (this.length === 1) {
+            let val = this.tail.val;
+            this.head = null;
+            this.tail = null;
+            this.length--;
+            return val
+        } else {
+            let val = this.tail.val;
+            this.tail = this.tail.prev;
+            this.tail.next = null;
+            this.length--;
+            return val
+        }
 
     }
 
     shift() {
-
+        if (this.length === 0) {
+            throw new Error('List is empry.')
+        } else if (this.length === 1) {
+            let val = this.head.val;
+            this.head = null;
+            this.tail = null;
+            this.length--;
+            return val
+        } else {
+            let val = this.head.val;
+            this.head = this.head.next;
+            this.head.prev = null;
+            this.length--;
+            return val
+        }
     }
 
     remove() {
