@@ -20,12 +20,19 @@ class Stack {
             return
         }
 
-        this.head = new Node(val, head.next);
+        this.top = new Node(val, this.top);
         this._size++;
     }
 
     pop() {
+        if (this._size === 0) {
+            throw new Error('Stack is empty');
 
+        }
+        let val = this.top.val;
+        this.top = this.top.next;
+        this._size--;
+        return val
     }
 
     peek() {
@@ -33,3 +40,5 @@ class Stack {
     }
 }
 
+module.exports = {Stack,
+                  Node}
