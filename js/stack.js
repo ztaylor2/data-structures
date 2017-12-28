@@ -10,33 +10,37 @@ class Node {
 class Stack {
     constructor() {
         this.top = null;
-        this._size = 0;
+        this.length = 0;
     }
 
     push(val) {
-        if (this._size === 0) {
+        if (this.length === 0) {
             this.top = new Node(val)
-            this._size++;
+            this.length++;
             return
         }
 
         this.top = new Node(val, this.top);
-        this._size++;
+        this.length++;
     }
 
     pop() {
-        if (this._size === 0) {
+        if (this.length === 0) {
             throw new Error('Stack is empty');
 
         }
         let val = this.top.val;
         this.top = this.top.next;
-        this._size--;
+        this.length--;
         return val
     }
 
     peek() {
-
+        if (this.top) {
+            return this.top.val
+        } else {
+            return null
+        }
     }
 }
 

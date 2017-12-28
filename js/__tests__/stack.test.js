@@ -26,3 +26,24 @@ test('Test pop method works one val in list', () => {
     expect(() => s.pop()).toThrow()
 });
 
+test('Test peek returns correct val.', () => {
+    let s = new stack.Stack();
+    s.push(1)
+    s.push(2)
+    s.push(3)
+    expect(s.peek()).toBe(3)
+});
+
+test('Test push, pop, then peek.', () => {
+    let s = new stack.Stack();
+    s.push(1)
+    s.push(2)
+    s.push(3)
+    expect(s.pop()).toBe(3)
+    expect(s.peek()).toBe(2)
+    expect(s.pop()).toBe(2)
+    expect(s.peek()).toBe(1)
+    expect(s.pop()).toBe(1)
+    expect(s.peek()).toBeNull()
+    expect(() => s.pop()).toThrow()
+})
