@@ -8,22 +8,11 @@ class Node {
     }
 }
 
-class Dll {
+class Deque {
     constructor() {
         this.head = null;
         this.tail = null;
         this.length = 0;
-    }
-
-    push(val) {
-        if (this.length === 0) {
-            this.head = new Node(val);
-            this.tail = this.head;
-        } else {
-            this.head = new Node(val, this.head);
-            this.head.next.prev = this.head;
-        }
-        this.length++;
     }
 
     append(val) {
@@ -33,6 +22,17 @@ class Dll {
         } else {
             this.tail = new Node(val, null, this.tail);
             this.tail.prev.next = this.tail;
+        }
+        this.length++;
+    }
+
+    appendleft(val) {
+        if (this.length === 0) {
+            this.head = new Node(val);
+            this.tail = this.head;
+        } else {
+            this.head = new Node(val, this.head);
+            this.head.next.prev = this.head;
         }
         this.length++;
     }
@@ -53,10 +53,9 @@ class Dll {
             this.length--;
             return val
         }
-
     }
 
-    shift() {
+    popleft() {
         if (this.length === 0) {
             throw new Error('List is empty.')
         } else if (this.length === 1) {
@@ -74,24 +73,23 @@ class Dll {
         }
     }
 
-    remove(val) {
-        if (this.head.val === val) {
-            this.shift()
-        } else if (this.tail.val === val) {
-            this.pop()
-        } else {
-            let node = this.head;
-            while (node) {
-                if (node.val === val) {
-                    node.prev.next = node.next;
-                    node.next.prev = node.prev;
-                    self.length--;
-                    return
-                }
-                node = node.next;
-            }
+    peek() {
+        if (this.length === 0) {
+            return null
         }
+        return this.tail.val
+    }
+
+    peekleft() {
+        if (this.length === 0) {
+            return null
+        }
+        return this.head.val
+    }
+
+    size() {
+        return this.length
     }
 }
 
-module.exports = {Dll}
+module.exports = {Deque}
