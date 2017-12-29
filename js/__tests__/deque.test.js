@@ -12,3 +12,19 @@ test('Test pop and popleft methods return null if empty.', () => {
     expect(d.peek()).toBeNull();
     expect(d.peekleft()).toBeNull();
 });
+
+test('Test append adds value to right of deque and peek.', () => {
+    let d = new deque.Deque();
+    d.append(1)
+    d.append(2)
+    expect(d.peek()).toBe(2)
+});
+
+test('Test appendleft adds values to left of deque and peekleft.', () => {
+    let d = new deque.Deque();
+    d.appendleft(1)
+    d.appendleft(2)
+    expect(d.peekleft()).toBe(2)
+});
+
+// test('Test ')
