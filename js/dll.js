@@ -39,7 +39,7 @@ class Dll {
 
     pop() {
         if (this.length === 0) {
-            throw new Error('List is empry.')
+            throw new Error('List is empty.')
         } else if (this.length === 1) {
             let val = this.tail.val;
             this.head = null;
@@ -58,7 +58,7 @@ class Dll {
 
     shift() {
         if (this.length === 0) {
-            throw new Error('List is empry.')
+            throw new Error('List is empty.')
         } else if (this.length === 1) {
             let val = this.head.val;
             this.head = null;
