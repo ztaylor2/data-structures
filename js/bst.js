@@ -12,7 +12,35 @@ class Node {
 class Bst {
     constructor() {
         this.root = null;
+        this._size = 0
     }
+
+    insert(val) {
+        if (this._size === 0) {
+            this.root = new Node(val);
+        }
+    }
+
+    search(val) {
+
+    }
+
+    size() {
+        return this._size;
+    }
+
+    depth() {
+
+    }
+
+    contains() {
+
+    }
+
+    balance() {
+
+    }
+
 }
 
 module.exports = {Bst}
