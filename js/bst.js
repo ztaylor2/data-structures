@@ -8,3 +8,11 @@ class Node {
         this.parent = parent;
    }
 }
+
+class Bst {
+    constructor() {
+        this.root = null;
+    }
+}
+
+module.exports = {Bst}
