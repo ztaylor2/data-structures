@@ -43,10 +43,23 @@ test('Test search method returns root node', () => {
     expect(b.search(1)).toBe(b.root);
 });
 
-test('Test seach method returns correct node', () => {
+test('Test search method returns correct node', () => {
     let b = new bst.Bst();
     b.insert(5);
     b.insert(7);
     b.insert(6);
     expect(b.search(6)).toBe(b.root.right.left);
 });
+
+test('Test size method returns correct size when empty', () => {
+    let b = new bst.Bst();
+    expect(b.size()).toBe(0);
+});
+
+test('Test size method returns after inserting', () => {
+    let b = new bst.Bst();
+    b.insert(1);
+    b.insert(2);
+    b.insert(3);
+    expect(b.size()).toBe(3)
+})
