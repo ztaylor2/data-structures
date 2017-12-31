@@ -91,4 +91,14 @@ test('Test bubble up depths', () => {
     b.insert(1);
     b.insert(3);
     expect(b.root.depth).toBe(2);
-})
+});
+
+test('Test bubble up depths unbalanced tree.', () => {
+    let b = new bst.Bst();
+    b.insert(1);
+    b.insert(2);
+    b.insert(3);
+    b.insert(4);
+    b.insert(5);
+    expect(b.root.depth).toBe(5);
+});
