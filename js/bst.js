@@ -95,7 +95,7 @@ class Bst {
     }
 
     balance() {
-
+        return this.root.right.depth - this.root.left.depth
     }
 
 }
