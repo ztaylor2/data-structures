@@ -22,3 +22,23 @@ test('Test insert a couple values.', () => {
     expect(b.root.right.val).toBe(3);
     expect(b.root.left.val).toBe(1);
 });
+
+test('Test insert adds values as expected', () => {
+    let b = new bst.Bst();
+    b.insert(5);
+    b.insert(6);
+    b.insert(7);
+    b.insert(8);
+    b.insert(4);
+    b.insert(3);
+    expect(b.root.right.right.right.val).toBe(8);
+    expect(b.root.left.left.val).toBe(3);
+    b.insert(3.5);
+    expect(b.root.left.left.right.val).toBe(3.5)
+});
+
+test('Test search method returns root node', () => {
+    let b = new bst.Bst();
+    b.insert(1)
+    expect(b.search(1)).toBe(b.root);
+});

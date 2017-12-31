@@ -47,7 +47,22 @@ class Bst {
     }
 
     search(val) {
+        if (!this.root) {
+            return null;
+        }
 
+        let current_node = this.root;
+        while (current_node) {
+            if (val === current_node.val) {
+                return current_node;
+            } else if (val < current_node.val) {
+                current_node = current_node.left;
+            } else if (val > current_node.val) {
+                current_node = current_node.right;
+            }
+        }
+
+        return null;
     }
 
     size() {
