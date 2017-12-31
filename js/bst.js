@@ -83,7 +83,7 @@ class Bst {
     }
 
     depth() {
-
+        return this.root.depth;
     }
 
     contains(val) {

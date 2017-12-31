@@ -102,3 +102,18 @@ test('Test bubble up depths unbalanced tree.', () => {
     b.insert(5);
     expect(b.root.depth).toBe(5);
 });
+
+test('Test depths method returns correct depth.', () => {
+    let b = new bst.Bst();
+    b.insert(5);
+    b.insert(3);
+    b.insert(7);
+    b.insert(2);
+    b.insert(4);
+    b.insert(6);
+    b.insert(8);
+    expect(b.depth()).toBe(3);
+    b.insert(9);
+    expect(b.depth()).toBe(4);
+});
+
