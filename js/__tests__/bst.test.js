@@ -64,3 +64,13 @@ test('Test size method returns after inserting', () => {
     expect(b.size()).toBe(3)
 });
 
+test('Test contains method returns true', () => {
+    let b = new bst.Bst();
+    b.insert(1);
+    expect(b.contains(1)).toBe(true);
+});
+
+test('Test contains method returns false', () => {
+    let b = new bst.Bst();
+    expect(b.contains(1)).toBe(false);
+})
