@@ -22,7 +22,7 @@ class Bst {
             return;
         }
 
-        let current_node = self.root
+        let current_node = this.root
         while (current_node) {
             if (val > current_node.val) {
                 if (current_node.right) {
