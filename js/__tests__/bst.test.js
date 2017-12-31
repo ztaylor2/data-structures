@@ -62,4 +62,5 @@ test('Test size method returns after inserting', () => {
     b.insert(2);
     b.insert(3);
     expect(b.size()).toBe(3)
-})
+});
+

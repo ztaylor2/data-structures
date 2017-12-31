@@ -73,8 +73,12 @@ class Bst {
 
     }
 
-    contains() {
-
+    contains(val) {
+        if (this.search(val)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     balance() {
