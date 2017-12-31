@@ -12,3 +12,13 @@ test('Test insert when empty', () => {
     b.insert(1);
     expect(b.root.val).toBe(1);
 });
+
+test('Test insert a couple values.', () => {
+    let b = new bst.Bst();
+    b.insert(2);
+    b.insert(1);
+    b.insert(3);
+    expect(b.root.val).toBe(2);
+    expect(b.root.right.val).toBe(3);
+    expect(b.root.left.val).toBe(1);
+});
