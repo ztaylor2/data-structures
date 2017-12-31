@@ -73,4 +73,22 @@ test('Test contains method returns true', () => {
 test('Test contains method returns false', () => {
     let b = new bst.Bst();
     expect(b.contains(1)).toBe(false);
+});
+
+test('Test contains method returns true full tree', () => {
+    let b = new bst.Bst();
+    b.insert(1);
+    b.insert(2);
+    b.insert(3);
+    b.insert(4);
+    b.insert(3.5);
+    expect(b.contains(3.5)).toBe(true);
+});
+
+test('Test bubble up depths', () => {
+    let b = new bst.Bst();
+    b.insert(2);
+    b.insert(1);
+    b.insert(3);
+    expect(b.root.depth).toBe(2);
 })

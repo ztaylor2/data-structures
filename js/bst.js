@@ -1,11 +1,12 @@
 'use strict';
 
 class Node {
-    constructor(val, left=null, right=null, parent=null) {
+    constructor(val, left=null, right=null, parent=null, depth=1) {
         this.val = val;
         this.left = left;
         this.right = right;
         this.parent = parent;
+        this.depth = depth;
    }
 }
 
@@ -30,6 +31,7 @@ class Bst {
                     continue;
                 } else {
                     current_node.right = new Node(val, null, null, current_node);
+                    this._bubble_up_depths(current_node.right);
                     this._size++;
                     return;
                 }
@@ -39,10 +41,21 @@ class Bst {
                     continue;
                 } else {
                     current_node.left = new Node(val, null, null, current_node);
+                    this._bubble_up_depths(current_node.left);
                     this._size++;
                     return;
                 }
             }
+        }
+    }
+
+    _bubble_up_depths(node) {
+        let current_node = node;
+        while (current_node.parent) {
+            if (current_node.parent.depth <= current_node.depth) {
+                current_node.parent.depth = current_node.depth + 1;
+            }
+            current_node = current_node.parent;
         }
     }
 
