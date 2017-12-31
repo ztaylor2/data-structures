@@ -42,3 +42,11 @@ test('Test search method returns root node', () => {
     b.insert(1)
     expect(b.search(1)).toBe(b.root);
 });
+
+test('Test seach method returns correct node', () => {
+    let b = new bst.Bst();
+    b.insert(5);
+    b.insert(7);
+    b.insert(6);
+    expect(b.search(6)).toBe(b.root.right.left);
+});
