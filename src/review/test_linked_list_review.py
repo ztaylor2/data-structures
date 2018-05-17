@@ -38,3 +38,12 @@ def test_ll_pop(ll):
     assert ll.head.val == 3
     assert ll.head.next.val == 2
     assert ll.head.next.next.val == 1
+
+
+def test_search_ll(ll):
+    """Test the search method."""
+    ll.push(1)
+    ll.push(2)
+    ll.push(3)
+    ll.push(4)
+    assert ll.search(2) == ll.head.next.next
